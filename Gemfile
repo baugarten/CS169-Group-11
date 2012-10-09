@@ -14,6 +14,16 @@ gem 'bootstrap-sass'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'simplecov'
+  gem 'rspec-rails'
+  gem 'ruby-debug19'
+  gem 'capybara'
+  gem 'database_cleaner'
+end
+group :test do
+  gem 'rspec-expectations'
+  gem 'cucumber-rails'
+  gem 'cucumber-rails-training-wheels'
 end
 # Gems used only for assets and not required
 # in production environments by default.
