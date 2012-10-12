@@ -13,8 +13,8 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    when /^the home\s?page$/ then '/'
-    when /^the oneProsper home page$/ then '/'
+    when /^the home\s?page$/ then '/frontpage'
+    when /^the oneProsper home page$/ then '/frontpage'
     when /^the register user page$/ then '/users/sign_up/'
     when /^the users home page$/ then '/users'
     when /^the login user page$/ then '/users/sign_in'
