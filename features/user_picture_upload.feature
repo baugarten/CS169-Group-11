@@ -4,7 +4,7 @@ Feature: Donor pictures
   So that my contributions aren't completely faceless.
 
 Background: User logged in and on profile page
-  # canonical test data: "Mister Test" with email "test@random-email.com" with no picture
+  # canonical test data: "Mister Test" with email "test@email.com" with no picture
   Given I am logged in as the test user
   And I am on the user dashboard
   

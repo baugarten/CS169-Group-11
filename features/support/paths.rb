@@ -14,12 +14,13 @@ module NavigationHelpers
     case page_name
 
     when /^the home\s?page$/ then '/'
-    when /^the oneProsper home page$/ then '/'
+    when /^the oneProsper home\s?page$/ then '/'
     when /^the register user page$/ then '/users/sign_up/'
-    when /^the users home page$/ then '/users'
+    when /^the users home\s?page$/ then '/users'
     when /^the login user page$/ then '/users/sign_in'
     when /^the login admin page$/ then '/admins/sign_in'
     
+	when /^the user dashboard$/ then '/dashboard'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
