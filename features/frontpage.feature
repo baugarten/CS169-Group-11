@@ -13,20 +13,16 @@ Scenario: have picture of farmers
   And I should see picture of farmers
 
 Scenario: link to farmers page
-  When I follow "All Farmers"
-  Then I am on the farmers page
+  Then I should see "All Farmers"
 
 Scenario: link to login page
-  When I follow "Login"
-  Then I am on the login user page
+  Then I should see "Login"
 
 Scenario: Star your campaign button
-  When I press "Start Your Own Campaign" 
-  Then I am on the Change Maker register page
+  Then I should see "Start Your Own Campaign" 
 
 Scenario: Register as Donor button
-  When I press "Register as Donor"
-  Then I am on the register user page
+  Then I should see "Register as Donor"
 
 Scenario: have steps of how website works
-  Then I should see "How it works"
+  Then I should see "How It Works"

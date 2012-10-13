@@ -1,0 +1,23 @@
+
+%h1 One Prosper -# will replace by logo
+
+
+%table#howItWorks
+  %thead
+    %tr
+      %th How It Works
+  %tbody
+    %tr
+      %td 1. Sign up as a changemaker to start your campaign.
+    %tr
+      %td 2. Select your beneficiary from our database and record a short video on their behalf.
+    %tr 
+      %td 3. Send out the videos.
+    %tr
+      %td 4. Keep track of the impact of your campaign.
+
+%p= link_to "Start Your Own Campaign", '/change_maker'
+
+%p= link_to "All Farmers", '/farmers'
+
+= link_to "Register as Donor", '/users/sign_up'
