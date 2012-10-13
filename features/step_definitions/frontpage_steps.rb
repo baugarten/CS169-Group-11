@@ -1,4 +1,4 @@
-And /^(?:|I )should see picture of "([^"]*)"$/ do |picture|
+Then /^(?:|I )should see picture of ([^"]*)$/ do |picture|
   if page.respond_to? :should
     page.should have_selector("img[src$='#{picture}']")
   else
