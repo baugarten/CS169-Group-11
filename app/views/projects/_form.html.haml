@@ -1,0 +1,42 @@
+= form_for @project, :html => { :class => 'form-horizontal' } do |f|
+  - if @project.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@project.errors.count, "error") 
+        prohibited this project from being saved:
+      %ul
+      - @project.errors.full_messages.each do |msg|
+        %li
+          -msg
+  .control-group
+    = f.label :farmer, :class => 'control-label'
+    .controls
+      = f.text_field :farmer
+  
+  .control-group
+    = f.label :description, :class => 'control-label'
+    .controls
+      = f.text_area :description, :rows => 50
+
+  .control-group
+    = f.label :target, :class => 'control-label'
+    .controls
+      .input-prepend
+        %span.add-on $
+        = f.text_field :target
+
+  .control-group
+    = f.label :end_date, :class => 'control-label'
+    .controls
+      = f.text_field :end_date, :class => "datepicker"
+      = f.check_box :ending
+
+  .control-group
+    = f.label :priority, :class => 'control-label'
+    .controls
+      - options = (1..10).each { |k| [k, k] }
+      = f.select :priority, options_for_select(options)
+
+  .control-group
+    .controls
+      = f.submit 
