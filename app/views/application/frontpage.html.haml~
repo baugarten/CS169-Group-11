@@ -1,6 +1,7 @@
 
-%h1 One Prosper -# will replace by logo
+%p= image_tag("final_logo.jpg", :alt => "logo", :width => '300px')
 
+%p= link_to "Login" , '/users/sign_in', :id => 'Login'
 
 %table#howItWorks
   %thead
@@ -20,4 +21,4 @@
 
 %p= link_to "All Farmers", '/farmers'
 
-= link_to "Register as Donor", '/users/sign_up'
+%p= link_to "Register as Donor", '/users/sign_up'
