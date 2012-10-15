@@ -25,4 +25,4 @@ Scenario: Register as Donor button
   Then I should see "Register as Donor"
 
 Scenario: have steps of how website works
-  Then I should see "How It works"
+  Then I should see "How It Works"
