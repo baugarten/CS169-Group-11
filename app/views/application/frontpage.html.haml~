@@ -1,24 +1,38 @@
 
-%p= image_tag("final_logo.jpg", :alt => "logo", :width => '300px')
+%div.container-fluid
+  %div.row-fluid
+    %div.span10
+      %div.row-fluid
+        %div.span12
+          = image_tag("logo.jpg", :alt => "logo", :width => '100%')
+      %br
+      %br
+      %div.row-fluid
+        %div.span12
+          %table#howItWorks
+            %thead
+              %tr
+                %th.lead How It Works
+            %tbody
+              %tr
+                %td 1. Sign up as a changemaker to start your campaign.
+              %tr
+                %td 2. Select your beneficiary from our database and record a short video on their behalf.
+              %tr 
+                %td 3. Send out the videos.
+              %tr
+                %td 4. Keep track of the impact of your campaign.
+      %br
+      %div.row-fluid
+        %div{:class => "span4 offset1"}
+          = button_to "Start Your Own Campaign", '/change_maker' , :method => 'get', :class => 'btn btn-success'
+        %div{:class => "span4 offset2"}
+          = button_to "Register as Donor", '/users/sign_up', :method => 'get', :class => 'btn btn-success'
+    %div.span2
+      %div.row-fluid
+        = image_tag("farmers.jpg", :alt => 'a photo to farmers', :height => '300px', :width => '100%', :class => 'img-rounded')
+      %div.row-fluid
+        = button_to "All Farmers", '/farmers' , :class => 'btn btn-success'
 
-%p= link_to "Login" , '/users/sign_in', :id => 'Login'
 
-%table#howItWorks
-  %thead
-    %tr
-      %th How It Works
-  %tbody
-    %tr
-      %td 1. Sign up as a changemaker to start your campaign.
-    %tr
-      %td 2. Select your beneficiary from our database and record a short video on their behalf.
-    %tr 
-      %td 3. Send out the videos.
-    %tr
-      %td 4. Keep track of the impact of your campaign.
 
-%p= link_to "Start Your Own Campaign", '/change_maker'
-
-%p= link_to "All Farmers", '/farmers'
-
-%p= link_to "Register as Donor", '/users/sign_up'
