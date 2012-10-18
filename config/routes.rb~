@@ -1,10 +1,12 @@
 OneProsper::Application.routes.draw do
 
+  resources :projects
+
   devise_for :users
   devise_for :admins
 
-  root :to => "home#index"
-  match '/frontpage' => 'application#fronpage'
+  root :to => "application#frontpage"
+  match '/frontpage' => ''
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
