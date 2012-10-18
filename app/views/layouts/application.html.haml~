@@ -12,6 +12,7 @@
     = yield(:head)
   %body
     %header.navbar.navbar-fixed-top
+      = image_tag("logo.jpg", :alt => "logo", :width => '50%')
       %nav.navbar-inner
         .container
           = render 'layouts/navigation'
