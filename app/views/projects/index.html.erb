@@ -1,0 +1,12 @@
+<h1>Listing projects</h1>
+
+<ul class="unstyled clearfix">
+<% @projects.each do |project| %>
+  <%= render 'list', :project => project %>
+<% end %>
+</ul>
+
+<br />
+<% if admin_signed_in? %>
+  <%= link_to 'New Project', new_project_path %>
+<% end %>
