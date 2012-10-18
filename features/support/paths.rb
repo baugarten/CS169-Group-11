@@ -13,14 +13,14 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    when /^the home\s?page$/ then '/frontpage'
-    when /^the oneProsper home page$/ then '/frontpage'
-    when /^the register user page$/ then '/users/sign_up/'
+    when /^the (home|front)\s?page$/ then ''
+    when /^the oneProsper home page$/ then ''
+    when /^the register user page$/ then '/users/sign_up'
     when /^the users home page$/ then '/users'
     when /^the login user page$/ then '/users/sign_in'
     when /^the login admin page$/ then '/admins/sign_in'
     when /^the create project page$/ then '/projects/new'
-    when /^the article index page$/ then '/projects'
+    when /^the project index page$/ then '/projects'
     when /^the project details page for "(.*)"$/ 
       project_path(Project.find_by_farmer $1)
     

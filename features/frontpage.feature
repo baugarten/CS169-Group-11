@@ -4,25 +4,29 @@ Feature: front page
   I want to see a front page
 
 Background:
-  Given I am on the home page
+  Given I am on the front page
 
 Scenario: have logo
   Then I should see picture of logo
 
-Scenario: have picture of farmers 
-  And I should see picture of farmers
-
 Scenario: link to farmers page
-  Then I should see "All Farmers"
+  When I press "All Projects"
+  Then I should be on the project index page
 
 Scenario: link to login page
-  Then I should see "Login"
+  When I follow "Login"
+  Then I should be on the login user page
 
-Scenario: Star your campaign button
-  Then I should see "Start Your Own Campaign" 
+Scenario: Star your campaign button   
+  When I press "Start Your Campaign"
+  Then I should be on the register user page
 
-Scenario: Register as Donor button
-  Then I should see "Register as Donor"
-
+Scenario: link to register
+  When I follow "Register"
+  Then I should be on the register user page
+  
 Scenario: have steps of how website works
   Then I should see "How It Works"
+
+Scenario: have picture of farmers 
+  And I should see picture of farmers
