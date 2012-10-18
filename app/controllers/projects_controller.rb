@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
-  # GET /projects
-  # GET /projects.json
+  before_filter :authenticate_admin!, :except => [:index]
+
   def index
     @projects = Project.all
 
@@ -10,8 +10,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
 
@@ -21,8 +19,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/new
-  # GET /projects/new.json
   def new
     @project = Project.new
 
@@ -32,13 +28,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1/edit
   def edit
     @project = Project.find(params[:id])
   end
 
-  # POST /projects
-  # POST /projects.json
   def create
     @project = Project.new(params[:project])
 
@@ -53,8 +46,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # PUT /projects/1
-  # PUT /projects/1.json
   def update
     @project = Project.find(params[:id])
 
@@ -69,8 +60,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
   def destroy
     @project = Project.find(params[:id])
     @project.destroy

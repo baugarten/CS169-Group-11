@@ -16,7 +16,7 @@
   .control-group
     = f.label :description, :class => 'control-label'
     .controls
-      = f.text_area :description, :rows => 50
+      = f.text_area :description, :rows => 15, :cols => 40
 
   .control-group
     = f.label :target, :class => 'control-label'
@@ -31,12 +31,13 @@
       = f.text_field :end_date, :class => "datepicker"
       = f.check_box :ending
 
-  .control-group
+  .control-group.warn_blur
     = f.label :priority, :class => 'control-label'
     .controls
       - options = (1..10).each { |k| [k, k] }
-      = f.select :priority, options_for_select(options)
+      = f.select :priority, options_for_select(options), {}, {:class => "warning_toggle"}
+      %span.help-inline.hide Prioritizing every project does nothing. Choose wisely.
 
   .control-group
     .controls
-      = f.submit 
+      = f.submit :class => "btn btn-primary"

@@ -1,0 +1,9 @@
+%li.well.project_details
+  = link_to project_path(project) do
+    %h2 
+      = project.farmer
+    = project.target - project.current
+    left!
+    %br
+    = project.description
+
