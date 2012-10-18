@@ -24,15 +24,13 @@
                 %td 4. Keep track of the impact of your campaign.
       %br
       %div.row-fluid
-        %div{:class => "span4 offset1"}
-          = button_to "Start Your Own Campaign", '/change_maker' , :method => 'get', :class => 'btn btn-success'
-        %div{:class => "span4 offset2"}
-          = button_to "Register as Donor", '/users/sign_up', :method => 'get', :class => 'btn btn-success'
+        %div{:class => "span offset4"}
+          = button_to "Start Your Campaign", new_user_registration_path , :method => 'get', :class => 'btn btn-success'
     %div.span2
       %div{:class => 'row-fluid', :height => '300px'}
-        = image_tag("farmers.jpg", :alt => 'a photo to farmers', :width => '100%', :class => 'img-rounded')
+        = image_tag("farmers.jpg", :alt => 'a photo of farmers', :width => '100%', :class => 'img-rounded')
       %div.row-fluid
-        = button_to "All Farmers", '/farmers' , :class => 'btn btn-success'
+        = button_to "All Farmers", projects_path , :method => :get , :class => 'btn btn-success'
 
 
 
