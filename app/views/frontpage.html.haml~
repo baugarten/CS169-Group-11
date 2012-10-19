@@ -1,6 +1,0 @@
-
-%h1 One Prosper
-  -# will replace by logo
-
-%p = link_to "Login" , '/user/signin'
-%p = 
