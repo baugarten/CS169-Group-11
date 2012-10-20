@@ -5,7 +5,10 @@ OneProsper::Application.routes.draw do
 
   root :to => "home#index"
   
-  match 'dashboard' => 'dashboard#view'
+  match 'dashboard' => 'dashboard#show'
+  match 'dashboard/upload_picture' => 'dashboard#upload_picture'
+  
+  match 'photo/:id' => 'photo#display', :as => :photo
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

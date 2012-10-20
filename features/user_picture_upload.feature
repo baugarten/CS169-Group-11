@@ -20,8 +20,7 @@ Scenario: Uploaded pictures should return to user dashboard with success message
   Then I should be on the user dashboard
   And I should see "Profile picture uploaded successfully"
 
-Scenario: Uploading an invalid picture should return to user dashboard with an error message
-  When I attach the file "invalid_profile_picture.jpg" to "profile_picture_file"
-  And press "profile_picture_upload"
+Scenario: Uploading an invalid (null) picture should return to user dashboard with an error message
+  When I press "profile_picture_upload"
   Then I should be on the user dashboard
-  And I should see "Error: Uploaded profile picture invalid"
+  And I should see "Error: No picture uploaded"

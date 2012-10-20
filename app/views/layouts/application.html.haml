@@ -20,5 +20,9 @@
           .content
             .row
               .span12
+                - if flash[:notice]
+                  %span#notice.label.label-success= flash[:notice]
+                - if flash[:error]
+                  %span#notice.label.label-error= "Error: #{flash[:error]}"
                 = yield
             %footer
