@@ -1,6 +1,9 @@
-%h2= "#{@user.first_name} #{@user.last_name}"
-%h3= "#{@user.email}"
-= if (@user.photo) then image_tag(photo_path(@user.photo)) else "No picture available" end
-= form_for :photo, :url => {:controller => 'dashboard', :action => 'upload_picture'}, :html => {:multipart => true} do |form|
-  = form.file_field :image_file, :name=>"profile_picture_file"
-  = form.submit
+.row
+  .span4
+    %h2= "#{@user.first_name} #{@user.last_name}"
+    %h2= "#{@user.email}"
+  .span6
+    = if (@user.photo) then image_tag(photo_path(@user.photo)) else "No picture available" end
+    = form_for :photo, :url => {:controller => 'dashboard', :action => 'upload_picture'}, :html => {:multipart => true} do |form|
+      = form.file_field :image_file, :name=>"profile_picture_file"
+      = form.submit

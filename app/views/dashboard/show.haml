@@ -1,5 +1,8 @@
 %h1 Profile
 = render :partial => "profile"
 %h1 My Impact
-= render :partial => "donations"
-= render :partial => "campaigns"
+#impact.row
+  #donations.span5
+    = render :partial => "donations"
+  #donations.span5
+    = render :partial => "campaigns"
