@@ -20,9 +20,12 @@ module NavigationHelpers
     when /^the login user page$/ then '/users/sign_in'
     when /^the login admin page$/ then '/admins/sign_in'
     when /^the create project page$/ then '/projects/new'
-    when /^the article index page$/ then '/projects'
+    when /^the projects index page$/ then '/projects'
     when /^the project details page for "(.*)"$/ 
       project_path(Project.find_by_farmer $1)
+
+    when /^the edit page for "(.*)"$/
+      edit_project_path(Project.find_by_farmer $1)
     
 
     # Add more mappings here.
