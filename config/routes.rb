@@ -5,7 +5,8 @@ OneProsper::Application.routes.draw do
   devise_for :users
   devise_for :admins
 
-  root :to => "home#index"
+  root :to => "application#frontpage"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
