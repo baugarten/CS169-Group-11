@@ -16,7 +16,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'simplecov'
   gem 'rspec-rails'
-  gem 'ruby-debug19'
+  gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'capybara'
   gem 'database_cleaner'
 end
@@ -46,7 +46,7 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
