@@ -35,6 +35,10 @@ Admin.create(
   :email => "baugarten@gmail.com",
   :password => "password",
 )
+Admin.create(
+  :email => "raju@oneprosper.org",
+  :password => "password",
+)
 
 User.create!(email: "test@test.com", 
 	first_name: "test", last_name: "test",
