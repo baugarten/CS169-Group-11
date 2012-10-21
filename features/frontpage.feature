@@ -11,7 +11,7 @@ Scenario: have logo
 
 Scenario: link to farmers page
   When I press "All Projects"
-  Then I should be on the project index page
+  Then I should be on the projects index page
 
 Scenario: link to login page
   When I follow "Login"

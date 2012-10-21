@@ -34,7 +34,6 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(params[:project])
-
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
