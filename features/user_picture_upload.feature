@@ -9,16 +9,17 @@ Background: User logged in and on profile page
   And I am on the user dashboard
   
 Scenario: Users without pictures should have a default picture
-  Then I should see "user_generic.jpg"
+  Then I should see "No picture available"
 
 Scenario: There should be a "upload profile picture" button on the user dashboard
   Then I should see "Upload profile picture"
 
 Scenario: Uploaded pictures should return to user dashboard with success message
-  When I attach the file "valid_profile_picture.jpg" to "profile_picture_file"
+  When I attach the file "features/assets/test_picture.png" to "profile_picture_file"
   And press "profile_picture_upload"
   Then I should be on the user dashboard
   And I should see "Profile picture uploaded successfully"
+  And I should not see "No picture available"
 
 Scenario: Uploading an invalid (null) picture should return to user dashboard with an error message
   When I press "profile_picture_upload"

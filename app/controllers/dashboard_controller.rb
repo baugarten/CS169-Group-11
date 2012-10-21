@@ -6,12 +6,12 @@ class DashboardController < ApplicationController
 	end
 
 	def upload_picture
-		unless params[:photo] and params[:photo][:image_file]
+		unless params[:profile_picture_file]
 			flash[:error] = "No picture uploaded"
 			redirect_to dashboard_path
 			return
 		end
-		image_data = params[:photo][:image_file]
+		image_data = params[:profile_picture_file]
 
 		user_photo = Photo.new
 		user_photo.image_file = image_data
