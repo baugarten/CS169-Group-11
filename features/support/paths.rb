@@ -15,7 +15,7 @@ module NavigationHelpers
 
     when /^the (oneProsper )?(home|front)\s?page$/ then '/'
     when /^the register user page$/ then '/users/sign_up'
-    when /^the users home page$/ then '/users'
+    when /^the users home\s?page$/ then '/users'
     when /^the login user page$/ then '/users/sign_in'
     when /^the login admin page$/ then '/admins/sign_in'
     when /^the create project page$/ then '/projects/new'
@@ -26,6 +26,7 @@ module NavigationHelpers
     when /^the edit page for "(.*)"$/
       edit_project_path(Project.find_by_farmer $1)
     
+	when /^the user dashboard$/ then '/dashboard'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
