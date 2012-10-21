@@ -1,0 +1,43 @@
+= form_for @project, :html => { :class => 'form-horizontal' } do |f|
+  - if @project.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@project.errors.count, "error") 
+        prohibited this project from being saved:
+      %ul
+      - @project.errors.full_messages.each do |msg|
+        %li
+          -msg
+  .control-group
+    = f.label :farmer, :class => 'control-label', :for => "project_farmer"
+    .controls
+      = f.text_field :farmer
+  
+  .control-group
+    = f.label :description, :class => 'control-label', :for => "project_description"
+    .controls
+      = f.text_area :description, :rows => 15, :cols => 40
+
+  .control-group
+    = f.label :target, :class => 'control-label', :for => "project_target"
+    .controls
+      .input-prepend
+        %span.add-on $
+        = f.text_field :target
+
+  .control-group
+    = f.label :end_date, :class => 'control-label', :for => "project_end_date"
+    .controls
+      = f.text_field :end_date, :class => "datepicker"
+      = f.check_box :ending
+
+  .control-group.warn_blur
+    = f.label :priority, :class => 'control-label', :for => "project_priority"
+    .controls
+      - options = (1..10).each { |k| [k, k] }
+      = f.select :priority, options_for_select(options), {}, {:class => "warning_toggle"}
+      %span.help-inline.hide Prioritizing every project does nothing. Choose wisely.
+
+  .control-group
+    .controls
+      = f.submit :class => "btn btn-primary"
