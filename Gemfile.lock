@@ -84,6 +84,8 @@ GEM
       thor (~> 0.14)
     json (1.7.5)
     kgio (2.7.4)
+    launchy (2.1.2)
+      addressable (~> 2.3)
     libwebsocket (0.1.5)
       addressable
     linecache19 (0.5.12)
@@ -197,6 +199,7 @@ DEPENDENCIES
   devise
   haml
   jquery-rails
+  launchy
   pg
   rails (= 3.2.8)
   rspec-expectations

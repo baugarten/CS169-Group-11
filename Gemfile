@@ -19,6 +19,7 @@ group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'launchy'
 end
 group :test do
   gem 'rspec-expectations'
