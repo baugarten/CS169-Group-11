@@ -11,7 +11,7 @@ Given /the following admins exist/ do |admins_table|
 end
 
 Given /^I am logged in as the test user$/ do
-  User.create!({:email=>"test@email.com", :password=>"password"})
+  User.create!({:email=>"test@email.com", :password=>"password", :first_name=>"Mister", :last_name=>"Test"})
 
   visit path_to('the login user page')
   fill_in('Email', :with => 'test@email.com')
