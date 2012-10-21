@@ -1,4 +1,17 @@
-= link_to "Home", root_path, :class => 'brand'
-.pull-right
-  = link_to "Dashboard", dashboard_path, :class => 'brand', :id=>"user_dashboard"
 %ul.nav
+
+  %li 
+    = link_to "Home", root_path, :class => 'brand'
+  -if user_signed_in?
+    %li
+      = link_to("Dashboard", dashboard_path, :id=>"user_dashboard")
+    %li 
+      = link_to("Logout", destroy_user_session_path, :method => :delete)
+  -elsif admin_signed_in?
+    %li
+      = link_to("Logout", destroy_admin_session_path, :method => :delete)
+  -else
+    %li 
+      = link_to("Login", new_user_session_path)
+    %li
+      = link_to("Register", new_user_registration_path)

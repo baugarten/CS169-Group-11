@@ -1,9 +1,12 @@
 OneProsper::Application.routes.draw do
 
+  resources :projects
+
   devise_for :users
   devise_for :admins
 
-  root :to => "home#index"
+  root :to => "application#frontpage"
+
   
   match 'dashboard' => 'dashboard#show'
   match 'dashboard/upload_picture' => 'dashboard#upload_picture'

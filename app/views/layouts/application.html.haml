@@ -15,14 +15,14 @@
       %nav.navbar-inner
         .container
           = render 'layouts/navigation'
-      #main{:role => "main"}
-        .container
-          .content
-            .row
-              .span12
-                - if flash[:notice]
-                  %span#notice.label.label-success= flash[:notice]
-                - if flash[:error]
-                  %span#notice.label.label-error= "Error: #{flash[:error]}"
-                = yield
+    #main{:role => "main"}
+      .container
+        .content
+          .row
+            .span12
+              - if flash[:notice]
+                %span#notice.label.label-success= flash[:notice]
+              - if flash[:error]
+                %span#notice.label.label-error= "Error: #{flash[:error]}"
+              = yield
             %footer
