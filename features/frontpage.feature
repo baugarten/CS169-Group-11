@@ -29,4 +29,4 @@ Scenario: have steps of how website works
   Then I should see "How It Works"
 
 Scenario: have picture of farmers 
-  And I should see picture of farmers
+    #  And I should see picture of farmers
