@@ -40,4 +40,13 @@
 
   .control-group
     .controls
+      = f.fields_for :videos do |ff|
+        = ff.text_field :video_id
+
+  .control-group
+    .controls
+      = render 'youtube/upload', :videos => @project.videos, :width => 400, :name_prefix => "project[videos_attributes]", :handle => "form", :multiple => true, :extras => 1
+      
+  .control-group
+    .controls
       = f.submit :class => "btn btn-primary"

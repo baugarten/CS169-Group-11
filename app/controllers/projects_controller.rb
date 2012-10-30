@@ -21,7 +21,6 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-
     respond_to do |format|
       format.html { render "_form" } # new.html.erb
       format.json { render json: @project }

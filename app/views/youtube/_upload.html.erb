@@ -1,0 +1,126 @@
+<%#
+  To use this, pass in width. It will generate two divs:
+  one with id widget, which records the video
+  and then one with player that might play it back.
+    NOTE: This requires javascript and jquery
+
+  @param width: width of the recorder
+  @param name_prefix: name of the model and the hash element in the model the videos are under 
+    use this on the server to get the video ids
+  @param handle: the jquery selector to append the hidden form element, 
+    usually 'form' if no other forms on the page exist
+  @param multiple: if true, the partial will render a link that when clicked will continue to allow for more video uploads
+  @param add_link: the name of the text to display for the add video upload -- default: upload another
+  @param extras: The number of extra videos to render. Default is 0
+
+%>
+
+<% 
+  # Not DRY at all, but better than making a helper method I think
+  # Set defaults
+  multiple = false unless local_assigns.has_key? :multiple
+  add_link = 'upload another' unless local_assigns.has_key? :add_link
+  handle = 'form' unless local_assigns.has_key? :handle
+  width = 400 unless local_assigns.has_key? :width
+  name_prefix = 'video_id' unless local_assigns.has_key? :name_prefix
+  extras = 0 unless local_assigns.has_key? :extras
+  videos = nil unless local_assigns.has_key? :videos
+  max = 0
+%>
+<div id="videos">
+<% 
+if videos 
+  videos.each.with_index do |video, index| %>
+    <div id='player<%= index %>' name=<%= video.video_id %> class="player"></div><span>Remove</span>
+<% 
+    max = index if index > max
+  end 
+end
+%>
+<% extras.times do |index| %>
+  <div id="widget<%= index %>" class="widget"></div><div id=<%=index%> class="btn remove_widget">Remove</div>
+<% end %>
+<% if multiple %>
+  <br /><a class="btn" id="add_video"><%= add_link %></a>
+<% end %>
+<script>
+  var max = <%= extras %>
+  var max_player = <%= videos.length %>
+  var tag = document.createElement('script');
+  tag.src = "//www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  var widget;
+  var player;
+  function onYouTubeIframeAPIReady(i) {
+    if (!i) { i = 0; }
+    widget = new YT.UploadWidget('widget' + i, {
+    width: <%= width %>,
+    events: {
+      'onUploadSuccess': onUploadSuccess,
+      'onProcessingComplete': onProcessingComplete,
+      'onApiReady': function(a, b, c) {
+        console.log(a);
+        console.log(b);
+        console.log(c);
+      },
+      'onStateChange': function(a, b, c) {
+        console.log(a);
+        console.log(b);
+        console.log(c);
+      }
+    }
+    });
+  }
+  $(".remove_widget").live("click", function(event) {
+    $("#widget" + $(event.currentTarget).attr("id")).remove();
+    $(event.currentTarget).remove();
+    max -= 1;
+  });
+  $("#add_video").click(function() {
+    var append = "<div id='widget" + (max) + "' name='" + max + "' class='widget'></div>" +
+      "<div id=" + max + " class='btn remove_widget'>Remove</div>";
+    if ($("#add_video").length > 0) {
+      $("#add_video").before(append);
+    }
+    onYouTubeIframeAPIReady(max);
+    max = max + 1;
+  });
+  // TODO(Ben): Make ajax call instead to custom URI to save right after upload, don't
+  // rely on user to press submit
+  function onUploadSuccess(event) {
+    alert('Video ID ' + event.data.videoId + ' was uploaded and is currently being processed.');
+    console.log(event)
+    var id = event.data.videoId;
+    // We append a hidden form field to our handle that has the video id
+    var tmp = <%= width %>
+    $(<%= (local_assigns.has_key? :handle) ? handle : 'form' %>)
+      .append("<input type='hidden' name='" +
+        <%= (local_assigns.has_key? :name) ? name : 'video_id' %> + 
+        "' value=" + id + " />");
+  }
+
+  function onProcessingComplete(event) {
+    var append = "<div id='player" + (max_player) + "' name='" + max_player + 
+      "' class='player'></div>" + 
+    "<input type='hidden' name='" + <%= name_prefix %> + 
+    "[" + max_player + "][video_id]' value='" + event.data.videoId + "' />";
+    if ($(".player:last").length > 0) {
+      $(".player:last").after(append);
+    } else if ($(".widget").length > 0) {
+      $(".widget:first").before(append); 
+    } else {
+      $("#insert_after").before(append);
+    }
+    displayVideo(maxPlayer, event.data.videoId);
+  }
+  function displayVideo(id, videoid) {
+    player = new YT.Player('player' + id, {
+      height: 390,
+      width: 400,
+      videoId: videoid,
+      events: {}
+    });
+  }
+</script>
+</div>
