@@ -33,6 +33,9 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(params[:project])
+    params[:videos].each_value do |video|
+      @project.videos.build(video) unless video['video_id'].nil?
+    end
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
