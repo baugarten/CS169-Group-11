@@ -40,7 +40,7 @@
 
   .control-group
     .controls
-      = render 'youtube/upload', :videos => @project.videos, :width => 400, :name_prefix => "project[videos]", :handle => "form", :multiple => true, :extras => 1
+      = render 'youtube/upload', :videos => @project.videos, :width => 400, :name_prefix => "project[videos]", :form => true, :multiple => true, :extras => 1, :editable => true
       
   .control-group
     .controls

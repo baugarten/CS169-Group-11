@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(params[:project])
     params[:videos].each_value do |video|
-      @project.videos.build(video) unless video['video_id'].nil?
+      @project.videos << Video.new(video) unless video['video_id'].nil?
     end
     respond_to do |format|
       if @project.save
@@ -49,6 +49,10 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
+    @project.videos = [] # We repopulate the videos each time... sloppy but yeah
+    params[:videos].each_value do |video|
+      @project.videos << Video.new(video) unless video['video_id'].nil?
+    end
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
