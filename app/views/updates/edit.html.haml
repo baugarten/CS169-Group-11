@@ -1,0 +1,7 @@
+%h2 Edit Update
+
+= form_tag update_path(@update), :method => :put do
+  = render :partial => 'update_form'
+  = submit_tag 'Save'
+
+

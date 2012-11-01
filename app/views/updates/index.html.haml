@@ -1,0 +1,19 @@
+
+%h2 All Updates
+
+= paginate @updates
+
+%center
+  %table.table#updates
+    %thead
+      %tr
+        %th Updates
+        %th Last Updated
+    %tbody
+      - @updates.each do |update|
+        %tr
+          %td= link_to "#{update.title}", update_path(update)
+          %td= update.updated_at
+%br
+- if admin_signed_in?
+  = button_to "Create an update", new_update_path , :method => :get , :class => 'btn btn-success'

@@ -7,11 +7,17 @@
       = link_to("Dashboard", dashboard_path, :id=>"user_dashboard")
     %li 
       = link_to("Logout", destroy_user_session_path, :method => :delete)
+    %li
+      = link_to "Updates", updates_path
   -elsif admin_signed_in?
     %li
       = link_to("Logout", destroy_admin_session_path, :method => :delete)
+    %li
+      = link_to "Updates", updates_path
   -else
     %li 
       = link_to("Login", new_user_session_path)
     %li
       = link_to("Register", new_user_registration_path)
+    %li
+      = link_to "Updates", updates_path

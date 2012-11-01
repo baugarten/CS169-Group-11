@@ -1,0 +1,8 @@
+%h2 #{@update.title}
+%h3 Last updated by #{@update.updated_at}
+
+%div
+  =@update.content
+
+= link_to 'Back to update list', updates_path
+  

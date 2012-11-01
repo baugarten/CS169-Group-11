@@ -1,6 +1,6 @@
 class UpdatesController < ApplicationController
   def index
-    @updates = Update.all
+    @updates = Update.page(params[:page]).per(1)
   end
 
   def new
@@ -8,6 +8,12 @@ class UpdatesController < ApplicationController
   
   def show
     @update = Update.find(params[:id])
+  end
+
+  def create
+    @update = Update.create!(params[:update])
+    flash[:notice] = "#{@update.title} was created successfully"
+    redirect_to updates_path
   end
 
   def edit
