@@ -1,8 +1,20 @@
 
 = label :update, :title, 'Title'
-= text_field :update, 'title'
+= text_field :update, 'title', :class => :span8
 
 = label :update, :content, 'Content'
-= text_area :update, 'content', :rows => 15, :cols => 40
+= text_area :update, 'content', :class => :span8, :rows => 15 
+
+:javascript
+  $('textarea').htmlarea({
+    toolbar: [
+       ["html"], ["bold","italic","underline","strikethrough","|", "subscript", "superscript"],
+       ["forecolor","increasefontsize", "decreasefontsize"],
+       ["orderedlist", "unorderedlist"],
+       ["indent", "outdent"],
+       ["justifyleft", "justifycenter", "justifyright"],
+       ["link", "unlink", "image", "horizontalrule"],
+       ["h1","h2","h3","h4","h5","h6"]
+    ]});
 
 

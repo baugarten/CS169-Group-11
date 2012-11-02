@@ -1,8 +1,14 @@
-%h2 #{@update.title}
-%h3 Last updated by #{@update.updated_at}
+%h2.update-title #{@update.title}
 
-%div
-  =@update.content
-
-= link_to 'Back to update list', updates_path
+.muted
+  Last updated by #{@update.updated_at}
+%br
+.update-content
+  = @update.content.html_safe
   
+- if admin_signed_in?
+  = link_to "Edit update", edit_update_path(@update), :class => "btn"
+  = link_to "Delete update", update_path(@update), :method => :delete, :confirm => 'Are you sure?', :class => 'btn'
+
+%hr
+%p= link_to "Back to update list", updates_path, :class => 'btn'

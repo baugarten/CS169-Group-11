@@ -1,6 +1,16 @@
 class UpdatesController < ApplicationController
+  before_filter :authenticate_admin!, :except =>  [ :index, :show ]
+
   def index
-    @updates = Update.page(params[:page]).per(1)
+    sort = params[:sort] 
+    case sort
+    when 'title'
+      ordering, @title_header = :title, 'hilite'
+    when 'created_date'
+      ordering, @date_header = :created_at, 'hilite'
+    end
+    
+    @updates = Update.order(ordering).page(params[:page]).per(10)
   end
 
   def new
@@ -12,7 +22,7 @@ class UpdatesController < ApplicationController
 
   def create
     @update = Update.create!(params[:update])
-    flash[:notice] = "#{@update.title} was created successfully"
+    flash[:notice] = "Update was created successfully"
     redirect_to updates_path
   end
 
@@ -23,7 +33,7 @@ class UpdatesController < ApplicationController
   def update
     @update = Update.find params[:id]
     @update.update_attributes!(params[:update])
-    flash[:notice] = "#{@update.title} was successfully updated"
+    flash[:notice] = "Update was successfully edited"
     redirect_to update_path(@update)
   end
 
