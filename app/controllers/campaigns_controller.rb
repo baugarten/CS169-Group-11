@@ -1,4 +1,16 @@
 class CampaignsController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :check_owner, :except=>[:new]
+
+  def check_owner
+    id = params[:id]
+    campaign = Campaign.find(id)
+    if not campaign.user == current_user
+      flash[:error] = "You may only view your campaigns"
+      redirect_to dashboard_path
+    end
+  end
+
   def new
     campaign = current_user.campaign.create
     redirect_to(farmers_campaign_path(campaign))
