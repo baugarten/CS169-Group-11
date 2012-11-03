@@ -14,7 +14,6 @@
           %td.table-update-title
             = link_to "#{update.title}", update_path(update), :class => 'h3 text-success'
           %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%Y-%m-%d %H:%M:%S")
-        -if admin_signed_in?
           %td= link_to "Edit", edit_update_path(update), :class => "btn btn-warning"
           %td= link_to "Delete", update_path(update), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
     %br
