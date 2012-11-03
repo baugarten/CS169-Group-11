@@ -2,13 +2,12 @@ class UpdatesController < ApplicationController
   before_filter :authenticate_admin!, :except =>  [ :index, :show ]
 
   def index
-    sort = params[:sort]
-    ordering = 'created_at DESC' 
+    sort = params[:sort] 
     case sort
     when 'title'
       ordering, @title_header = 'title', 'hilite'
     when 'created_date'
-      ordering, @date_header = 'created_at DESC', 'hilite'
+      ordering, @date_header = 'created_at', 'hilite'
     end
     
     @updates = Update.order(ordering).page(params[:page]).per(10)
