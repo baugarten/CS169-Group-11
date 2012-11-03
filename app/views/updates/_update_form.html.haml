@@ -1,3 +1,9 @@
+- unless @update.errors.empty?
+  .alert.alert-error
+    Errors prevented this update from being #{controller.action_name}d:
+    %ul
+      - @update.errors.full_messages.each do |error|
+        %li= error
 
 = label :update, :title, 'Title'
 = text_field :update, 'title', :class => :span8
