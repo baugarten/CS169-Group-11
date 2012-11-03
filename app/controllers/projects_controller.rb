@@ -1,6 +1,9 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate_admin!, :except => [:index, :show]
 
+  require 'uri'
+  require 'cgi'
+
   def index
     @projects = Project.all
 
@@ -21,6 +24,11 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    @extras = 1
+    if params[:extras]
+      @extras = params[:extras].to_i unless params[:extras].to_i < 0
+    end
+    @extras.times do @project.videos.build end
     respond_to do |format|
       format.html { render "_form" } # new.html.erb
       format.json { render json: @project }
@@ -29,13 +37,15 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
+    @extras = 1
+    if params[:extras]
+      @extras = params[:extras].to_i unless params[:extras].to_i < 0
+    end
+    @extras.times do @project.videos.build end
   end
 
   def create
     @project = Project.new(params[:project])
-    params[:videos].each_value do |video|
-      @project.videos << Video.new(video) unless video['video_id'].nil?
-    end
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -49,11 +59,6 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    @project.videos = [] # We repopulate the videos each time... sloppy but yeah
-    params[:videos].each_value do |video|
-      @project.videos << Video.new(video) unless video['video_id'].nil?
-    end
-
     respond_to do |format|
       if @project.update_attributes(params[:project])
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
