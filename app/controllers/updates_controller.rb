@@ -5,12 +5,12 @@ class UpdatesController < ApplicationController
     sort = params[:sort] 
     case sort
     when 'title'
-      ordering, @title_header = :title, 'hilite'
+      ordering, @title_header = 'title', 'hilite'
     when 'created_date'
-      ordering, @date_header = :created_at, 'hilite'
+      ordering, @date_header = 'created_at', 'hilite'
     end
     
-    @updates = Update.order(ordering).page(params[:page]).per(10)
+    @updates = Update.order("#{ordering} desc").page(params[:page]).per(10)
   end
 
   def new
@@ -22,7 +22,7 @@ class UpdatesController < ApplicationController
 
   def create
     @update = Update.create!(params[:update])
-    flash[:notice] = "Update  was created successfully"
+    flash[:notice] = "Update was created successfully"
     redirect_to updates_path
   end
 
