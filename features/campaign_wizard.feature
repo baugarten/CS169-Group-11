@@ -11,10 +11,10 @@ Background: User logged in and on profile page
 	And I am on the user dashboard
 
 Scenario: Complete a campaign
-	When I press "Start a new campaign"
+	When I follow "Start a new campaign"
 
 	Then the campaign should be on the "select farmer" page
-	When I follow "Fund Farmer1"
+	When I follow "Farmer1"
 
 	Then the campaign should be on the "enter friends" page
 	When I fill in "Friends" with "My Friend <myfriend@bunkmail.com>, Admiral Crunch <friend2@bunkmail.com>"
@@ -25,12 +25,27 @@ Scenario: Complete a campaign
 	And I press "Next"
 
 	Then the campaign should be on the "message template" page
-	When I fill in "Template" with "Hi <name>, please watch this video about funding farmers <link>! Thanks!"
+  When I fill in "Subject" with "Help farmers in India!"
+	And I fill in "Template" with "Hi <name>, please watch this video about funding farmers <link>! Thanks!"
 	And I press "Next"
 
 	Then the campaign should be on the "send messages" page
 	And I should see "Hi <name>, please watch this video about funding farmers <link>! Thanks!"
 	And I should see "My Friend"
-	And I should see "mailto:myfriend@bunkmail.com"
 	And I should see "Admiral Crunch"
-	And I should see "mailto:friend2@bunkmail.com"
+  And I should see /[contains(@href,myfriend@bunkmail.com)]/
+  And I should see /[contains(@href,friend2@bunkmail.com)]/
+  
+Scenario: Should notify you on invalid emails
+	When I follow "Start a new campaign"
+
+	Then the campaign should be on the "select farmer" page
+	When I follow "Farmer1"
+
+	Then the campaign should be on the "enter friends" page
+	When I fill in "Friends" with "My Friend <myfriend@bunkmail.com>, Admiral Crunch <friend2@bunkmail.com>, OMG IM NOT A EMAIL LOLOLOLOL, quack"
+	And I press "Next"
+
+  Then the campaign should be on the "enter friends" page
+  And I should see "Unable to understand these emails: OMG IM NOT A EMAIL LOLOLOLOL, quack"
+  And I should see "My Friend <myfriend@bunkmail.com>, Admiral Crunch <friend2@bunkmail.com>"

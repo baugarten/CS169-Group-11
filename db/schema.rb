@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103041555) do
+ActiveRecord::Schema.define(:version => 20121103071201) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -19,6 +19,31 @@ ActiveRecord::Schema.define(:version => 20121103041555) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end
+
+  create_table "campaign_friends", :force => true do |t|
+    t.string  "email"
+    t.string  "name"
+    t.integer "campaign_id"
+    t.text    "email_template"
+    t.text    "email_subject"
+  end
+
+  add_index "campaign_friends", ["campaign_id"], :name => "index_campaign_friends_on_campaign_id"
+
+  create_table "campaigns", :force => true do |t|
+    t.string  "name"
+    t.text    "template"
+    t.string  "video_link"
+    t.integer "priority"
+    t.integer "user_id"
+    t.integer "campaign_friends_id"
+    t.integer "campaign_project_id"
+    t.text    "email_subject"
+  end
+
+  add_index "campaigns", ["campaign_friends_id"], :name => "index_campaigns_on_campaign_friends_id"
+  add_index "campaigns", ["campaign_project_id"], :name => "index_campaigns_on_campaign_project_id"
+  add_index "campaigns", ["user_id"], :name => "index_campaigns_on_user_id"
 
   create_table "photos", :force => true do |t|
     t.string  "filename"
@@ -39,7 +64,10 @@ ActiveRecord::Schema.define(:version => 20121103041555) do
     t.integer  "priority"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "campaign_id"
   end
+
+  add_index "projects", ["campaign_id"], :name => "index_projects_on_campaign_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -57,8 +85,10 @@ ActiveRecord::Schema.define(:version => 20121103041555) do
     t.string   "first_name",             :default => ""
     t.string   "last_name",              :default => ""
     t.string   "nickname",               :default => ""
+    t.integer  "campaign_id"
   end
 
+  add_index "users", ["campaign_id"], :name => "index_users_on_campaign_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

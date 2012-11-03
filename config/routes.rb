@@ -11,6 +11,20 @@ OneProsper::Application.routes.draw do
   match 'dashboard/edit' => 'dashboard#edit'
   match 'dashboard/update' => 'dashboard#update'
   
+  resources :campaigns do
+    member do
+      get 'farmers'
+      match 'select_farmer/:farmer' => 'campaigns#select_farmer', :as=>:select_farmer
+      get 'friends'
+      put 'submit_friends'
+      get 'video'
+      put 'submit_video'
+      get 'template'
+      put 'submit_template'
+      get 'send_emails'
+    end
+  end
+
   match 'photo/:id' => 'photo#display', :as => :photo
   
   # The priority is based upon order of creation:

@@ -15,7 +15,10 @@
   #donations.span6
     %h2 My Donations
     = render :partial => "donations"
-  #donations.span6
+  #campaigns.span6
     %h2 My Campaigns
-    = render :partial => "campaigns"
+    .row
+      = link_to "Start a new campaign", new_campaign_path
+    .row
+      = render :partial => "campaigns"
 

@@ -1,0 +1,12 @@
+%h1 Add a Video
+
+= form_tag submit_video_campaign_path(@campaign), :method => :put do
+  %p Enter the video link you want your friends to see here.
+  %p Things you may want to include in the video: (...)
+  %br
+  
+  = label :campaign, :video_link, 'Video Link'
+  = text_field :campaign, :video_link
+
+  %br
+  = submit_tag 'Next'
