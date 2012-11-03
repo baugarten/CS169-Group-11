@@ -10,7 +10,7 @@ class UpdatesController < ApplicationController
       ordering, @date_header = 'created_at', 'hilite'
     end
     
-    @updates = Update.order("#{ordering} desc").page(params[:page]).per(10)
+    @updates = Update.order(ordering).page(params[:page]).per(10)
   end
 
   def new

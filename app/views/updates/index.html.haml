@@ -2,7 +2,7 @@
 = paginate @updates
 %div{:class => 'update-table'}
   %h2 All Updates
-  %table
+  %table.table
     %thead
       %tr
         %th{:class => @title_header, :id => 'title_header'}= link_to 'Updates', updates_path(:sort => 'title')
@@ -13,11 +13,11 @@
         %tr
           %td.table-update-title
             = link_to "#{update.title}", update_path(update), :class => 'h3 text-success'
-          %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%Y-%m-%d %H:%M:%S")
+          %td.date= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%Y-%m-%d %H:%M:%S")
           %td= link_to "Edit", edit_update_path(update), :class => "btn btn-warning"
           %td= link_to "Delete", update_path(update), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
-    %br
-  - if admin_signed_in?
-    = button_to "Create Announcement", new_update_path , :method => :get , :class => 'btn btn-success'
+  %br
+- if admin_signed_in?
+  = button_to "Create Announcement", new_update_path , :method => :get , :class => 'btn btn-success'
 
 

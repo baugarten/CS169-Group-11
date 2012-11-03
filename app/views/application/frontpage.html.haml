@@ -1,10 +1,10 @@
 
-%div.container-fluid
+%div.container-fluid.frontpage
   %div.row-fluid
-    %div.span10{:class=>'frontpage'}
+    %div.span8
       %div.row-fluid
         %div.span12
-          = image_tag("cover.png", :alt => "cover", :width => '100%')
+          = image_tag("logo.jpg", :class => 'logo', :alt => "cover", :width => '80%')
       %br
       %br
       %div.row-fluid
@@ -45,15 +45,15 @@
             %table#howItWorks
               %thead
                 %tr
-                  %th.lead Annoucments
+                  %th.lead Announcements
               %tbody
                 - @updates.each do |update|
                   %tr
                     %td= link_to "#{update.title}", update_path(update)
-                    %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")
+                    <!-- %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d") -->
 
      
-    %div.span2
+    %div.span4
       %div{:class => 'row-fluid', :height => '300px'}
         Placeholder image <!-- #image_tag("farmers.jpg", :alt => 'a photo of farmers', :width => '100%', :class => 'img-rounded') -->
       %div.row-fluid
