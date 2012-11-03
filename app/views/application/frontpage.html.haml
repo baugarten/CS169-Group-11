@@ -2,9 +2,10 @@
 %div.container-fluid.frontpage
   %div.row-fluid
     %div.span8
+      %br
       %div.row-fluid
         %div.span12
-          = image_tag("logo.jpg", :class => 'logo', :alt => "cover", :width => '80%')
+          = image_tag("cover.png", :class => 'cover', :alt => "cover", :width => '100%')
       %br
       %br
       %div.row-fluid
@@ -27,7 +28,9 @@
                   %td
                     %div{:class => 'circle'}
                       2
-                    Select your beneficiary from our database and record a short video on their behalf.
+                    Select your beneficiary from our database and record
+                      
+                    a short video on their behalf.
                 %tr 
                   %td
                     %div{:class => 'circle'}
@@ -58,6 +61,8 @@
  
     %div.span2
       %div{:class => 'row-fluid', :height => '300px'}
+      %br
+      %h4
         Placeholder image <!-- #image_tag("farmers.jpg", :alt => 'a photo of farmers', :width => '100%', :class => 'img-rounded') -->
       %div.row-fluid
         = button_to "All Projects", projects_path , :method => :get , :class => 'btn btn-success'
