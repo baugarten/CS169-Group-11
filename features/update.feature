@@ -12,17 +12,22 @@ Background:
 	And I am on the homepage
 
 Scenario: Admin should see update news at homepage
-	Then I should see "Updates"
+	Then I should see "Latest News"
 
 Scenario: Admin should be able to add a latest news	
 	Given I am on the create update page
 	Then I create a new update
-	And I should see "Update was created successfully"
+	And I should see "Update created Successfully"
 
 Scenario: Admin should be able to edit latest news
 	Given I am on the update edit page of "Test Update"
 	When I edited successfully
-	And I should see "Update was edited successfully"
+	And I should see "Update edited Successfully"
+
+Scenario: Admin should be able to delete the update
+	Given I am on the update edit page of "Test Update"
+	When I confirmed the delete action
+	Then I should see "Update deleted Successfully"
 
 Scenario: Any user can view the detail of an update or latest news
 	Given I am on the update index page
@@ -31,15 +36,14 @@ Scenario: Any user can view the detail of an update or latest news
 
 Scenario: Error message should pop up if title or content not present when create
 	Given I am on the create update page
-	And I submit the update with empty title or content
-	Then I should see "Title can't be blank"
-        And I should see "Content can't be blank"
+	Then I submit the update with empty title or content
+	And I should see "Error, Empty Title or Content"
 
 Scenario: Error message should pop up if title or content not present when edit
 	Given I am on the update edit page of "Test Update"
-	And I submit the update with empty title or content
-	Then I should see "Title can't be blank"
-        And I should see "Content can't be blank"
+	Then I submit the update with empty title or content
+	And I should see "Error, Empty Title or Content"
+
 
 
 	
