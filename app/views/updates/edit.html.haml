@@ -1,7 +1,8 @@
 %h2 Edit Update
 
-= form_tag update_path(@update), :method => :put do
-  = render :partial => 'update_form'
-  = submit_tag 'Submit', :class => 'btn'
-  = link_to 'Cancel' , update_path(@update), :class => 'btn'
+.admin-form
+  = form_tag update_path(@update), :method => :put do
+    = render :partial => 'update_form'
+    = submit_tag 'Submit', :class => 'btn'
+    = link_to 'Cancel' , update_path(@update), :class => 'btn'
 
