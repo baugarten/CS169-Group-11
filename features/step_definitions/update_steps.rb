@@ -17,7 +17,7 @@ When /^I edited successfully$/ do
 end
 
 When /^I confirmed the delete action$/ do
-  click_link('Delete update')
+  click_button('Delete')
   page.driver.browser.switch_to.alert.accept
 end
 

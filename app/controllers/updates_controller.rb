@@ -5,16 +5,15 @@ class UpdatesController < ApplicationController
     sort = params[:sort] 
     case sort
     when 'title'
-      ordering, @title_header = :title, 'hilite'
+      ordering, @title_header = 'title', 'hilite'
     when 'created_date'
-      ordering, @date_header = :created_at, 'hilite'
+      ordering, @date_header = 'created_at', 'hilite'
     end
     
-    @updates = Update.order(ordering).page(params[:page]).per(10)
+    @updates = Update.order("#{ordering} desc").page(params[:page]).per(10)
   end
 
   def new
-    @update = Update.new(params[:update])
   end
   
   def show
@@ -22,13 +21,9 @@ class UpdatesController < ApplicationController
   end
 
   def create
-    @update = Update.new(params[:update])
-    if @update.save
-      flash[:notice] = "Update was created successfully"
-      redirect_to updates_path
-    else
-      render 'new'
-    end
+    @update = Update.create!(params[:update])
+    flash[:notice] = "Update was created successfully"
+    redirect_to updates_path
   end
 
   def edit
@@ -37,18 +32,15 @@ class UpdatesController < ApplicationController
 
   def update
     @update = Update.find params[:id]
-    if @update.update_attributes(params[:update])
-      flash[:notice] = "Update was edited successfully"
-      redirect_to update_path(@update)
-    else
-      render 'edit'
-    end
+    @update.update_attributes!(params[:update])
+    flash[:notice] = "Update was successfully edited"
+    redirect_to update_path(@update)
   end
 
   def destroy
     @update = Update.find(params[:id])
     @update.destroy
-    flash[:notice] = "Update was deleted successfully"
+    flash[:notice] = "Update '#{@update.title}' deleted."
     redirect_to updates_path
   end
 end

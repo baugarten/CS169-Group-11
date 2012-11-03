@@ -1,39 +1,58 @@
 
 %div.container-fluid
   %div.row-fluid
-    %div.span10
+    %div.span10{:class=>'frontpage'}
       %div.row-fluid
         %div.span12
-          = image_tag("logo.jpg", :alt => "logo", :width => '100%')
+          = image_tag("cover.png", :alt => "cover", :width => '100%')
       %br
       %br
       %div.row-fluid
         %div.span8
-          %table#howItWorks
-            %thead
-              %tr
-                %th.lead How It Works
-            %tbody
-              %tr
-                %td 1. Sign up as a changemaker to start your campaign.
-              %tr
-                %td 2. Select your beneficiary from our database and record a short video on their behalf.
-              %tr 
-                %td 3. Send out the videos.
-              %tr
-                %td 4. Keep track of the impact of your campaign.
-        %div.span4
-          =link_to "Latest Updates", updates_path
-          %table#updates
-            %tbody
-              - @updates.each do |update|
+          %div{:class => 'howitworks'}
+            %table#howItWorks
+              %thead
                 %tr
-                  %td= link_to "#{update.title}", update_path(update)
+                  %th.lead How It Works
+              
+              %tbody
+                
+                %tr
+                  %center
+                  %td
+                    %div{:class => 'circle'}
+                      1 
+                    Sign up as a changemaker to start your campaign.
+                %tr
+                  %td
+                    %div{:class => 'circle'}
+                      2
+                    Select your beneficiary from our database and record a short video on their behalf.
+                %tr 
+                  %td
+                    %div{:class => 'circle'}
+                      3
+                    Send out the videos.
+                %tr
+                  %td 
+                    %div{:class => 'circle'}
+                      4
+                    Keep track of the impact of your campaign.
+            %center
+              = button_to "Start Your Campaign", new_user_registration_path , :method => 'get', :class => 'btn btn-success'
+        %div.span4
+          %div{:class=> 'updates'}
+            %table#howItWorks
+              %thead
+                %tr
+                  %th.lead Annoucments
+              %tbody
+                - @updates.each do |update|
+                  %tr
+                    %td= link_to "#{update.title}", update_path(update)
+                    %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")
 
-      %br
-      %div.row-fluid
-        %div{:class => "span"}
-          = button_to "Start Your Campaign", new_user_registration_path , :method => 'get', :class => 'btn btn-success'
+     
     %div.span2
       %div{:class => 'row-fluid', :height => '300px'}
         Placeholder image <!-- #image_tag("farmers.jpg", :alt => 'a photo of farmers', :width => '100%', :class => 'img-rounded') -->
