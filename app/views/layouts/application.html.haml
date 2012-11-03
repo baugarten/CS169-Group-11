@@ -21,8 +21,8 @@
           .row
             .span12
               - if flash[:notice]
-                %span#notice.label.label-success= flash[:notice]
+                %span#notice.label.label-success= flash[:notice].html_safe
               - if flash[:error]
-                %span#notice.label.label-error= "Error: #{flash[:error]}"
+                %span#notice.label.label-error= flash[:error].html_safe
               = yield
             %footer

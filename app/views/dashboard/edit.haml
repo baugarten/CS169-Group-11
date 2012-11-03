@@ -1,0 +1,53 @@
+= form_for :user, :url => {:controller => 'dashboard', :action => 'update'}, :html => {:multipart => true} do |form|
+  #title.row
+    %h1 Edit Profile
+  .row
+    .span3
+      = label :user, :first_name, 'First Name'
+    .span3
+      = text_field :user, 'first_name'
+  .row
+    .span3
+      = label :user, :last_name, 'Last Name'
+    .span3
+      = text_field :user, 'last_name'
+  .row
+    .span3
+      = label :user, :email, 'Email'
+    .span3
+      = text_field :user, 'email'
+  .row
+    .span3
+      = label :user, :nickname, 'Nickname'
+    .span3
+      = text_field :user, 'nickname'
+  .row
+    %h3 Change Password
+  .row
+    .span3
+      = label :user, :password, 'Password'
+    .span3
+      = text_field :user, 'password'
+  .row
+    .span3
+      = label :user, :password_confirmation, 'Confirm'
+    .span3
+      = text_field :user, 'password_confirmation'
+  .row
+    %h3 Profile Picture
+  .row
+    = if (@user.photo) then image_tag(photo_path(@user.photo)) else "No picture available" end
+  .row
+    .span3
+      = label :user_image, :image_file, 'Upload new picture'
+    .span3
+      = form.file_field :user_image, :name=>"user_image_file"
+      
+  .row
+    %h3 Save Profile Changes
+  
+  .row
+    .span3
+      
+    .span3
+      = form.submit "Save", :id=>"submit"

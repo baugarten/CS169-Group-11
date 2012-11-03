@@ -27,6 +27,7 @@ module NavigationHelpers
       edit_project_path(Project.find_by_farmer $1)
     
 	when /^the user dashboard$/ then '/dashboard'
+  when /^the edit profile page$/ then '/dashboard/edit'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

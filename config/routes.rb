@@ -6,10 +6,10 @@ OneProsper::Application.routes.draw do
   devise_for :admins
 
   root :to => "application#frontpage"
-
   
   match 'dashboard' => 'dashboard#show'
-  match 'dashboard/upload_picture' => 'dashboard#upload_picture'
+  match 'dashboard/edit' => 'dashboard#edit'
+  match 'dashboard/update' => 'dashboard#update'
   
   match 'photo/:id' => 'photo#display', :as => :photo
   
