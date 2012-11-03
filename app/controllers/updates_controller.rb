@@ -22,7 +22,7 @@ class UpdatesController < ApplicationController
 
   def create
     @update = Update.create!(params[:update])
-    flash[:notice] = "Update was created successfully"
+    flash[:notice] = "Update  was created successfully"
     redirect_to updates_path
   end
 
