@@ -1,0 +1,14 @@
+%h1 Add Friends to Your Campaign
+
+
+= form_tag submit_friends_campaign_path(@campaign), :method => :put do
+  %p Enter your friends emails separated by commas
+  %p 
+    = "Example: Bob Smith <bsmith@mail.com>, John Doe <jdoe@mail.com>"
+  %br
+
+  = label :campaign, :email_list, "Friends"
+  = text_area :campaign, :email_list
+
+  %br
+  = submit_tag 'Next'

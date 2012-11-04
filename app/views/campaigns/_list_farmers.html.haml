@@ -1,0 +1,10 @@
+%li.well.project_details
+  = link_to select_farmer_campaign_path(@campaign, project) do
+    %h2 
+      = project.farmer
+    = project.target - project.current
+    left!
+    %br
+    = project.description
+    
+    

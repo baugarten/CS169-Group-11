@@ -1,0 +1,7 @@
+<h1>Select Farmer to Fund</h1>
+
+<ul class="unstyled clearfix">
+<% @projects.each do |project| %>
+  <%= render 'list_farmers', :project => project %>
+<% end %>
+</ul>

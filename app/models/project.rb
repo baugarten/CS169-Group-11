@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :farmer, :description, :target, :end_date, :ending, :priority, :current, :completed
+  attr_accessible :farmer, :description, :target, :end_date, :ending, :priority, :current, :completed, :campaign_id
   after_initialize :init
 
   validates :farmer, :presence => true, :uniqueness => true
