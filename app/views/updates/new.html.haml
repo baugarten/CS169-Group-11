@@ -1,0 +1,8 @@
+%h2 Create New Update
+
+.admin-form
+  = form_tag '/updates', :method => :post do
+    = render :partial => 'update_form'
+    %p
+      = submit_tag 'Submit', :class => 'btn'
+      = link_to 'Cancel', updates_path, :class => 'btn' 

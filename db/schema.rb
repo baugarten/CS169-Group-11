@@ -67,6 +67,12 @@ ActiveRecord::Schema.define(:version => 20121103071201) do
     t.integer  "campaign_id"
   end
 
+  create_table "updates", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
   add_index "projects", ["campaign_id"], :name => "index_projects_on_campaign_id"
 
   create_table "users", :force => true do |t|

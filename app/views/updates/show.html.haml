@@ -1,0 +1,16 @@
+%h2.update-title #{@update.title}
+
+.muted
+  Last updated on #{@update.updated_at.in_time_zone("Pacific Time (US & Canada)").strftime("%Y-%m-%d %H:%M:%S")}
+%br
+.update-content
+  = @update.content.html_safe
+
+%br
+%br  
+- if admin_signed_in?
+  = link_to "Edit update", edit_update_path(@update), :class => "btn btn-warning"
+  = link_to "Delete update", update_path(@update), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
+
+%hr
+%p= link_to "Back to update list", updates_path, :class => 'btn'

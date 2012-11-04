@@ -34,6 +34,46 @@ Given /^I am logged in as the test user$/ do
   click_button('Sign in')
 end
 
+Given /^I register with an email that is already registered$/ do
+  fill_in('Email', :with => 'test@email.com')
+  fill_in('Password', :with => 'password')
+  fill_in('Password confirmation', :with => 'password')
+  click_button('Sign up')
+end
+
+Given /^I register with an invalid password$/ do
+  fill_in('Email', :with => 'test3@email.com')
+  fill_in('Password', :with => 'pass')
+  fill_in('Password confirmation', :with => 'pass')
+  click_button('Sign up')
+end
+
+Given /^I register with wrong password confirmation$/ do
+  fill_in('Email', :with => 'test3@email.com')
+  fill_in('Password', :with => 'password')
+  fill_in('Password confirmation', :with => 'pass')
+  click_button('Sign up')
+end
+
+Given /^I register with a blank password$/ do
+  fill_in('Email', :with => 'test3@email.com')
+  fill_in('Password', :with => '')
+  fill_in('Password confirmation', :with => '')
+  click_button('Sign up')
+end
+
+Given /^I login with incorrect password$/ do
+  fill_in('Email', :with => 'test@email.com')
+  fill_in('Password', :with => 'blah')
+  click_button('Sign in')
+end
+
+Given /^I login with incorrect email$/ do
+  fill_in('Email', :with => 'test4@email.com')
+  fill_in('Password', :with => 'blah')
+  click_button('Sign in')
+end
+
 Then /^the campaign should be on the "(.*)" page$/ do |page_name|
   current_path = URI.parse(current_url).path
   case page_name
@@ -45,8 +85,3 @@ Then /^the campaign should be on the "(.*)" page$/ do |page_name|
   end
 end
 
-# source http://stackoverflow.com/questions/10740521/how-to-test-mailto-link-in-cucumber
-Then /^I should have a mailto link with:$/ do |table| 
-  mailto_link = '//a[@href="mailto:' + table.rows_hash['recipient'] + '?subject=' + table.rows_hash['subject'] + '&body=' + table.rows_hash['body'] + ' "]'
-  page.should have_xpath(mailto_link)
-end

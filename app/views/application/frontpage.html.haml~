@@ -55,6 +55,7 @@
                   %tr
                     %td= link_to "#{update.title}", update_path(update)
                     
+                    
       %br
       %br
       %div.row-fluid
