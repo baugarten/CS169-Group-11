@@ -31,9 +31,10 @@ div.howitworks {
 } 
 
 div.updates { 
-
- width:90%;
- height:50%; 
+ 
+ overflow:hidden;
+ width:215px;
+ height:210px;
  border:2px solid;
  border-radius:25px;
  border-color:#CCCCCC;
