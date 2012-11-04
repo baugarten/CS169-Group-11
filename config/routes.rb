@@ -6,11 +6,25 @@ OneProsper::Application.routes.draw do
   devise_for :admins
 
   root :to => "application#frontpage"
-
   
   match 'dashboard' => 'dashboard#show'
-  match 'dashboard/upload_picture' => 'dashboard#upload_picture'
+  match 'dashboard/edit' => 'dashboard#edit'
+  match 'dashboard/update' => 'dashboard#update'
   
+  resources :campaigns do
+    member do
+      get 'farmers'
+      match 'select_farmer/:farmer' => 'campaigns#select_farmer', :as=>:select_farmer
+      get 'friends'
+      put 'submit_friends'
+      get 'video'
+      put 'submit_video'
+      get 'template'
+      put 'submit_template'
+      get 'send_emails'
+    end
+  end
+
   match 'photo/:id' => 'photo#display', :as => :photo
   
   resources :updates

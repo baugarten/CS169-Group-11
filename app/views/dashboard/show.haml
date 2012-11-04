@@ -1,9 +1,11 @@
 #title.row
   .span6
     %h1 User Dashboard
-  .span3
+  .span2
+    = link_to "Edit Profile", dashboard_edit_path  
+  .span2
     = link_to "Invitations to Fund", root_path  
-  .span3
+  .span2
     = link_to "Projects to Fund", root_path
 
 = render :partial => "profile"
@@ -13,7 +15,10 @@
   #donations.span6
     %h2 My Donations
     = render :partial => "donations"
-  #donations.span6
+  #campaigns.span6
     %h2 My Campaigns
-    = render :partial => "campaigns"
+    .row
+      = link_to "Start a new campaign", new_campaign_path
+    .row
+      = render :partial => "campaigns"
 

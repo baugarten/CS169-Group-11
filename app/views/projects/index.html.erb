@@ -5,8 +5,3 @@
   <%= render 'list', :project => project %>
 <% end %>
 </ul>
-
-<br />
-<% if admin_signed_in? %>
-  <%= link_to 'New Project', new_project_path %>
-<% end %>

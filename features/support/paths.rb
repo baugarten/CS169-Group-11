@@ -18,6 +18,7 @@ module NavigationHelpers
     when /^the users home\s?page$/ then '/users'
     when /^the login user page$/ then '/users/sign_in'
     when /^the login admin page$/ then '/admins/sign_in'
+    
     when /^the create project page$/ then '/projects/new'
     when /^the projects index page$/ then '/projects'
     when /^the project details page for "(.*)"$/ 
@@ -27,6 +28,7 @@ module NavigationHelpers
       edit_project_path(Project.find_by_farmer $1)
     
 	when /^the user dashboard$/ then '/dashboard'
+  when /^the edit profile page$/ then '/dashboard/edit'
 
     when /^the create update page$/ then '/updates/new'
     when /^the update index page$/ then '/updates'
