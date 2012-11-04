@@ -10,6 +10,9 @@ gem 'pg'
 # Using Devise for authentication and user accounts
 gem 'devise'
 
+# Pagination
+gem 'kaminari'
+
 gem 'bootstrap-sass'
 
 group :development, :test do

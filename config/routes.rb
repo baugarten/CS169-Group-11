@@ -13,6 +13,7 @@ OneProsper::Application.routes.draw do
   
   match 'photo/:id' => 'photo#display', :as => :photo
   
+  resources :updates
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
