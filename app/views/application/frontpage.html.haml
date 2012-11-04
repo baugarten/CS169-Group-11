@@ -54,6 +54,7 @@
                 - @updates.each do |update|
                   %tr
                     %td= link_to "#{update.title}", update_path(update)
+                    %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")
                     
       %br
       %br
