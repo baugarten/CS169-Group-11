@@ -12,6 +12,8 @@ gem 'devise'
 
 gem 'bootstrap-sass'
 
+gem 'youtube_it'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'simplecov'

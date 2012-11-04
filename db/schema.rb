@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121020220303) do
+ActiveRecord::Schema.define(:version => 20121030163125) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -41,14 +41,6 @@ ActiveRecord::Schema.define(:version => 20121020220303) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "photos", :force => true do |t|
-    t.string  "filename"
-    t.string  "content_type"
-    t.binary  "binary_data"
-    t.integer "imageable_id"
-    t.string  "imageable_type"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -68,5 +60,13 @@ ActiveRecord::Schema.define(:version => 20121020220303) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "videos", :force => true do |t|
+    t.string   "video_id"
+    t.integer  "recordable_id"
+    t.string   "recordable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
 end

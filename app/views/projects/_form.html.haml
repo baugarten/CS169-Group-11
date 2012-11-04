@@ -40,4 +40,23 @@
 
   .control-group
     .controls
+      %p.label.label-info.span6{:style => 'margin-left:0px; text-align:center'} Just paste the url to the youtube videos below <br />(already uploaded videos are displayed by their video ids)
+  - index = 0
+  = f.fields_for :videos do |builder|
+    .control-group.video
+      = builder.label "Video #{index+1}", :class => "control-label #{("extra" if builder.object.new_record?)}"
+      .controls
+        = builder.text_field :video_id
+        - unless builder.object.new_record?
+          = builder.check_box '_destroy'
+          %span Remove
+                        
+    - index = index + 1
+  .control-group
+    .controls
+      %a#add.btn{:href => if not @project.id.nil? then (edit_project_path(@project, :extras => (@project.videos.length + 1))) else (new_project_path(@project, :project => @project.to_json, :extras => (@project.videos.length + 1))) end, :data => {:selector => ".video" }} Add
+      %a#remove.btn{:href => new_project_path(:extras => (@extras - 1)), :data => {:selector => ".video"}, :disabled => @extras <= 1 } Remove
+
+  .control-group
+    .controls
       = f.submit :class => "btn btn-primary"

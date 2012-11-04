@@ -59,3 +59,21 @@ Feature: Create a project and view it
     And I press "Delete"
     Then I should be on the projects index page
     And I should not see "farmer1"
+
+  Scenario: Video upload on project creation
+    Given I am logged in as an admin
+    When I am on the create project page
+    Then I should be able to record a video
+
+  Scenario: Picture upload for project
+    Given I am logged in as an admin
+    When I am on the create project page
+    Then I should be able to add a picture
+
+  Scenario: Video change on project edit
+    Given I am logged in as an admin
+    And I am on the edit page for "farmer1"
+    Then I should be able to record a video
+    And I should be able to delete a video
+    And I should be able to add a picture
+    And I should be able to delete a picture
