@@ -7,15 +7,15 @@ class Project < ActiveRecord::Base
   after_initialize :init
 
   validates :farmer, :presence => true, :uniqueness => true
-  validates :description, :presence => true, :length => { :minimum => 50 }
+  validates :description, :presence => true
   validates :target, :presence => true, :numericality => true
   validate :end_date_or_no_ending
   validates :current, :numericality => true
 
   def end_date_or_no_ending
     # There must be an end date or it must go on indefinitely
-    unless end_date or not ending
-      errors.add(:end_date, "You must choose an end date or let the campaign go on forever")
+    unless end_date or ending
+      errors.add(:end_date, "You must choose an end date or select Not Ending")
     end
   end
 
