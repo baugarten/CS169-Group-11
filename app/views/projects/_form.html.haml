@@ -38,6 +38,9 @@
       = f.select :priority, options_for_select(options), {}, {:class => "warning_toggle"}
       %span.help-inline.hide Prioritizing every project does nothing. Choose wisely.
 
+  .control-group
+    .controls
+      %p.label.label-info.span6{:style => 'margin-left:0px; text-align:center'} Just paste the url to the youtube videos below <br />(already uploaded videos are displayed by their video ids)
   - index = 0
   = f.fields_for :videos do |builder|
     .control-group.video
