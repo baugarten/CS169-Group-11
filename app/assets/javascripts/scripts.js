@@ -16,11 +16,11 @@
     
     $("#remove").live("click", function(event) {
       var selector = $(this).data("selector");
-      if (extras > 0) {
+      if (extras > 1) {
         $(selector + ":last").remove();
         extras--;  
       }
-      if (extras < 1) {
+      if (extras <= 1) {
         $(this).attr("disabled", "disabled");
       } 
       return false;

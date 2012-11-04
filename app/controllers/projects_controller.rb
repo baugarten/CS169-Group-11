@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
     @project = Project.new
     @extras = 1
     if params[:extras]
-      @extras = params[:extras].to_i unless params[:extras].to_i < 0
+      @extras = params[:extras].to_i unless params[:extras].to_i < 1
     end
     @extras.times do @project.videos.build end
     respond_to do |format|
@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @extras = 1
     if params[:extras]
-      @extras = params[:extras].to_i unless params[:extras].to_i < 0
+      @extras = params[:extras].to_i unless params[:extras].to_i < 1
     end
     @extras.times do @project.videos.build end
   end
@@ -51,6 +51,8 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render json: @project, status: :created, location: @project }
       else
+        @extras = 1
+        @extras.times do @project.videos.build end
         format.html { render action: "new" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
@@ -64,6 +66,8 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
+        @extras = 1
+        @extras.times do @project.videos.build end
         format.html { render action: "edit" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
