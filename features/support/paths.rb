@@ -28,6 +28,12 @@ module NavigationHelpers
     
 	when /^the user dashboard$/ then '/dashboard'
 
+    when /^the create update page$/ then '/updates/new'
+    when /^the update index page$/ then '/updates'
+    when /^the update edit page of "(.*)"$/
+      edit_update_path(Update.find_by_title $1)
+    when /^the update detail page of "(.*)"$/
+      update_path(Update.find_by_title $1)  
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
