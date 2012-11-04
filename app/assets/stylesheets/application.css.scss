@@ -31,15 +31,17 @@ div.howitworks {
 } 
 
 div.updates { 
-
- width:90%;
- height:50%; 
+ 
+ overflow:hidden;
+ width:215px;
+ height:30%; 
  border:2px solid;
  border-radius:25px;
  border-color:#CCCCCC;
  background-color:#FFFFFF;
- padding-left:4px;
+ padding-left:16px;
  th{
+    
     font-weight: bold;
     color:#DEB887;
     font-size:h2;

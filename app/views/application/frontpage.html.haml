@@ -19,7 +19,6 @@
               %tbody
                 
                 %tr
-                  %center
                   %td
                     %div{:class => 'circle'}
                       1 
@@ -48,12 +47,12 @@
             %table#updates
               %thead
                 %tr
-                  %center
-                    %th.lead Announcements
+                  %th.lead Announcements
               %tbody
                 - @updates.each do |update|
                   %tr
                     %td= link_to "#{update.title}", update_path(update)
+                    %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")
                     
       %br
       %br
