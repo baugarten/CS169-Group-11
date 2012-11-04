@@ -5,34 +5,34 @@
     .span3
       = label :user, :first_name, 'First Name'
     .span3
-      = text_field :user, 'first_name'
+      = text_field :user, :first_name, :autocomplete=>:off
   .row
     .span3
       = label :user, :last_name, 'Last Name'
     .span3
-      = text_field :user, 'last_name'
+      = text_field :user, :last_name, :autocomplete=>:off
   .row
     .span3
       = label :user, :email, 'Email'
     .span3
-      = text_field :user, 'email'
+      = text_field :user, :email, :autocomplete=>:off
   .row
     .span3
       = label :user, :nickname, 'Nickname'
     .span3
-      = text_field :user, 'nickname'
+      = text_field :user, :nickname, :autocomplete=>:off
   .row
     %h3 Change Password
   .row
     .span3
       = label :user, :password, 'Password'
     .span3
-      = text_field :user, 'password'
+      = password_field :user, 'password', :autocomplete=>:off
   .row
     .span3
       = label :user, :password_confirmation, 'Confirm'
     .span3
-      = text_field :user, 'password_confirmation'
+      = password_field :user, 'password_confirmation', :autocomplete=>:off
   .row
     %h3 Profile Picture
   .row
