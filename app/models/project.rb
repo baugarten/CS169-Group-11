@@ -15,16 +15,13 @@ class Project < ActiveRecord::Base
 
   def end_date_or_no_ending
     # There must be an end date or it must go on indefinitely
-    unless end_date or ending
+    if end_date.nil? and not ending
       errors.add(:end_date, "You must choose an end date or select Not Ending")
     end
   end
 
   def init
     self.current ||= 0
-    if not self.end_date
-      self.ending = false
-    end
     self.priority ||= 1
     self.target ||= 0
     self.completed = (self.target <= self.current unless self.completed or self.target == 0)

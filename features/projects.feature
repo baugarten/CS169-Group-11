@@ -38,20 +38,7 @@ Feature: Create a project and view it
     When I fill in "project_farmer" with "farmer"
     And I fill in "Description" with "lasjd"
     When I press "Create Project"
-    Then I should see "error"
-    And I should see "prohibited this project from being saved"
-
-  Scenario: Edit Project
-    Given I am logged in as an admin
-    When I am on the edit page for "farmer1"
-    And I fill in "Description" with "a"
-    And I press "Update Project"
-    Then I should see "error"
-    And I should see "prohibited this project from being saved"
-    When I fill in "Description" with "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    And I press "Update Project"
-    Then I should be on the project details page for "farmer1"
-    And I should see "farmer1"
+    Then I should see "You must choose an end date"
 
   Scenario: Delete Project
     Given I am logged in as an admin

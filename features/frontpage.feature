@@ -17,9 +17,9 @@ Scenario: link to login page
   When I follow "Login"
   Then I should be on the login user page
 
-Scenario: Star your campaign button   
-  When I press "Start Your Campaign"
-  Then I should be on the register user page
+Scenario: Start your campaign button   
+  When I follow "Start Your Campaign"
+  Then I should be on the login user page
 
 Scenario: link to register
   When I follow "Register"

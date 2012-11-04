@@ -15,12 +15,14 @@ Given /^farmers have been created$/ do
 	:farmer => "Farmer1",
 	:description => "First farmer! 50char 50char 50char 50char 50char 50char 50char 50char",
 	:target => 500,
+  :ending => true,
 	:current => 0,
   })
   Project.create!({
 	:farmer => "Farmer2",
 	:description => "I farm turnips and pie 50char 50char 50char 50char 50char 50char",
 	:target => 500,
+  :ending => true,
 	:current => 0,
   })
 end
