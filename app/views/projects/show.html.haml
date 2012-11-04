@@ -13,6 +13,7 @@
     .bar{:style => "width: #{width}%;"} 
   %button.btn.btn-primary
     Donate
+= render 'youtube/upload', :videos => @project.videos, :width => 400
 
 - if admin_signed_in?
   = link_to 'Edit', edit_project_path(@project) 

@@ -5,5 +5,9 @@
     = project.target - project.current
     left!
     %br
-    = project.description
+    - maxlength = 270
+    - if project.description.length > maxlength
+      = %Q{#{project.description[0..project.description[0..maxlength].rindex(' ')]}<br /> Read more...}.html_safe
+    - else 
+      = project.description 
 

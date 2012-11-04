@@ -1,35 +1,36 @@
 = form_for @project, :html => { :class => 'form-horizontal' } do |f|
-  - if @project.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@project.errors.count, "error") 
-        prohibited this project from being saved:
-      %ul
-      - @project.errors.full_messages.each do |msg|
-        %li
-          -msg
-  .control-group
+
+  .control-group{:class => ("error" unless @project.errors['farmer'].empty?)}
     = f.label :farmer, :class => 'control-label', :for => "project_farmer"
     .controls
       = f.text_field :farmer
+      %span.help-inline 
+        = @project.errors['farmer'][0] unless @project.errors['farmer'].empty?
   
-  .control-group
+  .control-group{:class => ("error" unless @project.errors['description'].empty?)}
     = f.label :description, :class => 'control-label', :for => "project_description"
     .controls
       = f.text_area :description, :rows => 15, :cols => 40
+      %span.help-inline 
+        = @project.errors['description'][0] unless @project.errors['description'].empty?
 
-  .control-group
+  .control-group{:class => ("error" unless @project.errors['target'].empty?)}
     = f.label :target, :class => 'control-label', :for => "project_target"
     .controls
       .input-prepend
         %span.add-on $
         = f.text_field :target
+      %span.help-inline 
+        = @project.errors['target'][0] unless @project.errors['target'].empty?
 
-  .control-group
+  .control-group{:class => ("error" unless @project.errors['end_date'].empty?)}
     = f.label :end_date, :class => 'control-label', :for => "project_end_date"
     .controls
       = f.text_field :end_date, :class => "datepicker"
       = f.check_box :ending
+      Not Ending
+      %span.help-inline 
+        = @project.errors['end_date'][0] unless @project.errors['end_date'].empty?
 
   .control-group.warn_blur
     = f.label :priority, :class => 'control-label', :for => "project_priority"
@@ -37,6 +38,27 @@
       - options = (1..10).each { |k| [k, k] }
       = f.select :priority, options_for_select(options), {}, {:class => "warning_toggle"}
       %span.help-inline.hide Prioritizing every project does nothing. Choose wisely.
+
+  .control-group
+    .controls
+      %p.label.label-info.span6{:style => 'margin-left:0px; text-align:center'} Just paste the url to the youtube videos below <br />(already uploaded videos are displayed by their video ids)
+  - index = 0
+  = f.fields_for :videos do |builder|
+    .control-group.video
+      = builder.label "Video #{index+1}", :class => "control-label #{("extra" if builder.object.new_record?)}"
+      .controls
+        = builder.text_field :video_id
+        - unless builder.object.new_record?
+          = builder.check_box '_destroy'
+          %span Remove
+        .help-inline 
+          = @project.errors['farmer']
+                        
+    - index = index + 1
+  .control-group
+    .controls
+      %a#add.btn{:href => if not @project.id.nil? then (edit_project_path(@project, :extras => (@project.videos.length + 1))) else (new_project_path(@project, :project => @project.to_json, :extras => (@project.videos.length + 1))) end, :data => {:selector => ".video" }} Add
+      %a#remove.btn{:href => new_project_path(:extras => (@extras - 1)), :data => {:selector => ".video"}, :disabled => @extras <= 1 } Remove
 
   .control-group
     .controls
