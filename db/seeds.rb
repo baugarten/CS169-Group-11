@@ -47,3 +47,10 @@ Admin.create(
 User.create!(email: "test@test.com", 
 	first_name: "test", last_name: "test",
 	:password=>"password", :password_confirmation=>"password")
+
+Update.create(:title=>"Happy Easter Holiday", :content =>"11111")
+Update.create(:title=>"Added Farmer John", :content =>"11111")
+Update.create(:title=>"Donation Start", :content =>"11111")
+Update.create(:title=>"Happy ThanksGiving", :content =>"11111")
+Update.create(:title=>"Happy Christmas", :content =>"11111")
+Update.create(:title=>"Happy New years", :content =>"11111")
