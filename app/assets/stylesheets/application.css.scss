@@ -18,14 +18,24 @@ div.howitworks {
  background-color:#FFFFFF;
  border-color:#CCCCCC;
  padding-left:20px;
+ overflow: auto ;
+ 
  th{
     color:rgb(0,128,255);
     font-weight:bold;
-    font-size:180%;
+    font-size:h4;
  }
+ width:90%;
+ height:50%;
+
 } 
 
-div.updates {  
+div.updates { 
+ 
+ 
+ 
+ width:120%;
+ height:50%; 
  border:2px solid;
  border-radius:25px;
  border-color:#CCCCCC;
@@ -34,7 +44,7 @@ div.updates {
  th{
     font-weight: bold;
     color:#DEB887;
-    font-size:180%;
+    font-size:h4;
  }
 
  td{

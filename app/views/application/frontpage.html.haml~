@@ -2,6 +2,7 @@
 %div.container-fluid.frontpage
   %div.row-fluid
     %div.span8
+      %br
       %div.row-fluid
         %div.span12
           = image_tag("cover.png", :class => 'cover', :alt => "cover", :width => '100%')
@@ -43,8 +44,8 @@
             %center
               = button_to "Start Your Campaign", new_user_registration_path , :method => 'get', :class => 'btn btn-success'
         %div.span4
-          %div{:class=> 'updates'}
-            %table#howItWorks
+          %div{:class=> 'update'}
+            %table#updates
               %thead
                 %tr
                   %center
