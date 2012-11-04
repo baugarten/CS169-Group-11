@@ -2,6 +2,8 @@
 
 <ul class="unstyled clearfix">
 <% @projects.each do |project| %>
-  <%= render 'list', :project => project %>
+  <%= link_to project_path(project) do %>
+    <%= render 'list', :project => project %>
+  <% end %>
 <% end %>
 </ul>

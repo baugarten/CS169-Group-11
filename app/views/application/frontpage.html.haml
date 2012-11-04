@@ -42,7 +42,7 @@
                       4
                     Keep track of the impact of your campaign.
             %center
-              = button_to "Start Your Campaign", new_user_registration_path , :method => 'get', :class => 'btn btn-success'
+              %a{:class => "btn btn-primary", :href => new_campaign_path} Start Your Campaign
         %div.span5
           %div{:class=> 'updates'}
             %table#updates
@@ -54,10 +54,10 @@
                 - @updates.each do |update|
                   %tr
                     %td= link_to "#{update.title}", update_path(update)
+                    %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")
                     
       %br
       %br
-      %div.row-fluid
  
     %div.span2
       %div{:class => 'row-fluid', :height => '300px'}

@@ -1,13 +1,12 @@
 %li.well.project_details
-  = link_to project_path(project) do
-    %h2 
-      = project.farmer
-    = project.target - project.current
-    left!
-    %br
-    - maxlength = 270
-    - if project.description.length > maxlength
-      = %Q{#{project.description[0..project.description[0..maxlength].rindex(' ')]}<br /> Read more...}.html_safe
-    - else 
-      = project.description 
+  %h2 
+    = project.farmer
+  = project.target - project.current
+  left!
+  %br
+  - maxlength = 270
+  - if project.description.length > maxlength
+    = %Q{#{project.description[0..project.description[0..maxlength].rindex(' ')]}<br /> Read more...}.html_safe
+  - else 
+    = project.description 
 
