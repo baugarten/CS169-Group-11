@@ -87,3 +87,8 @@ Then /^the campaign should be on the "(.*)" page$/ do |page_name|
   end
 end
 
+When /^I fill in phony credentials$/ do
+  fill_in('Email', :with => "fake@email.com")
+  fill_in('Password', :with => "APSJDOPajkdlSANKJDHBASKDAIWRJAUEH<KAFJNBDAF<K")
+  click_button('Sign in')
+end

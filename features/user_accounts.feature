@@ -33,3 +33,16 @@ Scenario: login to an admin account
   And I fill in "Password" with "password"
   And I press "Sign in"
   Then I should be on the oneProsper home page
+
+Scenario: sad path login
+    Given I am on the login user page
+    When I fill in phony credentials
+    Then I should see "Invalid email or password"
+    Given I am on the login admin page
+    When I fill in phony credentials
+    Then I should see "Invalid email or password"
+
+Scenario: sad path registration
+    Given I am on the register user page
+    When I press "Sign up"
+    Then I should see "errors prohibited this user from being saved"
