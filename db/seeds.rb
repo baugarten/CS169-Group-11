@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-if Project.first
+if not Project.first
   Project.create(
     :farmer => "Farmer3",
     :description => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed lorem massa. Proin posuere convallis erat et imperdiet. Curabitur sit amet metus quis velit euismod interdum. Duis tincidunt libero eget lorem congue et hendrerit velit viverra. In hac habitasse platea dictumst. Sed commodo posuere.",
@@ -48,6 +48,16 @@ if not Admin.first
     :password => "railsonrails",
   )
 end
+Admin.create(
+  :email => "lsimmonds@green-living.ca",
+  :password => "password",
+)
+User.create(
+  :email => "lsimmonds@green-living.ca",
+  :password => "password",
+  :first_name => "Laurie",
+  :last_name => "Simmonds"
+)
 
 if not User.first
   User.create(
