@@ -1,9 +1,11 @@
 class Project < ActiveRecord::Base
   has_many :videos, :as => :recordable
+  has_many :photos, :as => :imageable
 
-  attr_accessible :farmer, :description, :target, :end_date, :ending, :priority, :current, :complete, :videos_attributes, :campaign_id
+  attr_accessible :farmer, :description, :target, :end_date, :ending, :priority, :current, :complete, :videos_attributes, :campaign_id, :photos_attributes
 
   accepts_nested_attributes_for :videos, :reject_if => lambda { |video| video[:video_id].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :photos, :reject_if => lambda { |photo| photo[:input_data].blank? }, :allow_destroy => true
 
   after_initialize :init
 

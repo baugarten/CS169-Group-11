@@ -36,6 +36,7 @@ OneProsper::Application.routes.draw do
   end
 
   match 'photo/:id' => 'photo#display', :as => :photo
+  match 'assets/before.jpeg' => 'photo#default', :as => 'default_photo'
   
   resources :updates
   # The priority is based upon order of creation:

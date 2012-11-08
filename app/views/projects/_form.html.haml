@@ -43,20 +43,38 @@
     .controls
       %p.label.label-info.span6{:style => 'margin-left:0px; text-align:center'} Just paste the url to the youtube videos below <br />(already uploaded videos are displayed by their video ids)
   - index = 0
-  = f.fields_for :videos do |builder|
-    .control-group.video
-      = builder.label "Video #{index+1}", :class => "control-label #{("extra" if builder.object.new_record?)}"
+  #videos
+    = f.fields_for :videos do |builder|
+      .control-group.video
+        = builder.label "Video #{index+1}", :class => "control-label #{("extra" if builder.object.new_record?)}"
+        .controls
+          = builder.text_field :video_id
+          - unless builder.object.new_record?
+            = builder.check_box '_destroy'
+            %span Remove
+                          
+      - index = index + 1
+    .control-group
       .controls
-        = builder.text_field :video_id
-        - unless builder.object.new_record?
-          = builder.check_box '_destroy'
-          %span Remove
-                        
-    - index = index + 1
-  .control-group
-    .controls
-      %a#add.btn{:href => if not @project.id.nil? then (edit_project_path(@project, :extras => (@project.videos.length + 1))) else (new_project_path(@project, :project => @project.to_json, :extras => (@project.videos.length + 1))) end, :data => {:selector => ".video" }} Add
-      %a#remove.btn{:href => new_project_path(:extras => (@extras - 1)), :data => {:selector => ".video"}, :disabled => @extras <= 1 } Remove
+        %a#add-video.btn{:href => new_or_edit_path(@project, @project.new_record?, @project.videos.length+1, @project.photos.length)} Add
+        %a#remove-video.btn{:href => new_or_edit_path(@project, @project.new_record?, @video_extras-1, @photo_extras), :disabled => @video_extras <= 1 } Remove
+
+  - index = 0
+  #photos
+    = f.fields_for :photos do |builder|
+      .control-group.photo
+        = builder.label "Photo #{index+1}", :class => "control-label #{("extra" if builder.object.new_record?)}"
+        .controls
+          = builder.file_field :input_data
+          - unless builder.object.new_record?
+            = builder.check_box '_destroy'
+            %span Remove
+                          
+      - index = index + 1
+    .control-group
+      .controls
+        %a#add-photo.btn{:href => new_or_edit_path(@project, @project.new_record?, @project.videos.length, @project.photos.length + 1)} Add
+        %a#remove-photo.btn{:href => new_or_edit_path(@project, @project.new_record?, @video_extras, @photo_extras - 1), :disabled => @photo_extras <= 1 } Remove
 
   .control-group
     .controls
