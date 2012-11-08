@@ -25,7 +25,7 @@
   multiple = false unless local_assigns.has_key? :multiple and form
   add_link = 'upload another' unless local_assigns.has_key? :add_link and form
   extras = 0 unless local_assigns.has_key? :extras and form
-  videos = nil unless local_assigns.has_key? :videos
+  videos = [] unless local_assigns.has_key? :videos
   max = 0
 %>
 <div id="videos">
@@ -53,7 +53,9 @@ end
 extras.times do |index| %>
   <div class="video">
     <div id="widget<%= index %>" class="widget"></div>
-    <div id=<%=index%> class="btn remove_widget">Remove</div>
+    <% if editable %>
+      <div id=<%=index%> class="btn remove_widget">Remove</div>
+    <% end %>
   </div>
 <% end %>
 <% # If we are allowing the user to dynamically add extra videos
