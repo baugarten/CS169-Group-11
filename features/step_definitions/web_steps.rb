@@ -31,21 +31,6 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
-Given /^I am logged in as an admin$/ do
-  admin = Admin.create(
-    :email => "test@email.com",
-    :password => "password",
-    :password_confirmation => "password",
-  )
-  steps %Q{
-    Given I am on the login admin page
-    When I fill in "Email" with "test@email.com"
-    And I fill in "Password" with "password"
-    And I press "Sign in"
-  }
-end
-
-
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }

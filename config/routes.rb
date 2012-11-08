@@ -5,6 +5,16 @@ OneProsper::Application.routes.draw do
   devise_for :users
   devise_for :admins
 
+  scope "/admin" do
+    resources :users do 
+      member do
+        post "promote"
+      end
+    end
+    resources :admins do
+    end
+  end
+
   root :to => "application#frontpage"
   
   match 'dashboard' => 'dashboard#show'

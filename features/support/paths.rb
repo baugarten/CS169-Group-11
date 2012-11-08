@@ -27,8 +27,8 @@ module NavigationHelpers
     when /^the edit page for "(.*)"$/
       edit_project_path(Project.find_by_farmer $1)
     
-	when /^the user dashboard$/ then '/dashboard'
-  when /^the edit profile page$/ then '/dashboard/edit'
+    when /^the user dashboard$/ then '/dashboard'
+    when /^the edit profile page$/ then '/dashboard/edit'
 
     when /^the create update page$/ then '/updates/new'
     when /^the update index page$/ then '/updates'
@@ -36,6 +36,9 @@ module NavigationHelpers
       edit_update_path(Update.find_by_title $1)
     when /^the update detail page of "(.*)"$/
       update_path(Update.find_by_title $1)  
+
+    when /^the admin user page$/ then '/admin/users/'
+    when /^the admin admins page$/ then '/admin/admins/'
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
