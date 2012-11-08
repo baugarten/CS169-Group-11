@@ -66,7 +66,6 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    debugger
     @project = Project.find(params[:id])
     respond_to do |format|
       if @project.update_attributes(params[:project])
