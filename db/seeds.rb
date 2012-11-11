@@ -6,6 +6,18 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 if not Project.first
+  30.times do 
+    farmer = (0..20).map{ ('a'..'z').to_a[rand(26)] }.join
+    description =  (0...100).map{ ('a'..'z').to_a[rand(26)] }.join
+    target = 300 + rand(400)
+    Project.create(
+      :farmer => farmer,
+      :description => description,
+      :target => target,
+      :ending => true,
+      :completed => false,
+      :priority => 1)
+  end
   Project.create(
     :farmer => "Farmer3",
     :description => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed lorem massa. Proin posuere convallis erat et imperdiet. Curabitur sit amet metus quis velit euismod interdum. Duis tincidunt libero eget lorem congue et hendrerit velit viverra. In hac habitasse platea dictumst. Sed commodo posuere.",
@@ -30,18 +42,6 @@ if not Project.first
     :target => 750,
     :end_date => Time.utc(2013, 01, 20),
     :ending => false,
-    :completed => false,
-    :priority => 1)
-end
-30.times do 
-  farmer = (0..20).map{ ('a'..'z').to_a[rand(26)] }.join
-  description =  (0...100).map{ ('a'..'z').to_a[rand(26)] }.join
-  target = 300 + rand(400)
-  Project.create(
-    :farmer => farmer,
-    :description => description,
-    :target => target,
-    :ending => true,
     :completed => false,
     :priority => 1)
 end
