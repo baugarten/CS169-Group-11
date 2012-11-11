@@ -7,6 +7,7 @@ class PhotoController < ApplicationController
 						:disposition => 'inline'
   end
   def default
+    debugger
     return "before.jpeg"
   end
 end
