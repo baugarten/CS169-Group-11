@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
   has_many :videos, :as => :recordable
   has_many :photos, :as => :imageable
 
-  attr_accessible :farmer, :description, :target, :end_date, :ending, :priority, :current, :complete, :videos_attributes, :campaign_id, :photos_attributes
+  attr_accessible :farmer, :description, :target, :end_date, :ending, :priority, :current, :completed, :videos_attributes, :campaign_id, :photos_attributes
 
   accepts_nested_attributes_for :videos, :reject_if => lambda { |video| video[:video_id].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :photos, :reject_if => lambda { |photo| photo[:input_data].blank? }, :allow_destroy => true
@@ -27,5 +27,9 @@ class Project < ActiveRecord::Base
     self.priority ||= 1
     self.target ||= 0
     self.completed = (self.target <= self.current unless self.completed or self.target == 0)
+  end
+
+  def self.top_projects(page)
+    Project.order("priority DESC, created_at DESC").page(page).limit(12)
   end
 end
