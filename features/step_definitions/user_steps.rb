@@ -27,6 +27,72 @@ Given /^farmers have been created$/ do
   })
 end
 
+Given /^that campaigns have been created$/ do
+  current_user = User.find(1)
+  current_user.campaign.create!({
+	:name => "Help Farmer1",
+	:template => "Hi <name>, please look at this video. <link>",
+	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
+  :priority => 1,
+  })
+
+  campaign = Campaign.find(1)
+  friend = campaign.campaign_friend.new
+  friend.name = "Bob Smith"
+  friend.email = "bobsmith@gmail.com"
+  friend.save
+
+  friend = campaign.campaign_friend.new
+  friend.name = "Jack Black"
+  friend.email = "jblack@gmail.com"
+  friend.save
+
+  current_user.campaign.create!({
+	:name => "Help Farmer2",
+	:template => "Hi <name>, please look at this video. <link>",
+	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
+  :priority => 1,
+  })
+
+  campaign = Campaign.find(2)
+  friend = campaign.campaign_friend.new
+  friend.name = "John Smith"
+  friend.email = "johnsmith@gmail.com"
+  friend.save
+
+
+end
+
+Then /^the manager should show "(.*?)" have been sent the email$/ do |name|
+  text = name + " emailed"
+  if page.respond_to? :should
+    page.should have_content(text)
+  else
+    assert page.has_content?(text)
+  end
+
+end
+
+Then /^the manager should show "(.*?)" have not been sent the email$/ do |name|
+  text = name + " emailed"
+  if page.respond_to? :should
+    page.should have_no_content(text)
+  else
+    assert page.has_no_content?(text)
+  end
+end
+
+
+Then /^the manager should show "(.*?)" have donated "(.*?)"$/ do |name, donation_amount|
+  text = name + " " + donation_amount
+  if page.respond_to? :should
+    page.should have_content(text)
+  else
+    assert page.has_content?(text)
+  end
+end
+
+
 Given /^I am logged in as the test user$/ do
   User.create!({:email=>"test@email.com", :password=>"password", :first_name=>"Mister", :last_name=>"Test"})
 
@@ -74,6 +140,12 @@ Given /^I login with incorrect email$/ do
   fill_in('Email', :with => 'test4@email.com')
   fill_in('Password', :with => 'blah')
   click_button('Sign in')
+end
+
+Then /^the manager should be on the "(.*)" page$/ do |campaign_name|
+  current_path = URI.parse(current_url).path
+  id = Campaign.find_by_name(campaign_name)
+  assert(current_path.match(/\/manager\/(.*)\//))
 end
 
 Then /^the campaign should be on the "(.*)" page$/ do |page_name|
