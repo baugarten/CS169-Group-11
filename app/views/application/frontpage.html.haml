@@ -18,16 +18,17 @@
       .pagination
         %ul
           %li{:class => (@page == 1 ? "disabled" : nil)}
-            %a
+            %a{:href => ("/?page=#{@page-1}" if @page != 1)}
               Prev
 
           - pages.times do |num|
             %li{:class => (@page == num+1 ? "active" : nil)}
               %a{:href => "/?page=#{num+1}"}
                 = num+1
-          %li{:class => (@page == pages+1 ? "disabled" : nil)}
-            %a
+          %li{:class => (@page == pages ? "disabled" : nil)}
+            %a{:href => ("/?page=#{@page+1}" if @page != pages)}
               Next
+      = link_to "All Projects", projects_path, :class => "btn btn-success", :id => "project_link"
 
     %div.span4
       = render "projects/sidebar", :project => @projects[0]

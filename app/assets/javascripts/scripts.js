@@ -32,8 +32,8 @@
       var description = img.data("description");
       var target = img.data("target");
       var current = img.data("current");
-      var width = 100 - (target - current) * 100 / target;
-      var toRender = "<h1>" + farmer + "</h1><p>" + description + "</p><h2>$"+current+" donated of $"+target+" goal</h2><div class='progress progress-striped active'><div class='bar style='width: "+width+"%;'></div></div><button class='btn btn-primary'>Donate</button>";
+      var width = 100.0 - (target - current) * 100.0 / target;
+      var toRender = "<h1>" + farmer + "</h1><p>" + description + "</p><h2>$"+current+" donated of $"+target+" goal</h2><div class='progress progress-striped active'><div class='bar' style='width: "+width+"%;'></div></div><button class='btn btn-success'>Donate</button>";
 
       $(".hero-unit.project_sidebar").html(toRender);
       return false;
