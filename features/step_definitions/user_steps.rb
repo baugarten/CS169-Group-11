@@ -92,3 +92,21 @@ When /^I fill in phony credentials$/ do
   fill_in('Password', :with => "APSJDOPajkdlSANKJDHBASKDAIWRJAUEH<KAFJNBDAF<K")
   click_button('Sign in')
 end
+
+When /^I fill in correct payment information$/ do
+  click_button('Pay with Card')
+  fill_in('paymentNumber', :with=>"4242424242424242")
+  fill_in('paymentExpiryMonth', :with=>"1")
+  fill_in('paymentExpiryYear', :with=>"25")
+  fill_in('paymentName', :with=>"John Doe")
+  fill_in('paymentCVC', :with=>"123")
+end
+
+When /^I fill in invalid payment information$/ do
+  click_button('Pay with Card')
+  fill_in('paymentNumber', :with=>"4000000000000002")
+  fill_in('paymentExpiryMonth', :with=>"1")
+  fill_in('paymentExpiryYear', :with=>"25")
+  fill_in('paymentName', :with=>"John Doe")
+  fill_in('paymentCVC', :with=>"123")
+end
