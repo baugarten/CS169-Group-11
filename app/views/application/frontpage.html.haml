@@ -1,71 +1,90 @@
+= content_for :bar do
+  #bar
+    .container.center
+      %h3
+        People Seek Empowerment. Not Dependence.
+
+  
+
 
 %div.container-fluid.frontpage
   %div.row-fluid
     %div.span8
-      %br
-      %div.row-fluid
-        %div.span12
-          = image_tag("cover.png", :class => 'cover', :alt => "cover", :width => '100%')
-      %br
-      %br
-      %div.row-fluid
-        %div.span7
-          %div{:class => 'howitworks'}
-            %table#howItWorks
-              %thead
-                %tr
-                  %th.lead How It Works
-              
-              %tbody
-                
-                %tr
-                  %center
-                  %td
-                    %div{:class => 'circle'}
-                      1 
-                    Sign up as a changemaker to start your campaign.
-                %tr
-                  %td
-                    %div{:class => 'circle'}
-                      2
-                    Select your beneficiary from our database and record
-                      
-                    a short video on their behalf.
-                %tr 
-                  %td
-                    %div{:class => 'circle'}
-                      3
-                    Send out the videos.
-                %tr
-                  %td 
-                    %div{:class => 'circle'}
-                      4
-                    Keep track of the impact of your campaign.
-            %center
-              %a{:class => "btn btn-success", :href => new_campaign_path} Start Your Campaign
-        %div.span5
-          %div{:class=> 'updates'}
-            %table#updates
-              %thead
-                %tr
-                  %center
-                    %th.lead Announcements
-              %tbody
-                - @updates.each do |update|
-                  %tr
-                    %td= link_to "#{update.title}", update_path(update)
-                    %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")
-                    
-      %br
-      %br
- 
-    %div.span2
+      %ul.unstyled.clearfix.projectlist
+        - @projects.each.with_index do |project, index|
+          = link_to project_path(project) do
+            = render "projects/small", :project => project, :active => (if index == 0 then true else false end)
+      - pages = (@count / 12).ceil
+      .pagination
+        %ul
+          %li{:class => (@page == 1 ? "disabled" : nil)}
+            %a{:href => ("/?page=#{@page-1}" if @page != 1)}
+              Prev
+
+          - pages.times do |num|
+            %li{:class => (@page == num+1 ? "active" : nil)}
+              %a{:href => "/?page=#{num+1}"}
+                = num+1
+          %li{:class => (@page == pages ? "disabled" : nil)}
+            %a{:href => ("/?page=#{@page+1}" if @page != pages)}
+              Next
+      = link_to "All Projects", projects_path, :class => "btn btn-success", :id => "project_link"
+
+    %div.span4
+      = render "projects/sidebar", :project => @projects[0]
       %div{:class => 'row-fluid', :height => '300px'}
-      %br
-      %h4
-        Placeholder image <!-- #image_tag("farmers.jpg", :alt => 'a photo of farmers', :width => '100%', :class => 'img-rounded') -->
-      %div.row-fluid
-        = button_to "All Projects", projects_path , :method => :get , :class => 'btn btn-success'
-   
+
+  %div.row-fluid
+    %div.span7
+      %div{:class => 'howitworks'}
+        %table#howItWorks
+          %thead
+            %tr
+              %th.lead How It Works
+          
+          %tbody
+            
+            %tr
+              %center
+              %td
+                %div{:class => 'circle'}
+                  1 
+                Sign up as a changemaker to start your campaign.
+            %tr
+              %td
+                %div{:class => 'circle'}
+                  2
+                Select your beneficiary from our database and record
+                  
+                a short video on their behalf.
+            %tr 
+              %td
+                %div{:class => 'circle'}
+                  3
+                Send out the videos.
+            %tr
+              %td 
+                %div{:class => 'circle'}
+                  4
+                Keep track of the impact of your campaign.
+        %center
+          %a{:class => "btn btn-success", :href => new_campaign_path} Start Your Campaign
+    %div.span5
+      %div{:class=> 'updates'}
+        %table#updates
+          %thead
+            %tr
+              %center
+                %th.lead Announcements
+          %tbody
+            - @updates.each do |update|
+              %tr
+                %td= link_to "#{update.title}", update_path(update)
+                %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")
+                
+  %br
+  %br
+
+
 
 

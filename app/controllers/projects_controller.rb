@@ -24,11 +24,10 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    @extras = 1
-    if params[:extras]
-      @extras = params[:extras].to_i unless params[:extras].to_i < 1
-    end
-    @extras.times do @project.videos.build end
+    
+    @video_extras = build_extras(@video_extras, params[:video_extras], :videos)
+    @photo_extras = build_extras(@photo_extras, params[:photo_extras], :photos)
+
     respond_to do |format|
       format.html { render "_form" } # new.html.erb
       format.json { render json: @project }
@@ -37,11 +36,18 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    @extras = 1
-    if params[:extras]
-      @extras = params[:extras].to_i unless params[:extras].to_i < 1
+
+    @video_extras = build_extras(@video_extras, params[:video_extras], :videos)
+    @photo_extras = build_extras(@photo_extras, params[:photo_extras], :photos)
+  end
+
+  def build_extras(instancevar, param_val, key)
+    instancevar = 1
+    if param_val
+      instancevar = param_val.to_i unless param_val.to_i < 1
     end
-    @extras.times do @project.videos.build end
+    instancevar.times do @project.send(key).build end
+    return instancevar
   end
 
   def create
@@ -51,8 +57,8 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render json: @project, status: :created, location: @project }
       else
-        @extras = 1
-        @extras.times do @project.videos.build end
+        @video_extras = build_extras(@video_extras, params[:video_extras], :videos)
+        @photo_extras = build_extras(@photo_extras, params[:photo_extras], :photos)
         format.html { render action: "new" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
@@ -66,8 +72,8 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
-        @extras = 1
-        @extras.times do @project.videos.build end
+        @video_extras = build_extras(@video_extras, params[:video_extras], :videos)
+        @photo_extras = build_extras(@photo_extras, params[:photo_extras], :photos)
         format.html { render action: "edit" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end

@@ -6,6 +6,18 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 if not Project.first
+  30.times do 
+    farmer = (0..20).map{ ('a'..'z').to_a[rand(26)] }.join
+    description =  (0...100).map{ ('a'..'z').to_a[rand(26)] }.join
+    target = 300 + rand(400)
+    Project.create(
+      :farmer => farmer,
+      :description => description,
+      :target => target,
+      :ending => true,
+      :completed => false,
+      :priority => 1)
+  end
   Project.create(
     :farmer => "Farmer3",
     :description => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed lorem massa. Proin posuere convallis erat et imperdiet. Curabitur sit amet metus quis velit euismod interdum. Duis tincidunt libero eget lorem congue et hendrerit velit viverra. In hac habitasse platea dictumst. Sed commodo posuere.",
@@ -47,17 +59,11 @@ if not Admin.first
     :email => "gsi@cs169.com",
     :password => "railsonrails",
   )
+  Admin.create(
+    :email => "lsimmonds@green-living.ca",
+    :password => "password",
+  )
 end
-Admin.create(
-  :email => "lsimmonds@green-living.ca",
-  :password => "password",
-)
-User.create(
-  :email => "lsimmonds@green-living.ca",
-  :password => "password",
-  :first_name => "Laurie",
-  :last_name => "Simmonds"
-)
 
 if not User.first
   User.create(
@@ -67,6 +73,12 @@ if not User.first
   User.create!(email: "test@test.com", 
     first_name: "test", last_name: "test",
     :password=>"password", :password_confirmation=>"password")
+  User.create(
+    :email => "lsimmonds@green-living.ca",
+    :password => "password",
+    :first_name => "Laurie",
+    :last_name => "Simmonds"
+  )
 end
 
 if not Update.first

@@ -6,4 +6,8 @@ class PhotoController < ApplicationController
 						:filename => @image_data.filename, 
 						:disposition => 'inline'
   end
+  def default
+    debugger
+    return "before.jpeg"
+  end
 end

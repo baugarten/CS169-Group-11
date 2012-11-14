@@ -11,7 +11,7 @@ class Video < ActiveRecord::Base
 
   def id_from_url
     uri = URI.parse(self.video_id)
-    if uri.query.nil? then return end
+    if uri.query.nil? then return self.video_id end
     params = CGI.parse(uri.query)
     self.video_id = params['v'][0]
   rescue URI::BadURIError, URI::InvalidURIError
