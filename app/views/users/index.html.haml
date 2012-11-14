@@ -1,0 +1,30 @@
+%table.table
+  %tr
+    %th #
+    %th Email
+    %th Name
+    %th Nickname
+    %th Last sign in
+    %th Created at
+  - @users.each.with_index do |user, index|
+    %tr{:id => "user#{user.id}"}
+      %td 
+        = index
+      %td
+        = user.id
+      %td 
+        = user.email
+      %td 
+        = user.displayname
+      %td
+        = user.nickname
+      %td
+        = user.last_sign_in_at
+      %td
+        = user.created_at
+      %td
+        = button_to 'Delete', user_path(user), :confirm => "Are you sure?", :method => :delete
+      %td
+        = button_to 'Make Admin', promote_user_path(user)
+
+

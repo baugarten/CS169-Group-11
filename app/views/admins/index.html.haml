@@ -1,0 +1,16 @@
+%table.table
+  %tr
+    %th #
+    %th Email
+    %th Created at
+  - @admins.each.with_index do |admin, index|
+    %tr{:id => %Q{admin#{admin.id}}}
+      %td 
+        = index
+      %td 
+        = admin.email
+      %td
+        = admin.created_at
+      %td
+        = button_to 'Delete', admin_path(admin), :confirm => "Are you sure?", :method => :delete
+
