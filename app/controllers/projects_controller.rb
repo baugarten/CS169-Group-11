@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :authenticate_admin!, :except => [:index, :show]
+  before_filter :authenticate_admin!, :except => [:index, :show, :donate]
 
   require 'uri'
   require 'cgi'
@@ -82,5 +82,11 @@ class ProjectsController < ApplicationController
       format.html { redirect_to projects_url }
       format.json { head :no_content }
     end
+  end
+  
+  def donate
+    @project = Project.find(params[:id])
+    @donation = Donation.new({:amount=>500})
+    @stripe_public_key = ENV['STRIPE_PK']
   end
 end

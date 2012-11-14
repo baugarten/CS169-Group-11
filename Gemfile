@@ -17,6 +17,8 @@ gem 'bootstrap-sass'
 
 gem 'youtube_it'
 
+gem 'stripe'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'simplecov'

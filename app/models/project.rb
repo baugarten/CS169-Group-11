@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   has_many :videos, :as => :recordable
+  has_many :donations
 
   attr_accessible :farmer, :description, :target, :end_date, :ending, :priority, :current, :complete, :videos_attributes, :campaign_id
 
