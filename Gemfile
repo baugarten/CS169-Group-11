@@ -28,7 +28,7 @@ group :development, :test do
 end
 group :test do
   gem 'rspec-expectations'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
 end
 # Gems used only for assets and not required
