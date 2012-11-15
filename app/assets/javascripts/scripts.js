@@ -24,7 +24,7 @@
       addHandle: "#add-photo",
     });
 
-    $(".projectlist .project_details").click(function(event) {
+    $(".smallprojectlist .project_details").click(function(event) {
       $(".project-active").removeClass("project-active");
       $(event.currentTarget).addClass("project-active");
       var img = $(event.currentTarget).find("img");
