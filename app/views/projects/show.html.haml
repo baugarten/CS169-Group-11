@@ -1,7 +1,5 @@
-%p#notice
-  = notice 
-.hero-unit
-  %img{:width=>400,:src=>'http://ec.comps.canstockphoto.com/can-stock-photo_csp5503366.jpg',:class=>'pull-left'}
+.hero-unit.project_sidebar
+  = if not @project.photos.empty? then image_tag(photo_path(@project.photos[0]), :width => 400, :class => 'pull-left') else image_tag(default_photo_path, :width => 400, :class => 'pull-left') end
   %h1 
     = @project.farmer
   %h2 
