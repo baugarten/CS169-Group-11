@@ -46,13 +46,13 @@ ActiveRecord::Schema.define(:version => 20121114231213) do
   add_index "campaigns", ["user_id"], :name => "index_campaigns_on_user_id"
 
   create_table "donations", :force => true do |t|
-    t.integer  "project_id_id"
-    t.integer  "user_id_id"
+    t.integer  "project_id"
+    t.integer  "user_id"
     t.text     "email"
     t.integer  "amount"
-    t.text     "stripe_token"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.text     "stripe_charge_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "photos", :force => true do |t|

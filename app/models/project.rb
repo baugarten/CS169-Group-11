@@ -17,6 +17,16 @@ class Project < ActiveRecord::Base
   validate :end_date_or_no_ending
   validates :current, :numericality => true
 
+  def update_current_donated
+    total = 0
+    self.donations.each do |donation|
+      total += donation.amount/100
+    end
+    
+    self.current = total
+    self.save!
+  end
+  
   def end_date_or_no_ending
     # There must be an end date or it must go on indefinitely
     if end_date.nil? and not ending

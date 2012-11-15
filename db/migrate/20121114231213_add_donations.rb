@@ -1,11 +1,11 @@
 class AddDonations < ActiveRecord::Migration
   def change
     create_table :donations do |t|
-      t.references :project_id
-      t.references :user_id
+      t.references :project
+      t.references :user
       t.text :email
       t.integer :amount
-      t.text :stripe_token
+      t.text :stripe_charge_id
       t.timestamps
     end
     

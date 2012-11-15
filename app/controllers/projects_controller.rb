@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :authenticate_admin!, :except => [:index, :show, :donate]
+  before_filter :authenticate_admin!, :only => [:new, :edit, :create, :update, :destroy]
 
   require 'uri'
   require 'cgi'
@@ -92,7 +92,39 @@ class ProjectsController < ApplicationController
   
   def donate
     @project = Project.find(params[:id])
-    @donation = Donation.new({:amount=>500})
+    if (current_user)
+      @donation = Donation.new({:amount=>500, :email=>current_user.email})
+    else
+      @donation = Donation.new({:amount=>500})
+    end
+    
     @stripe_public_key = ENV['STRIPE_PK']
+  end
+  
+  def charge
+    @project = Project.find(params[:id])
+    
+    @donation = Donation.new(params[:donation])
+    
+    @donation.project = @project
+    if (current_user)
+      @donation.user = current_user
+    end
+    
+    charge = Stripe::Charge.create(
+      :amount      => @donation.amount,
+      :card        => params[:stripeToken],
+      :description => "Donation for #{@project.farmer}",
+      :currency    => 'usd'
+    )
+    @donation.stripe_charge_id = charge.id
+    
+    @donation.save!
+    
+    @project.update_current_donated
+
+  rescue Stripe::CardError => e
+    flash[:error] = e.message
+    redirect_to donate_project_path(params[:id])
   end
 end
