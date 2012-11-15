@@ -21,7 +21,8 @@ OneProsper::Application.routes.draw do
       put 'submit_video'
       get 'template'
       put 'submit_template'
-      get 'send_emails'
+      #get 'send_emails'
+      get 'manager'
     end
   end
 

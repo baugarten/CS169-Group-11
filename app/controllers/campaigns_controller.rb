@@ -100,10 +100,11 @@ class CampaignsController < ApplicationController
       friend.save
     end
     
-    redirect_to send_emails_campaign_path(campaign)
+    #redirect_to send_emails_campaign_path(campaign)
+    redirect_to manager_campaign_path(campaign)
   end
   
-  def send_emails
+  def manager
     @campaign = Campaign.find(params[:id])
     @friends = @campaign.campaign_friend
   end
