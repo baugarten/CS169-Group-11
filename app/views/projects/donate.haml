@@ -1,0 +1,36 @@
+%p#notice
+  = notice 
+.hero-unit
+  %img{:width=>400,:src=>'http://ec.comps.canstockphoto.com/can-stock-photo_csp5503366.jpg',:class=>'pull-left'}
+  %h1 
+    = @project.farmer
+  %h2 
+    $#{@project.current.to_i} donated of $#{@project.target.to_i} goal
+  %p
+    = @project.description
+  .progress.progress-striped.active
+    - width = 100 - (@project.target - @project.current) * 100 / @project.target
+    .bar{:style => "width: #{width}%;"} 
+
+  %h1
+    Donate now
+  = form_for :donation, :url => charge_project_path(@project) do |form|
+    .row
+      .span3
+        Donation amount
+      .span3
+        = text_field :donation, :amount, :disabled=>:true
+    .row
+      .span3
+        Email
+        (optional)
+      .span3
+        = text_field :donation, :email
+    .row
+      .span3
+        Donate by credit card through Stripe
+      .span3
+        <script src="https://button.stripe.com/v1/button.js" class="stripe-button"
+        data-key="#{Rails.configuration.stripe[:publishable_key]}"
+        data-description="Donation to #{@project.farmer}"
+        data-amount="#{@donation.amount}"></script>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103071201) do
+ActiveRecord::Schema.define(:version => 20121114231213) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(:version => 20121103071201) do
   add_index "campaigns", ["campaign_project_id"], :name => "index_campaigns_on_campaign_project_id"
   add_index "campaigns", ["user_id"], :name => "index_campaigns_on_user_id"
 
+  create_table "donations", :force => true do |t|
+    t.integer  "project_id_id"
+    t.integer  "user_id_id"
+    t.text     "email"
+    t.integer  "amount"
+    t.text     "stripe_token"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "photos", :force => true do |t|
     t.string  "filename"
     t.string  "content_type"
@@ -62,12 +72,14 @@ ActiveRecord::Schema.define(:version => 20121103071201) do
     t.boolean  "ending"
     t.boolean  "completed"
     t.integer  "priority"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "campaign_id"
+    t.integer  "donations_id"
   end
 
   add_index "projects", ["campaign_id"], :name => "index_projects_on_campaign_id"
+  add_index "projects", ["donations_id"], :name => "index_projects_on_donations_id"
 
   create_table "updates", :force => true do |t|
     t.string   "title"
@@ -93,9 +105,11 @@ ActiveRecord::Schema.define(:version => 20121103071201) do
     t.string   "last_name",              :default => ""
     t.string   "nickname",               :default => ""
     t.integer  "campaign_id"
+    t.integer  "donations_id"
   end
 
   add_index "users", ["campaign_id"], :name => "index_users_on_campaign_id"
+  add_index "users", ["donations_id"], :name => "index_users_on_donations_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

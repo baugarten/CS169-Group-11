@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
   # Photo support
   has_one :photo, :as => :imageable, :dependent => :destroy
   has_many :campaign, :dependent => :destroy
+  has_many :donations
 end
