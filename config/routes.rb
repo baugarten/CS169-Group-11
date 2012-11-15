@@ -14,7 +14,7 @@ OneProsper::Application.routes.draw do
   resources :projects do
     member do
       get 'donate'
-      put 'charge'
+      post 'charge'
     end
   end
 

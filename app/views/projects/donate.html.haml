@@ -12,14 +12,14 @@
     - width = 100 - (@project.target - @project.current) * 100 / @project.target
     .bar{:style => "width: #{width}%;"} 
 
-  %h1
+  %h2
     Donate now
   = form_for :donation, :url => charge_project_path(@project) do |form|
     .row
       .span3
         Donation amount
       .span3
-        = text_field :donation, :amount, :disabled=>:true
+        = text_field :donation, :readable_amount, :readonly=>:true
     .row
       .span3
         Email
@@ -33,4 +33,5 @@
         <script src="https://button.stripe.com/v1/button.js" class="stripe-button"
         data-key="#{Rails.configuration.stripe[:publishable_key]}"
         data-description="Donation to #{@project.farmer}"
+        data-label="Donate"
         data-amount="#{@donation.amount}"></script>
