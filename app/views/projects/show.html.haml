@@ -9,6 +9,22 @@
   .progress.progress-striped.active
     - width = 100 - (@project.target - @project.current) * 100 / @project.target
     .bar{:style => "width: #{width}%;"} 
+
+%br
+
+.donation-form
+  Donation:
+  = form_tag donate_project_path(@project.id), :method => :get, :id => 'donation-form' do
+    $10
+    = radio_button_tag "amount", "10" 
+      
+    $20 
+    = radio_button_tag "amount", "20" 
+      
+    Other 
+    = radio_button_tag "amount" ,"other"
+    = text_field :donation, :amount, :cols => "5", :disabled => :disabled
+    = button_tag "Donate"
   
   
 = render 'youtube/upload', :videos => @project.videos, :width => 400
@@ -20,3 +36,17 @@
 - if admin_signed_in?
   = button_to 'Delete', project_path(@project), :method => :delete
 
+:javascript
+  $(document).ready(function(){
+      $('#amount_10').click(function(){
+        $('#donation_amount').attr("disabled","disabled");
+      });
+
+      $('#amount_20').click(function(){
+        $('#donation_amount').attr("disabled","disabled");
+      });
+
+      $('#amount_other').click(function(){
+        $('#donation_amount').removeAttr("disabled");
+      });
+  });

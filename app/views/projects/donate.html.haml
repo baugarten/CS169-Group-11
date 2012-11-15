@@ -20,6 +20,8 @@
         Donation amount
       .span3
         = text_field :donation, :readable_amount, :readonly=>:true
+      .span1
+        = link_to "Edit", project_path(@project), :class => "btn btn-warning"
     .row
       .span3
         Email

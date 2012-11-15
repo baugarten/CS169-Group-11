@@ -92,10 +92,16 @@ class ProjectsController < ApplicationController
   
   def donate
     @project = Project.find(params[:id])
+    case params[:amount]
+      when "10" then amount = 1000
+      when "20" then amount = 2000
+      when "other" then amount = parse_amount(params[:donation][:amount])
+    end
+
     if (current_user)
-      @donation = Donation.new({:amount=>500, :email=>current_user.email})
+      @donation = Donation.new({:amount=>amount, :email=>current_user.email})
     else
-      @donation = Donation.new({:amount=>500})
+      @donation = Donation.new({:amount=>amount})
     end
     
     @stripe_public_key = ENV['STRIPE_PK']
@@ -127,4 +133,18 @@ class ProjectsController < ApplicationController
     flash[:error] = e.message
     redirect_to donate_project_path(params[:id])
   end
+
+  private
+  def parse_amount(amount)
+    parse = /\$?(?<dollars>\d+)(.(?<cents>\d*))?/.match(amount)
+    dollars = cents = 0
+    if parse[:dollars]
+      dollars = Integer(parse[:dollars])
+    end
+    if parse[:cents]
+      cents = Integer(parse[:cents])
+    end
+    return (dollars * 100) + cents
+  end
 end
+
