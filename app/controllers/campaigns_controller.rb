@@ -110,10 +110,12 @@ class CampaignsController < ApplicationController
     @friends = @campaign.campaign_friend
   end
 
-  def sent_count
-    @campaign = Campaign.find(params[:id])
-
-    @campaign.campaign_friend.sent_count +=1
+  def track
+     @campaign = Campaign.find(params[:id])
+     
+     @friend=@campaign.campaign_friend.find(params[:friend])
+     @friend.sent_count=@friend.sent_count+1
+     @friend.save
   end
 
 end

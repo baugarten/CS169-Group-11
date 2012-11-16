@@ -11,6 +11,7 @@ OneProsper::Application.routes.draw do
   match 'dashboard/edit' => 'dashboard#edit'
   match 'dashboard/update' => 'dashboard#update'
   
+  
   resources :campaigns do
     member do
       get 'farmers'
@@ -23,7 +24,7 @@ OneProsper::Application.routes.draw do
       put 'submit_template'
       #get 'send_emails'
       get 'manager'
-     
+      get 'track'
     end
   end
 
