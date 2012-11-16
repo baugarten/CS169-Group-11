@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103071201) do
+ActiveRecord::Schema.define(:version => 20121115232008) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20121103071201) do
     t.integer "campaign_id"
     t.text    "email_template"
     t.text    "email_subject"
+    t.integer "sent_count",     :default => 0
+    t.boolean "opened",         :default => false
   end
 
   add_index "campaign_friends", ["campaign_id"], :name => "index_campaign_friends_on_campaign_id"

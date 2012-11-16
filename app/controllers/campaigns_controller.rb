@@ -97,6 +97,7 @@ class CampaignsController < ApplicationController
     campaign.campaign_friend.each do |friend|
       friend.email_subject = campaign.email_subject
       friend.email_template = campaign.template
+      friend.email_template= "Hello #{friend.name} \n" + campaign.template + "\n \n My vidoe: #{campaign.video_link}"
       friend.save
     end
     
@@ -108,4 +109,11 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.find(params[:id])
     @friends = @campaign.campaign_friend
   end
+
+  def sent_count
+    @campaign = Campaign.find(params[:id])
+
+    @campaign.campaign_friend.sent_count +=1
+  end
+
 end

@@ -23,6 +23,7 @@ OneProsper::Application.routes.draw do
       put 'submit_template'
       #get 'send_emails'
       get 'manager'
+     
     end
   end
 
