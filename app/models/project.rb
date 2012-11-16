@@ -34,6 +34,14 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def current_remaining
+    return self.target - self.current
+  end
+  
+  def readable_current_remaining()
+    return "$#{self.current_remaining}.00"
+  end
+  
   def init
     self.current ||= 0
     self.priority ||= 1

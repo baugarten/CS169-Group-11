@@ -94,7 +94,7 @@ When /^I fill in phony credentials$/ do
 end
 
 When /^I fill in correct payment information$/ do
-  click_button('Pay with Card')
+  click_button('Donate')
   fill_in('paymentNumber', :with=>"4242424242424242")
   fill_in('paymentExpiryMonth', :with=>"1")
   fill_in('paymentExpiryYear', :with=>"25")
@@ -103,7 +103,7 @@ When /^I fill in correct payment information$/ do
 end
 
 When /^I fill in invalid payment information$/ do
-  click_button('Pay with Card')
+  click_button('Donate')
   fill_in('paymentNumber', :with=>"4000000000000002")
   fill_in('paymentExpiryMonth', :with=>"1")
   fill_in('paymentExpiryYear', :with=>"25")

@@ -92,16 +92,29 @@ class ProjectsController < ApplicationController
   
   def donate
     @project = Project.find(params[:id])
-    case params[:amount]
-      when "10" then amount = 1000
-      when "20" then amount = 2000
-      when "other" then amount = parse_amount(params[:donation][:amount])
+    
+    if (@project.completed)
+      flash[:error] = "Thanks for your interest; this project has already reached its goal"
+      redirect_to projects_path()
+      return
+    end
+    
+    if (params[:amount] == "other")
+      amount = params[:donation][:amount]
+    else
+      amount = params[:amount]
     end
 
     if (current_user)
-      @donation = Donation.new({:amount=>amount, :email=>current_user.email})
+      @donation = Donation.new({:readable_amount=>amount, :email=>current_user.email})
     else
-      @donation = Donation.new({:amount=>amount})
+      @donation = Donation.new({:readable_amount=>amount})
+    end
+
+    if (@donation.amount > @project.current_remaining * 100)
+      flash[:error] = "There is only #{@project.readable_current_remaining} left to fund for this project; you attempted to donate #{@donation.readable_amount}"
+      redirect_to project_path(@project)
+      return
     end
     
     @stripe_public_key = ENV['STRIPE_PK']
@@ -110,7 +123,19 @@ class ProjectsController < ApplicationController
   def charge
     @project = Project.find(params[:id])
     
+    if (@project.completed)
+      flash[:error] = "Thanks for your interest; this project has already reached its goal"
+      redirect_to projects_path()
+      return
+    end
+    
     @donation = Donation.new(params[:donation])
+    
+    if (@donation.amount > @project.current_remaining * 100)
+      flash[:error] = "There is only #{@project.readable_current_remaining} left to fund for this project; you attempted to donate #{@donation.readable_amount}"
+      redirect_to project_path(@project)
+      return
+    end
     
     @donation.project = @project
     if (current_user)
@@ -132,19 +157,6 @@ class ProjectsController < ApplicationController
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to donate_project_path(params[:id])
-  end
-
-  private
-  def parse_amount(amount)
-    parse = /\$?(?<dollars>\d+)(.(?<cents>\d*))?/.match(amount)
-    dollars = cents = 0
-    if parse[:dollars]
-      dollars = Integer(parse[:dollars])
-    end
-    if parse[:cents]
-      cents = Integer(parse[:cents])
-    end
-    return (dollars * 100) + cents
   end
 end
 
