@@ -1,9 +1,0 @@
-<h1>Select Farmer to Fund</h1>
-
-<ul class="unstyled clearfix">
-<% @projects.each do |project| %>
-  <%= link_to select_farmer_campaign_path(@campaign, project) do %>
-    <%= render 'projects/list', :project => project %>
-  <% end %>
-<% end %>
-</ul>
