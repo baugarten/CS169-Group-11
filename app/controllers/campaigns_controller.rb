@@ -13,6 +13,9 @@ class CampaignsController < ApplicationController
 
   def new
     campaign = current_user.campaign.create
+    campaign.project=nil
+    campaign.save!
+
     redirect_to(farmers_campaign_path(campaign))
 	end
 
@@ -26,7 +29,15 @@ class CampaignsController < ApplicationController
   def farmers
     id = params[:id]
     @campaign = Campaign.find(id)
-    @projects = Project.all
+
+    @existed_projects=Campaign.all(:conditions=>["user_id=?",current_user.id])
+    result=[]
+    @existed_projects .each do|campaign|
+      if campaign != nil && campaign.project!=nil
+        result.push(campaign.project.id)
+      end
+    end
+    @projects=Project.find(:all, :conditions => ["id NOT IN (?)", result])
   end
   
   def select_farmer
