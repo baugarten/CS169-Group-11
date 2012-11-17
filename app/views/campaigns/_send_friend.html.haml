@@ -6,7 +6,7 @@
   .span2
     = friend.sent_count
   .span2
-    = friend.opened
+    = friend.opened==0?"Unconfirmed":"Confirmed"
   .span2
     =link_to "Send Now" ,track_campaign_path(:friend=>friend)
-    -#= mail_to friend.email, friend.name, :subject=>friend.email_subject, :body=>friend.email_template, :action=>'campaign#sent'
+    -#= mail_to friend.email, friend.name, :subject=>friend.email_subject, :body=>friend.email_template

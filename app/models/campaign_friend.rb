@@ -1,5 +1,5 @@
 class CampaignFriend < ActiveRecord::Base
-  attr_accessible :name, :email, :campaign_id, :email_template, :email_subject, :sent_count, :opened
+  attr_accessible :name, :email, :campaign_id, :email_template, :email_subject, :sent_count, :opened, :confirm_link
   belongs_to :campaign
   
   def email_body

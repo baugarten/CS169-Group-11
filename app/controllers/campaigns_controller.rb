@@ -98,6 +98,9 @@ class CampaignsController < ApplicationController
       friend.email_subject = campaign.email_subject
       friend.email_template = campaign.template
       friend.email_template= "Hello #{friend.name} \n" + campaign.template + "\n \n My vidoe: #{campaign.video_link}"
+      
+      friend.confirm_link= request.protocol+request.host_with_port+"/"+"campaigns/#{campaign.id}/confirm_watched?friend=#{friend.id}"
+      friend.email_template += "\n\n Please click the link Confirm you Watched my video: #{friend.confirm_link}"
       friend.save
     end
     
@@ -118,4 +121,10 @@ class CampaignsController < ApplicationController
      @friend.save
   end
 
+  def confirm_watched
+     @campaign = Campaign.find(params[:id])
+     @friend=@campaign.campaign_friend.find(params[:friend])
+     @friend.opened= @friend.opened+1
+     @friend.save
+  end
 end

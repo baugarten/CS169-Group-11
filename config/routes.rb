@@ -25,6 +25,7 @@ OneProsper::Application.routes.draw do
       #get 'send_emails'
       get 'manager'
       get 'track'
+      get 'confirm_watched'
     end
   end
 

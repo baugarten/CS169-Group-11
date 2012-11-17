@@ -27,7 +27,8 @@ ActiveRecord::Schema.define(:version => 20121115232008) do
     t.text    "email_template"
     t.text    "email_subject"
     t.integer "sent_count",     :default => 0
-    t.boolean "opened",         :default => false
+    t.integer "opened",         :default => 0
+    t.string  "confirm_link",   :default => "No LINK"
   end
 
   add_index "campaign_friends", ["campaign_id"], :name => "index_campaign_friends_on_campaign_id"
