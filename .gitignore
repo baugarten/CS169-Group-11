@@ -13,4 +13,15 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+log/*.log
+*.log
+/tmp/
+doc/
+*.swp
+*~
+*.rb~
+*.haml~
+*.scss~
+.project
+.DS_Store
 coverage

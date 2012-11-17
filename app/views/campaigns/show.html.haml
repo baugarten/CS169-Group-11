@@ -1,0 +1,21 @@
+%h1 Send your Donation Requests!
+
+%h3 Message Template
+%b Subject:
+%br
+= @campaign.email_subject
+%br
+%b Body:
+%br
+= @campaign.template
+
+%h3 Send Emails
+.row
+  .span3
+    %b Name
+  .span5
+    %b Email address
+  .span4
+    %b Send!
+- @campaign.campaign_friend.each do |friend|
+  = render 'send_friend', :friend => friend

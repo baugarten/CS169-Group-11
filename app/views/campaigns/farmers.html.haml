@@ -1,0 +1,14 @@
+%h2 Select Farmer to Fund
+
+%div{:class=>"unstyled clearfix"}
+  -if not @projects.empty?
+    -@projects.each do |project| 
+      =link_to select_farmer_campaign_path(@campaign, project) do
+        =render 'projects/list', :project => project 
+  -else
+    %center
+      %p{:style =>"color:orange"}
+        -if Project.find(:all).count >0
+          ="You have campaigns for All the Famrers Already "
+        -else
+          ="There is No Farmers in Database For you to select yet"
