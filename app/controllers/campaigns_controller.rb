@@ -77,6 +77,17 @@ class CampaignsController < ApplicationController
   def submit_video
     campaign = Campaign.find(params[:id])
     campaign.video_link = params[:campaign][:video_link]
+    if not (params[:campaign][:video_link].blank? ^ params[:videos].nil?)
+      redirect_to video_campaign_path(campaign)
+      return
+      # error
+    end
+    if not params[:videos].nil?
+      video = Video.create(params[:videos]["0"])
+    else
+      video = Video.create({ :video_id => params[:campaign][:video_link] })
+    end
+    campaign.video = video
     campaign.save
     
     redirect_to template_campaign_path(campaign)
