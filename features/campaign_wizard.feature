@@ -22,6 +22,7 @@ Scenario: Complete a campaign
 
 	Then the campaign should be on the "record video" page
 	When I fill in "Video Link" with "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  And I choose "link" from "video"
 	And I press "Next"
 
 	Then the campaign should be on the "message template" page

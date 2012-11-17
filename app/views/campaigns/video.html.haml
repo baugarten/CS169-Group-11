@@ -1,15 +1,20 @@
 %h1 Add a Video
 
-= form_tag submit_video_campaign_path(@campaign), :method => :put do
-  %p Enter the video link you want your friends to see here
-  %p Or record one using your webcam!
+= form_tag submit_video_campaign_path(@campaign), :method => :put do 
+  %p Record a video or link to a video on youtube!
   %br
   
-  = label :campaign, :video_link, 'Video Link'
-  = text_field :campaign, :video_link
+  .row
+    .span12{:style => "height: 300px;" }
+      = radio_button_tag 'video', 'recorded', true, :class => "pull-left video-select"
+      = render 'youtube/upload', :height => 300, :width => 500, :editable => false, :form => true, :extras => 1
+  .row
+    .span12{:style => "margin-top: 30px; height: 14px"}
+      = radio_button_tag 'video', 'link', false, :class => "pull-left video-select"
+      = label :campaign, :video_link, 'Video Link', :class => "pull-left unstyled-label"
+      = text_field :campaign, :video_link
 
 
-  = render 'youtube/upload', :width => 500, :editable => false, :form => true, :extras => 1
 
   %br
   = submit_tag 'Next'
