@@ -37,8 +37,12 @@ class CampaignsController < ApplicationController
         result.push(campaign.project.id)
       end
     end
+    if result.empty?
+      result.push(-1)
+    end
+
     @projects=Project.find(:all, :conditions => ["id NOT IN (?)", result])
-    
+    #render :text => @projects.inspect
   end
   
   def select_farmer
