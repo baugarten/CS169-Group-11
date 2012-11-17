@@ -15,6 +15,13 @@ class CampaignsController < ApplicationController
     campaign = current_user.campaign.create
     redirect_to(farmers_campaign_path(campaign))
 	end
+
+  def destroy
+    @campaign = Campaign.find(params[:id])
+    @campaign.destroy
+    flash[:notice] = "Campaign was deleted successfully"
+    redirect_to dashboard_path
+  end
   
   def farmers
     id = params[:id]

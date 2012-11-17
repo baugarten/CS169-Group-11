@@ -3,13 +3,14 @@
     %tr
       %th Farmer
       %th Number of Friends
-      %th Progress
+      %th Progress     
   %tbody
     - @user.campaign.each do |campaign|
       %tr
       -if not campaign.project==nil && campaign!=nil
         %td= link_to  "#{campaign.project.farmer}", manager_campaign_path(campaign)
         %td= campaign.campaign_friend.find(:all).count
-        %td= "$" + campaign.project.current.to_s() + " / $" + campaign.project.target.to_s()
+        %td= "$" + campaign.project.current.to_s() + " / $" + campaign.project.target.to_s() 
+        %td= link_to "Delete", campaign_path(campaign), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
 
 
