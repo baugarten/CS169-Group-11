@@ -1,38 +1,38 @@
 .hero-unit.project_sidebar
-  = if not @project.photos.empty? then image_tag(photo_path(@project.photos[0]), :width => 400, :class => 'pull-left') else image_tag(default_photo_path, :width => 400, :class => 'pull-left') end
-  %h1 
-    = @project.farmer
-  %h2 
-    $#{@project.current.to_i} donated of $#{@project.target.to_i} goal
-  %p
-    = @project.description
-  .progress.progress-striped.active
-    - width = 100 - (@project.target - @project.current) * 100 / @project.target
-    .bar{:style => "width: #{width}%;"} 
+  = render 'farmer'
 
-%br
-
-.donation-form
-  Donation:
+  %h2 Donate:
   = form_tag donate_project_path(@project.id), :method => :get, :id => 'donation-form' do
+
+    .row
+      .span1
+        = radio_button_tag "amount", "5" 
+      .span2
+        = label :amount, 5, "$5"
     
-    = radio_button_tag "amount", "5" 
-    = label :amount, 5, "$5"
-    %br
+    .row
+      .span1
+        = radio_button_tag "amount", "10" 
+      .span2
+        = label :amount, 10, "$10"
+        
+    .row
+      .span1
+        = radio_button_tag "amount", "20" 
+      .span2
+        = label :amount, 20, "$20"
     
-    = radio_button_tag "amount", "10" 
-    = label :amount, 10, "$10"
-    %br
+    .row
+      .span1
+        = radio_button_tag "amount" ,"other"
+      .span2
+        = label :amount, "other", "Other"
+      .span4
+        = text_field :donation, :amount, :cols => "5", :disabled => :disabled
     
-    = radio_button_tag "amount", "20" 
-    = label :amount, 20, "$20"
-    %br
-    
-    = radio_button_tag "amount" ,"other"
-    = label :amount, "other", "Other"
-    = text_field :donation, :amount, :cols => "5", :disabled => :disabled
-    %br
-    = button_tag "Donate"
+    .row
+      .span3
+        = button_tag "Donate"
   
   
 = render 'youtube/upload', :videos => @project.videos, :width => 400

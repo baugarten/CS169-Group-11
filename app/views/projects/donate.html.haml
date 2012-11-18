@@ -1,19 +1,8 @@
-%p#notice
-  = notice 
-.hero-unit
-  %img{:width=>400,:src=>'http://ec.comps.canstockphoto.com/can-stock-photo_csp5503366.jpg',:class=>'pull-left'}
-  %h1 
-    = @project.farmer
-  %h2 
-    $#{@project.current.to_i} donated of $#{@project.target.to_i} goal
-  %p
-    = @project.description
-  .progress.progress-striped.active
-    - width = 100 - (@project.target - @project.current) * 100 / @project.target
-    .bar{:style => "width: #{width}%;"} 
-
+.hero-unit.project_sidebar
+  = render 'farmer'
+  
   %h2
-    Donate now
+    Donate:
   = form_for :donation, :url => charge_project_path(@project) do |form|
     .row
       .span3
