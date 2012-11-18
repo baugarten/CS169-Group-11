@@ -161,7 +161,7 @@ class CampaignsController < ApplicationController
   
   def submit_template
     session[:template_content]=params[:campaign][:template]
-    session[:template_subject]=params[:campaign][:template_subject]
+    session[:template_subject]=params[:campaign][:email_subject]
     
     a=session[:template_subject]
     b=session[:template_content]
