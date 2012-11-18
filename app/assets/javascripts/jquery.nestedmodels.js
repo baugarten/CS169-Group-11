@@ -1,6 +1,7 @@
 (function($) {
   $.fn.nestedmodel = function(options) {
     var settings = $.extend({
+      base: 0,
       handle: ".video",
       removeObj: true,
       removeHandle: ".remove",
@@ -9,7 +10,9 @@
 
     return this.each(function() {
       
-      var count = 0;
+      var orig = parseInt(settings.base);
+      var count = orig;
+
       $(settings.handle).each(function(index, video) {
         count = count + 1;
       });
@@ -20,7 +23,7 @@
       if (!settings.removeObj && $(this).find(settings.removeHandle).length == 0) {
         $(this).append("<a id='remove' class='btn'>Remove</a>");
         settings.removeHandle = "#remove";
-        if (count <= 1) {
+        if (count <= orig+1) {
           $(settings.removeHandle).attr("disabled", "disabled");
         }
       } 
@@ -39,7 +42,7 @@
       function add(event) {
         var index = $(settings.handle).length;
         var last = $(settings.handle + ':last');
-        var toadd = reindex(last.clone(), index);
+        var toadd = reindex(last.clone(), orig + index);
         toadd.find("input").removeAttr("value");
         last.after(toadd);
         count++;
@@ -56,11 +59,11 @@
         } else {
           toremove = $(settings.handle + ":last");
         }
-        if (count > 1) {
+        if (count - orig > 1) {
           toremove.remove();
           count--;
         }
-        if (count <= 1) {
+        if (count  - orig <= 1) {
           $(settings.removeHandle).attr("disabled", "disabled");
         }
         return false;

@@ -45,8 +45,8 @@
   - index = 0
   #videos
     = f.fields_for :videos do |builder|
-      .control-group.video
-        = builder.label "Video #{index+1}", :class => "control-label #{("extra" if builder.object.new_record?)}"
+      .control-group.video{:class => ("extra" if builder.object.new_record?)}
+        = builder.label "Video #{index+1}", :class => "control-label" 
         .controls
           = builder.text_field :video_id
           - unless builder.object.new_record?
@@ -62,8 +62,8 @@
   - index = 0
   #photos
     = f.fields_for :photos do |builder|
-      .control-group.photo
-        = builder.label "Photo #{index+1}", :class => "control-label #{("extra" if builder.object.new_record?)}"
+      .control-group.photo{:class => ("extra" if builder.object.new_record?)}
+        = builder.label "Photo #{index+1}", :class => "control-label"
         .controls
           = builder.file_field :input_data
           - unless builder.object.new_record?

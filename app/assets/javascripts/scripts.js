@@ -12,12 +12,14 @@
        "html", "bold","italic","underline","strikethrough","|", "subscript", "forecolor","increasefontsize", "decreasefontsize", "orderedlist", "unorderedlist", "indent", "outdent", "justifyleft", "justifycenter", "justifyright", "link", "unlink", "image", "horizontalrule", "h1","h2","h3","h4","h5","h6"]});
 
     $("#videos").nestedmodel({
+      base: $(".video").not(".extra").length,
       handle: ".video.extra",
       removeObj: false,
       removeHandle: "#remove-video",
       addHandle: "#add-video",
     });
     $("#photos").nestedmodel({
+      base: $(".video").not(".extra").length,
       handle: ".photo.extra",
       removeObj: false,
       removeHandle: "#remove-photo",

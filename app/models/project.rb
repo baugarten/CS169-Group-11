@@ -29,7 +29,8 @@ class Project < ActiveRecord::Base
     self.completed = (self.target <= self.current unless self.completed or self.target == 0)
   end
 
+  # Page starts at 1
   def self.top_projects(page)
-    Project.order("priority DESC, created_at DESC").page(page).limit(12)
+    Project.order("priority DESC, created_at DESC").page(page).per(12)
   end
 end
