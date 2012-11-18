@@ -6,7 +6,7 @@ class CampaignFriend < ActiveRecord::Base
     body = email_template
     body.gsub!("<name>", name)
     body.gsub!("<email>", email)
-    body.gsub!("<link>", campaign.video_link)
+    body.gsub!("<link>", confirm_link)
     return body
   end
 end
