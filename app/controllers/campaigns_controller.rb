@@ -41,13 +41,13 @@ module CampaignHelper
 end
 
 class CampaignsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except=>[:confirm_watched]
   #before_filter :check_owner, :only=>[:manger]
   include CampaignHelper
 
   def check_owner
     id = params[:id]
-    #campaign = Campaign.find(id)
+    campaign = Campaign.find(id)
     if not campaign.user == current_user
       flash[:error] = "You may only view your campaigns"
       redirect_to dashboard_path
@@ -55,10 +55,7 @@ class CampaignsController < ApplicationController
   end
 
   def index
-    #campaign = current_user.campaign.create
-    campaign.project=nil
-    campaign.save!
-    redirect_to campaign_farmers_path(campaign)
+    redirect_to campaign_farmers_path()
 	end
 
   def destroy
@@ -81,7 +78,6 @@ class CampaignsController < ApplicationController
     end
 
     @projects=Project.find(:all, :conditions => ["id NOT IN (?)", result])
-    #render :text => @projects.inspect
   end
   
   def select_farmer
@@ -151,7 +147,6 @@ class CampaignsController < ApplicationController
   
   def submit_video
     session[:video_link]=params[:campaign][:video_link] 
-    #render :text => session[:video_link].inspect  
     redirect_to template_campaign_path()
   end
   
@@ -212,20 +207,21 @@ class CampaignsController < ApplicationController
   end
 
   def manager
-    @campaign = Campaign.find(params[:id])
-    @friends = @campaign.campaign_friend
+    @campaign = Campaign.find_by_id(params[:id])
+    
+    @friends = @campaign.campaign_friend unless @campaign==nil
     reset_session
   end
 
   def track
-     @campaign = Campaign.find(params[:id])   
+     @campaign = Campaign.find_by_id(params[:id])   
      @friend=@campaign.campaign_friend.find(params[:friend])
      @friend.sent_count=@friend.sent_count+1
      @friend.save
   end
 
   def confirm_watched
-     @campaign = Campaign.find(params[:id])
+     @campaign = Campaign.find_by_id(params[:id])
      @friend=@campaign.campaign_friend.find(params[:friend])
      if @friend.sent_count>0
         @friend.opened= @friend.opened+1

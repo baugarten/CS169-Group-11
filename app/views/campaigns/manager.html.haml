@@ -1,25 +1,35 @@
-%h1 Send your Donation Requests!
+-if @campaign!=nil
+  %h1 Send your Donation Requests!
 
-%h3 Message Template
-%b Subject:
-%br
-= @campaign.email_subject
-%br
-%b Body:
-%br
-= @campaign.template
+  %h3 Message Template
+  %b Subject:
+  %br
 
-%h3 Send Emails
-.row
-  .span2
-    %b Name
-  .span2
-    %b Email address
-  .span2
-    %b Sent Counter
-  .span2
-    %b Opened?
-  .span2
-    %b Send Now
-- @campaign.campaign_friend.each do |friend|
-  = render 'send_friend', :friend => friend
+  = @campaign.email_subject
+  %br
+  %b Body:
+  %br
+  = @campaign.template
+
+  %h3 Send Emails
+  .row
+    .span2
+      %b Name
+    .span2
+      %b Email address
+    .span2
+      %b Sent Counter
+    .span2
+      %b Opened?
+    .span2
+      %b Send Now
+  - @campaign.campaign_friend.each do |friend|
+    = render 'send_friend', :friend => friend
+-else
+  %h1 Illegal Path , Camapaign Does not Exist
+  %center
+  %br
+  %br
+  %br
+  %br
+  ="Sorry Illegal Inquiry..........."
