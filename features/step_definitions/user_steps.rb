@@ -110,3 +110,9 @@ When /^I fill in invalid payment information$/ do
   fill_in('paymentName', :with=>"John Doe")
   fill_in('paymentCVC', :with=>"123")
 end
+
+When /^I try to donate "(.*)" to "(.*)"$/ do |amount, farmer_name|
+  farmer = Project.find_by_farmer(farmer_name)
+  post charge_project_path(farmer, :donation=>{:amount=>amount, :email=>""})
+end
+

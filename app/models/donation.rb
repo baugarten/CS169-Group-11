@@ -20,6 +20,11 @@ class Donation < ActiveRecord::Base
     dollars = 0
     cents = 0
     
+    if not parse
+      self.amount = 0
+      return
+    end
+    
     if (parse[:dollars])
       dollars = Integer(parse[:dollars])
     end

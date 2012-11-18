@@ -5,66 +5,57 @@ Feature: Make a donation
 
 Background:
   Given the following projects exist
-  | farmer      | description | target | current | end_date | ending |
-  | Farmer John | Oink!       | 500    | 0      | 1/1/2015 | true   | 
+  | farmer      | description | target | current | end_date | completed |
+  | Farmer John | Oink!       | 500    | 0       | 1/1/2015 | false     | 
+  | Farmer Joe  | Moo!        | 500    | 490      | 1/1/2015 | false    | 
+  | Farmer Bob  | Bawk!       | 500    | 500      | 1/1/2015 | true     | 
 
-@javascript
-Scenario: Make a donation
+Scenario: Farmer and donation amount choice should correctly transfer to donation payment page
   When I am on the project details page for "Farmer John"
-  Then I should see "$0 donated"
   And I choose "$5"
   And I press "Donate"
   # farmer to donate to
-  And I should see "Farmer John"
+  Then I should see "Farmer John"
   # donation amount
-  And I should see "$5.00"
-  # optional field, not checked - but makes sure textbox is there when no user logged in
-  And I fill in "Email" with "anon@anon.com"
-  And I fill in correct payment information
-  And I press "Pay $5.00"
-  Then I should see "Thank you"
-  When I am on the project details page for "Farmer John"
-  Then I should see "$5 donated"
+  And the "donation_readable_amount" field should contain "\$5.00"
 
-@javascript
-Scenario: Make a custom-amount donation
-  When I am on the project details page for "Farmer John"
-  Then I should see "$0 donated"
-  And I choose "Other"
-  And I fill in "donation_amount" with "6"
-  And I press "Donate"
-  And I should see "Farmer John"
-  And I should see "$6.00"
-  And I fill in "Email" with "anon@anon.com"
-  And I fill in correct payment information
-  And I press "Pay $6.00"
-  Then I should see "Thank you"
-  When I am on the project details page for "Farmer John"
-  Then I should see "$6 donated"
-  
-@javascript
-Scenario: Attempt to donate using invalid credit card information
-  When I am on the project details page for "Farmer John"
-  Then I should see "$0 donated"
-  And I choose "$5"
-  And I press "Donate"
-  And I fill in invalid payment information
-  And I press "Pay $5.00"
-  Then I should not see "Thank you"
-  When I am on the project details page for "Farmer John"
-  Then I should see "$0 donated"
-
-@javascript
-Scenario: Make a donation from a logged-in user
+Scenario: Email data should transfer from logged-in user
   Given I am logged in as the test user
   When I am on the project details page for "Farmer John"
-  Then I should see "$0 donated"
   And I choose "$5"
   And I press "Donate"
   # email field pre-populated with logged-in user data
-  Then I should see "test@email.com"
-  When I fill in correct payment information
-  And I press "Pay $5.00"
-  When I am on the user dashboard
-  Then I should see "$5 donated to Farmer John"
+  And the "donation_email" field should contain "test@email.com"
+
+Scenario: Attempting to donate to completed project gives an error
+  When I am on the project details page for "Farmer Bob"
+  And I choose "$5"
+  And I press "Donate"
+  Then I should be on the projects index page
+  Then I should see "this project has already reached its goal"
   
+Scenario: Attempting to donate too much
+  When I am on the project details page for "Farmer Joe"
+  And I choose "$20"
+  And I press "Donate"
+  Then I should be on the project details page for "Farmer Joe"
+  And I should see "There is only $10.00 left to fund for this project; you attempted to donate $20.00"
+
+@javascript
+Scenario: Empty custom donation choice should return error
+  When I am on the project details page for "Farmer John"
+  And I choose "Other"
+  And I press "Donate"
+  Then I should be on the project details page for "Farmer John"
+  Then I should see "Invalid donation amount"
+  
+@javascript
+Scenario: Farmer and custom donation amount choice should correctly transfer to donation payment page
+  When I am on the project details page for "Farmer John"
+  And I choose "Other"
+  And I fill in "donation_amount" with "6"
+  And I press "Donate"
+  Then I should see "Farmer John"
+  And the "donation_readable_amount" field should contain "\$6.00"
+ 
+

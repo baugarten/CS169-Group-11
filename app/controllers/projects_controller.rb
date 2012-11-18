@@ -111,6 +111,11 @@ class ProjectsController < ApplicationController
       @donation = Donation.new({:readable_amount=>amount})
     end
 
+    if (@donation.amount == 0)
+      flash[:error] = "Invalid donation amount"
+      redirect_to project_path(@project)
+    end
+    
     if (@donation.amount > @project.current_remaining * 100)
       flash[:error] = "There is only #{@project.readable_current_remaining} left to fund for this project; you attempted to donate #{@donation.readable_amount}"
       redirect_to project_path(@project)

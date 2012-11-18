@@ -35,7 +35,7 @@ class Project < ActiveRecord::Base
   end
 
   def current_remaining
-    return self.target - self.current
+    return Integer(self.target - self.current)
   end
   
   def readable_current_remaining()
