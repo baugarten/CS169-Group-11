@@ -1,6 +1,6 @@
 class CampaignsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :check_owner, :except=>[:new]
+  before_filter :authenticate_user!, :except=>[:confirm_watched]
+  before_filter :check_owner, :except=>[:new,:confirm_watched]
 
   def check_owner
     id = params[:id]
