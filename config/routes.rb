@@ -10,24 +10,39 @@ OneProsper::Application.routes.draw do
   match 'dashboard' => 'dashboard#show'
   match 'dashboard/edit' => 'dashboard#edit'
   match 'dashboard/update' => 'dashboard#update'
+  match 'campaign/farmers' => 'campaigns#farmers'
   
-  
-  resources :campaigns do
+
+  resource :campaign do
     member do
-      get 'farmers'
-      match 'select_farmer/:farmer' => 'campaigns#select_farmer', :as=>:select_farmer
+      get 'select_farmer'
       get 'friends'
       put 'submit_friends'
       get 'video'
       put 'submit_video'
       get 'template'
       put 'submit_template'
+      #match 'select_farmer/:farmer' => 'campaigns#select_farmer', :as=>:select_farmer
+    end
+  end
+  resources :campaigns do
+    member do
+      #get 'farmers'
+      
+      #match 'select_farmer/:farmer' => 'campaigns#select_farmer', :as=>:select_farmer
+      #get 'friends'
+      #put 'submit_friends'
+      #get 'video'
+      #put 'submit_video'
+      #get 'template'
+      #put 'submit_template'
       #get 'send_emails'
       get 'manager'
       get 'track'
       get 'confirm_watched'
     end
   end
+
 
   match 'photo/:id' => 'photo#display', :as => :photo
   

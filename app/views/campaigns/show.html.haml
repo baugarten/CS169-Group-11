@@ -3,11 +3,13 @@
 %h3 Message Template
 %b Subject:
 %br
-= @campaign.email_subject
+  -if not @campaign.nil?
+    =@campaign.email_subject
 %br
 %b Body:
 %br
-= @campaign.template
+  -if not @campaign.nil?
+    = @campaign.template
 
 %h3 Send Emails
 .row
@@ -17,5 +19,6 @@
     %b Email address
   .span4
     %b Send!
-- @campaign.campaign_friend.each do |friend|
-  = render 'send_friend', :friend => friend
+-if not @campaign.nil?
+  - @campaign.campaign_friend.each do |friend|
+    = render 'send_friend', :friend => friend

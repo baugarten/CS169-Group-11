@@ -1,35 +1,31 @@
 class CampaignsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :check_owner, :except=>[:new]
-
+  #before_filter :check_owner, :only=>[:manger]
+  include CampaignsHelper
   def check_owner
     id = params[:id]
-    campaign = Campaign.find(id)
+    #campaign = Campaign.find(id)
     if not campaign.user == current_user
       flash[:error] = "You may only view your campaigns"
       redirect_to dashboard_path
     end
   end
 
-  def new
-    campaign = current_user.campaign.create
+  def index
+    #campaign = current_user.campaign.create
     campaign.project=nil
     campaign.save!
-
-    redirect_to(farmers_campaign_path(campaign))
+    redirect_to campaign_farmers_path(campaign)
 	end
 
   def destroy
     @campaign = Campaign.find(params[:id])
     @campaign.destroy
-    flash[:notice] = "Campaign was deleted successfully"
+    flash[:notice] = "Campaign was Deleted Successfully"
     redirect_to dashboard_path
   end
   
   def farmers
-    id = params[:id]
-    @campaign = Campaign.find(id)
-
     @existed_projects=Campaign.all(:conditions=>["user_id=?",current_user.id])
     result=[]
     @existed_projects .each do|campaign|
@@ -46,77 +42,102 @@ class CampaignsController < ApplicationController
   end
   
   def select_farmer
-    campaign = Campaign.find(params[:id])
-    project = Project.find(params[:farmer])
-    
-    campaign.project = project
-    campaign.save!
-    
-    redirect_to friends_campaign_path(campaign)
+    session[:project]=params[:project]
+    redirect_to friends_campaign_path()
   end
   
   def friends
-    @campaign = Campaign.find(params[:id])
-    
+		check_session_farmer()
   end
   
   def submit_friends
-    campaign = Campaign.find(params[:id])
-    emails = params[:campaign][:email_list].split(",")
-    
-    failed = false
-    error = "Unable to understand these emails: <br/>"
-    
-    # clear friends before adding entire list
-    campaign.campaign_friend.clear
-    
-    emails.each do |email|
-      friend = campaign.campaign_friend.new
-      if (email =~ /\s*(.*)\s*<(.*)>/)
-        friend.name = $1
-        friend.email = $2
-        friend.save
-      else
-        if failed
-          error += ", "
+    error_msg =""
+    session[:email_list]=params[:campaign][:email_list]
+
+    email_list=params[:campaign][:email_list]
+    email_friends_count=0
+    valid_email={}
+    valid_email_test=[]
+    email_list.scan(/[\s]?([\w\s]+)<([\s+\w+\.\@]+)>+/).each do | m |
+      @name=""
+      m[0].nil? ? temp0="" : temp0=m[0]
+      temp0.scan(/\s*([a-zA-Z]+)/).each do|t|   
+        if not t[0].nil?
+          @name.empty? ? @name += t[0] : @name +=" "+ t[0]
         end
-        error += "#{email}"
-        failed = true
       end
+      
+      email=m[1]
+      if not email.nil?
+        #delete all spaces in email front& end, not including spaces between any two characters
+        email=email.gsub(/(^\s+|\s+$)/,"")
+        #check validation,email=nil if not valid email
+        email =email.match(/^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i) 
+      end
+      
+      #error_msg cases
+      if(@name.empty? && email.nil?)
+        error_msg="name field  and email field "
+        valid_email.push("error1, #{@name},#{email}")
+        break
+      elsif(@name.empty?)
+        error_msg="Name field is incorrect for #{email}"
+        valid_email.push("error2, #{@name},#{email}")
+        break
+      elsif(email.nil? ) 
+        error_msg="Email field is incorrect for #{@name}" 
+        valid_email.push("error3, #{@name},#{email}")
+        break
+      end
+
+      valid_email["#{email}"]="#{@name}"
     end
     
-    if failed
-      flash[:error] = error
-      redirect_to friends_campaign_path(campaign)
+ 
+    session[:valid_email]=valid_email unless valid_email.size ==0
+    
+  
+    if error_msg !=""
+      flash[:error] = error_msg
+      redirect_to friends_campaign_path()
     else
-      redirect_to video_campaign_path(campaign)
+      redirect_to video_campaign_path
     end
   end
   
   def video
-    @campaign = Campaign.find(params[:id])
+    check_session_friends
   end
   
   def submit_video
-    campaign = Campaign.find(params[:id])
-    campaign.video_link = params[:campaign][:video_link]
-    campaign.save
-    
-    redirect_to template_campaign_path(campaign)
+    session[:video_link]=params[:campaign][:video_link]    
+    redirect_to template_campaign_path()
   end
   
   def template
-    @campaign = Campaign.find(params[:id])
+    check_session_video
   end
   
   def submit_template
-    # save campaign-wide template
-    campaign = Campaign.find(params[:id])
-    campaign.email_subject = params[:campaign][:email_subject]
-    campaign.template = params[:campaign][:template]
-    campaign.save
+    session[:template_content]=params[:campaign][:template]
+    session[:template_subject]=params[:campaign][:template_subject]
     
-    # propagage to each individual friend
+    campaign = current_user.campaign.create
+    campaign.project=Project.find(session[:project])
+
+    emails=session[:valid_email]
+
+    emails.each do |temail,tname|
+      friend = campaign.campaign_friend.new
+      
+      friend.name = tname
+      friend.email = temail
+      friend.save
+    end
+
+    campaign.email_subject = session[:template_subject]
+    campaign.template = session[:template_content]
+
     campaign.campaign_friend.each do |friend|
       friend.email_subject = campaign.email_subject
       friend.email_template = campaign.template
@@ -126,19 +147,19 @@ class CampaignsController < ApplicationController
       friend.email_template += "\n\n Please click the link Confirm you Watched my video: #{friend.confirm_link}"
       friend.save
     end
-    
-    #redirect_to send_emails_campaign_path(campaign)
+    campaign.save
     redirect_to manager_campaign_path(campaign)
+    
   end
-  
+
   def manager
     @campaign = Campaign.find(params[:id])
     @friends = @campaign.campaign_friend
+    reset_campaign_session
   end
 
   def track
-     @campaign = Campaign.find(params[:id])
-     
+     @campaign = Campaign.find(params[:id])   
      @friend=@campaign.campaign_friend.find(params[:friend])
      @friend.sent_count=@friend.sent_count+1
      @friend.save
@@ -149,7 +170,6 @@ class CampaignsController < ApplicationController
      @friend=@campaign.campaign_friend.find(params[:friend])
      if @friend.sent_count>0
         @friend.opened= @friend.opened+1
-
      else
         @friend.opened=0 
      end
