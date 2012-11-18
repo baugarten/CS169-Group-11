@@ -97,8 +97,14 @@ class ProjectsController < ApplicationController
       return true
     end
     
-    if (donation.amount == 0)
-      flash[:error] = "Invalid donation amount"
+    if (donation.amount <= 0)
+      flash[:error] = "Invalid donation amount: #{donation.readable_amount}"
+      redirect_to project_path(project)
+      return true
+    end
+    
+    if (donation.amount < 100)
+      flash[:error] = "Minimum donation amount is $1.00; you attempted to donate #{donation.readable_amount}"
       redirect_to project_path(project)
       return true
     end

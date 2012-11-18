@@ -15,24 +15,12 @@ class Donation < ActiveRecord::Base
   end
   
   def readable_amount=(in_amount)
-    parse = /\$?(?<dollars>\d+)(.(?<cents>\d*))?/.match(in_amount)
+    parse = /^\$?(?<amount>[\d.-]+)$/.match(in_amount)
     
-    dollars = 0
-    cents = 0
+    self.amount = 0
     
-    if not parse
-      self.amount = 0
-      return
-    end
+    return if not parse
     
-    if (parse[:dollars])
-      dollars = parse[:dollars].to_i
-    end
-    
-    if (parse[:cents])
-      cents = parse[:cents].to_i
-    end
-    
-    self.amount = (dollars * 100) + cents
+    self.amount = (parse[:amount].to_f * 100).to_i
   end
 end
