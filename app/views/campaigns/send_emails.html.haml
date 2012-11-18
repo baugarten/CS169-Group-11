@@ -8,6 +8,9 @@
 %b Body:
 %br
 = @campaign.template
+%b Video:
+%br
+= render "youtube/upload", :videos => [@campaign.video]
 
 %h3 Send Emails
 .row

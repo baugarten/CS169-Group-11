@@ -34,7 +34,7 @@ $white: #FFFFFF;
   word-wrap: break-word;
 }
 
-.projectlist {
+.smallprojectlist {
   li {
     margin-right: 20px;
     margin-bottom: 5px;
@@ -47,7 +47,27 @@ $white: #FFFFFF;
     margin-top: -3px;
     margin-left: -3px;
     margin-right: 17px;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
+  }
+  .project_details {
+    float: left;
+    margin-right: 20px;
+    padding: 0;
+    word-wrap: break-word;
+    img {
+      max-width: 150px;
+      max-height: 150px;
+    }
+  }
+}
+
+.projectlist {
+  .project_details {
+    width: 250px;
+    height: 250px;
+    float: left;
+    margin-right: 50px;
+    word-wrap: break-word;
   }
 }
 
@@ -57,4 +77,12 @@ $white: #FFFFFF;
 #project_link {
   vertical-align: top;
   margin-left: 30px;
+}
+input.video-select {
+  height: 100%;
+  margin-right: 40px;
+  vertical-align: middle;
+}
+label.unstyled-label {
+  margin-right: 20px;
 }

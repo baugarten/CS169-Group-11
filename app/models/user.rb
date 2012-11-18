@@ -11,5 +11,18 @@ class User < ActiveRecord::Base
   # Photo support
   has_one :photo, :as => :imageable, :dependent => :destroy
   has_many :campaign, :dependent => :destroy
+
   has_many :donations
+
+  def displayname
+    if self.first_name.blank? and self.last_name.blank?
+      return "beats me"
+    elsif self.last_name.blank?
+      return self.first_name
+    elsif self.first_name.blank?
+      return self.last_name
+    else
+      return %Q{#{self.first_name} #{self.last_name}}
+    end
+  end
 end

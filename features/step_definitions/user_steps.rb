@@ -36,6 +36,15 @@ Given /^I am logged in as the test user$/ do
   click_button('Sign in')
 end
 
+Given /^I am logged in as an admin$/ do
+  Admin.create!({:email => "admin@email.com", :password => "password"})
+
+  visit path_to('the login admin page')
+  fill_in('Email', :with => 'admin@email.com')
+  fill_in('Password', :with => 'password')
+  click_button('Sign in')
+end 
+
 Given /^I register with an email that is already registered$/ do
   fill_in('Email', :with => 'test@email.com')
   fill_in('Password', :with => 'password')
@@ -91,6 +100,41 @@ When /^I fill in phony credentials$/ do
   fill_in('Email', :with => "fake@email.com")
   fill_in('Password', :with => "APSJDOPajkdlSANKJDHBASKDAIWRJAUEH<KAFJNBDAF<K")
   click_button('Sign in')
+end
+
+When /^I delete the test user$/ do
+  user = User.find_by_email("test@email.com")
+  within find("#user#{user.id}") do
+    click_button("Delete")
+  end
+end
+
+When /^I promote the test user to an admin$/ do
+  user = User.find_by_email("test@email.com")
+  within find("#user#{user.id}") do
+    click_button("Make Admin")
+  end
+end
+
+Then /^the test user should be deleted$/ do
+  step "I should not see \"test@email.com\""
+end
+
+Then /^the test user should be an admin$/ do
+  step "I am on the admin admins page"
+  step "I should see \"test@email.com\""
+end
+
+When /^I delete the bad admin$/ do
+  admin = Admin.find_by_email("test2@email.com")
+  within find("#admin#{admin.id}") do
+    click_button("Delete")
+  end
+end
+
+Then /^the bad admin should be deleted$/ do
+  step "I am on the admin admins page"
+  step "I should not see \"test2@email.com\""
 end
 
 When /^I fill in correct payment information$/ do

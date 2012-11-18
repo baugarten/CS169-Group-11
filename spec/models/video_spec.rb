@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe Video do
-  describe 'video_id' do
-    it 'should parse a youtube url' do
-      v = Video.new({:video_id => "http://www.youtube.com/watch?v=JtGchOIRL58&feature=g-vrec"})
-      v.id_from_url.should eq "JtGchOIRL58"
-    end
+  it 'should convert a youtube url to a video id' do
+    v = Video.create({:video_id => 'http://youtube.com/watch?k=kjhasdjfha&v=garbage&poop=jalkjsdf' })
+    v.video_id.should_not be_blank
+    v.video_id.should eq('garbage')
+  end
 
-    it "shouldn't mess up a random string" do
-      v = Video.new({:video_id => "JtGchOIRL58"})
-      v.id_from_url.should eq "JtGchOIRL58"
-    end
+  it 'should leave a random string of characters alone' do
+    v = Video.create({:video_id => 'garbage' })
+    v.video_id.should_not be_blank
+    v.video_id.should eq('garbage')
   end
 end

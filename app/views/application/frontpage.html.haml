@@ -10,7 +10,7 @@
 %div.container-fluid.frontpage
   %div.row-fluid
     %div.span8
-      %ul.unstyled.clearfix.projectlist
+      %ul.unstyled.clearfix.smallprojectlist
         - @projects.each.with_index do |project, index|
           = link_to project_path(project) do
             = render "projects/small", :project => project, :active => (if index == 0 then true else false end)

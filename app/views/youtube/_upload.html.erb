@@ -6,6 +6,7 @@
 
   @param videos: the videos to render, default nil if there are no videos yet
   @param width: width of the recorder
+  @param height: height of the recorder
   @param editable: Default false. Set to true to add 'remove' links next to existing videos
   @param form: Default false. Set to true to render hidden form fields for video ids. This should be true for all forms that this appears in
         NOTE: If form is set to false, then the rest of the params don't matter because none make
@@ -19,13 +20,14 @@
 <% 
   # Set defaults
   name_prefix = 'videos' # You can't change this. it will always show up as params[:videos]
-  width = 400 unless local_assigns.has_key? :width
+  width = nil unless local_assigns.has_key? :width
+  height = nil unless local_assigns.has_key? :height
   editable = false unless local_assigns.has_key? :editable
   form = false unless local_assigns.has_key? :form
   multiple = false unless local_assigns.has_key? :multiple and form
   add_link = 'upload another' unless local_assigns.has_key? :add_link and form
   extras = 0 unless local_assigns.has_key? :extras and form
-  videos = nil unless local_assigns.has_key? :videos
+  videos = [] unless local_assigns.has_key? :videos
   max = 0
 %>
 <div id="videos">
@@ -53,7 +55,9 @@ end
 extras.times do |index| %>
   <div class="video">
     <div id="widget<%= index %>" class="widget"></div>
-    <div id=<%=index%> class="btn remove_widget">Remove</div>
+    <% if editable %>
+      <div id=<%=index%> class="btn remove_widget">Remove</div>
+    <% end %>
   </div>
 <% end %>
 <% # If we are allowing the user to dynamically add extra videos
@@ -84,7 +88,12 @@ extras.times do |index| %>
   }
   function newWidget(i) {
     widget = new YT.UploadWidget('widget' + i, {
-      width: <%= width %>,
+      <% if (width) %>
+        width: <%= width %>,
+      <% end %>
+      <% if (height) %>
+        height: <%= height %>,
+      <% end %>
       events: {
         'onUploadSuccess': onUploadSuccess,
         'onProcessingComplete': onProcessingComplete,
