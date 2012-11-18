@@ -1,7 +1,62 @@
+module CampaignHelper
+    def check_session_farmer()
+      if session[:project] ==nil
+         flash[:error]="Please Select a Farmer"
+         redirect_to farmer_campaign_path
+         return
+       end
+    end
+
+    def check_session_friends()
+      if session[:valid_email] ==nil
+        flash[:error]="Please Enter Some Valid Name and Email"
+        redirect_to friends_campaign_path
+        return
+      end
+    end
+
+    def check_session_video()
+      if session[:video_link] ==nil
+        flash[:error]="Please Enter a Video Link"
+        redirect_to video_campaign_path
+        return
+      end 
+    end
+
+
+    def check_session_template()
+      if session[:template_subject] ==nil && session[:template_content]==nil
+        flash[:error]="Please Enter the Subject and Content"
+        redirect_to template_campaign_path
+        return
+
+      elsif session[:template_subject] ==nil
+        flash[:error]="Please Enter the Template Subject"
+        redirect_to template_campaign_path
+        return
+
+      elsif session[:template_content]==nil
+        flash[:error]="Please Enter the Template Content"
+        redirect_to template_campaign_path
+        return
+      end 
+    end
+
+    def reset_session
+      session[:template_content]=nil
+      session[:template_subject]=nil
+      session[:project]=nil
+      session[:valid_email]=nil
+      session[:video_link]=nil
+        
+    end
+end
+
 class CampaignsController < ApplicationController
   before_filter :authenticate_user!
   #before_filter :check_owner, :only=>[:manger]
-  include CampaignsHelper
+  include CampaignHelper
+
   def check_owner
     id = params[:id]
     #campaign = Campaign.find(id)
