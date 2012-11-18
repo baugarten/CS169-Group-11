@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_one :photo, :as => :imageable, :dependent => :destroy
   has_many :campaign, :dependent => :destroy
 
+  has_many :donations
+
   def displayname
     if self.first_name.blank? and self.last_name.blank?
       return "beats me"

@@ -1,16 +1,9 @@
 .hero-unit.project_sidebar
-  = if not @project.photos.empty? then image_tag(photo_path(@project.photos[0]), :width => 400, :class => 'pull-left') else image_tag(default_photo_path, :width => 400, :class => 'pull-left') end
-  %h1 
-    = @project.farmer
-  %h2 
-    $#{@project.current.to_i} donated of $#{@project.target.to_i} goal
-  %p
-    = @project.description
-  .progress.progress-striped.active
-    - width = 100 - (@project.target - @project.current) * 100 / @project.target
-    .bar{:style => "width: #{width}%;"} 
-  %button.btn.btn-primary
-    Donate
+  = render 'farmer'
+
+  = render 'donation', :project=>@project
+  
+  
 = render 'youtube/upload', :videos => @project.videos, :width => 400
 
 - if admin_signed_in?
@@ -20,3 +13,17 @@
 - if admin_signed_in?
   = button_to 'Delete', project_path(@project), :method => :delete
 
+:javascript
+  $(document).ready(function(){
+      $('#amount_10').click(function(){
+        $('#donation_amount').attr("disabled","disabled");
+      });
+
+      $('#amount_20').click(function(){
+        $('#donation_amount').attr("disabled","disabled");
+      });
+
+      $('#amount_other').click(function(){
+        $('#donation_amount').removeAttr("disabled");
+      });
+  });

@@ -1,0 +1,27 @@
+%h2 Donate:
+= form_tag donate_project_path(project.id), :method => :get, :id => 'donation-form' do
+  .row
+    .span1
+      = radio_button_tag "amount", "5" 
+    .span2
+      = label :amount, 5, "$5"
+  .row
+    .span1
+      = radio_button_tag "amount", "10" 
+    .span2
+      = label :amount, 10, "$10"
+  .row
+    .span1
+      = radio_button_tag "amount", "20" 
+    .span2
+      = label :amount, 20, "$20"
+  .row
+    .span1
+      = radio_button_tag "amount" ,"other"
+    .span2
+      = label :amount, "other", "Other"
+    .span4
+      = text_field :donation, :amount, :cols => "5", :disabled => :disabled
+  .row
+    .span3
+      = button_tag "Donate"

@@ -9,6 +9,5 @@
     .progress.progress.striped.active
       - width = 100 - (project.target - project.current) * 100 / project.target
       .bar{:style => "width: #{width}%;"}
-    %button.btn.btn-success
-      Donate
+    = link_to "Donate", project_path(project), :class => "btn btn-success", :id => "project_link"
 
