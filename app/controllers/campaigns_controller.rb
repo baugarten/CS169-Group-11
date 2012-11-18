@@ -112,7 +112,7 @@ class CampaignsController < ApplicationController
     email_list=params[:campaign][:email_list]
     email_friends_count=0
     valid_email={}
-    valid_email_test=[]
+    
     email_list.scan(/[\s]?([\w\s]+)<([\s+\w+\.\@]+)>+/).each do | m |
       @name=""
       m[0].nil? ? temp0="" : temp0=m[0]
@@ -133,15 +133,12 @@ class CampaignsController < ApplicationController
       #error_msg cases
       if(@name.empty? && email.nil?)
         error_msg="name field  and email field "
-        valid_email.push("error1, #{@name},#{email}")
         break
       elsif(@name.empty?)
         error_msg="Name field is incorrect for #{email}"
-        valid_email.push("error2, #{@name},#{email}")
         break
       elsif(email.nil? ) 
         error_msg="Email field is incorrect for #{@name}" 
-        valid_email.push("error3, #{@name},#{email}")
         break
       end
 
