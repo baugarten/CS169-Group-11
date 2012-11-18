@@ -136,3 +136,27 @@ Then /^the bad admin should be deleted$/ do
   step "I am on the admin admins page"
   step "I should not see \"test2@email.com\""
 end
+
+When /^I fill in correct payment information$/ do
+  click_button('Donate')
+  fill_in('paymentNumber', :with=>"4242424242424242")
+  fill_in('paymentExpiryMonth', :with=>"1")
+  fill_in('paymentExpiryYear', :with=>"25")
+  fill_in('paymentName', :with=>"John Doe")
+  fill_in('paymentCVC', :with=>"123")
+end
+
+When /^I fill in invalid payment information$/ do
+  click_button('Donate')
+  fill_in('paymentNumber', :with=>"4000000000000002")
+  fill_in('paymentExpiryMonth', :with=>"1")
+  fill_in('paymentExpiryYear', :with=>"25")
+  fill_in('paymentName', :with=>"John Doe")
+  fill_in('paymentCVC', :with=>"123")
+end
+
+When /^I try to donate "(.*)" to "(.*)"$/ do |amount, farmer_name|
+  farmer = Project.find_by_farmer(farmer_name)
+  post charge_project_path(farmer, :donation=>{:amount=>amount, :email=>""})
+end
+

@@ -1,6 +1,9 @@
 class Project < ActiveRecord::Base
   has_many :videos, :as => :recordable
   has_many :photos, :as => :imageable
+  has_many :donations
+
+  attr_accessible :farmer, :description, :target, :end_date, :ending, :priority, :current, :completed, :videos_attributes, :campaign_id, :photos_attributes
 
   attr_accessible :farmer, :description, :target, :end_date, :ending, :priority, :current, :completed, :videos_attributes, :campaign_id, :photos_attributes
 
@@ -15,6 +18,16 @@ class Project < ActiveRecord::Base
   validate :end_date_or_no_ending
   validates :current, :numericality => true
 
+  def update_current_donated
+    total = 0
+    self.donations.each do |donation|
+      total += donation.amount/100
+    end
+    
+    self.current = total
+    self.save!
+  end
+  
   def end_date_or_no_ending
     # There must be an end date or it must go on indefinitely
     if end_date.nil? and not ending
@@ -22,6 +35,14 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def current_remaining
+    return Integer(self.target - self.current)
+  end
+  
+  def readable_current_remaining()
+    return "$#{self.current_remaining}.00"
+  end
+  
   def init
     self.current ||= 0
     self.priority ||= 1

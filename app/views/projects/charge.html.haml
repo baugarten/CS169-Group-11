@@ -1,0 +1,17 @@
+%p#notice
+  = notice 
+.hero-unit
+  %img{:width=>400,:src=>'http://ec.comps.canstockphoto.com/can-stock-photo_csp5503366.jpg',:class=>'pull-left'}
+  %h1 
+    = @project.farmer
+  %h2 
+    $#{@project.current.to_i} donated of $#{@project.target.to_i} goal
+  %p
+    = @project.description
+  .progress.progress-striped.active
+    - width = 100 - (@project.target - @project.current) * 100 / @project.target
+    .bar{:style => "width: #{width}%;"} 
+
+  %h2
+    Thanks for your donation
+  #{@project.farmer} thanks you for your contribution of #{@donation.readable_amount}

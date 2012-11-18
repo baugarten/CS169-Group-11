@@ -21,6 +21,13 @@ OneProsper::Application.routes.draw do
   match 'dashboard/edit' => 'dashboard#edit'
   match 'dashboard/update' => 'dashboard#update'
   
+  resources :projects do
+    member do
+      get 'donate'
+      post 'charge'
+    end
+  end
+
   resources :campaigns do
     member do
       get 'farmers'
