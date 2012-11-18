@@ -26,11 +26,11 @@ class Donation < ActiveRecord::Base
     end
     
     if (parse[:dollars])
-      dollars = Integer(parse[:dollars])
+      dollars = parse[:dollars].to_i
     end
     
     if (parse[:cents])
-      cents = Integer(parse[:cents])
+      cents = parse[:cents].to_i
     end
     
     self.amount = (dollars * 100) + cents

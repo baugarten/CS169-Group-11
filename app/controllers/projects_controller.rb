@@ -90,15 +90,31 @@ class ProjectsController < ApplicationController
     end
   end
   
-  def donate
-    @project = Project.find(params[:id])
-    
-    if (@project.completed)
+  def check_donation_limits(donation, project)
+    if (project.completed)
       flash[:error] = "Thanks for your interest; this project has already reached its goal"
       redirect_to projects_path()
-      return
+      return true
     end
     
+    if (donation.amount == 0)
+      flash[:error] = "Invalid donation amount"
+      redirect_to project_path(project)
+      return true
+    end
+    
+    if (donation.amount > project.current_remaining * 100)
+      flash[:error] = "There is only #{project.readable_current_remaining} left to fund for this project; you attempted to donate #{donation.readable_amount}"
+      redirect_to project_path(project)
+      return true
+    end
+    
+    return false
+  end
+  
+  def donate
+    @project = Project.find(params[:id])
+
     if (params[:amount] == "other")
       amount = params[:donation][:amount]
     else
@@ -111,16 +127,7 @@ class ProjectsController < ApplicationController
       @donation = Donation.new({:readable_amount=>amount})
     end
 
-    if (@donation.amount == 0)
-      flash[:error] = "Invalid donation amount"
-      redirect_to project_path(@project)
-    end
-    
-    if (@donation.amount > @project.current_remaining * 100)
-      flash[:error] = "There is only #{@project.readable_current_remaining} left to fund for this project; you attempted to donate #{@donation.readable_amount}"
-      redirect_to project_path(@project)
-      return
-    end
+    return if check_donation_limits(@donation, @project)
     
     @stripe_public_key = ENV['STRIPE_PK']
   end
@@ -128,19 +135,9 @@ class ProjectsController < ApplicationController
   def charge
     @project = Project.find(params[:id])
     
-    if (@project.completed)
-      flash[:error] = "Thanks for your interest; this project has already reached its goal"
-      redirect_to projects_path()
-      return
-    end
-    
     @donation = Donation.new(params[:donation])
     
-    if (@donation.amount > @project.current_remaining * 100)
-      flash[:error] = "There is only #{@project.readable_current_remaining} left to fund for this project; you attempted to donate #{@donation.readable_amount}"
-      redirect_to project_path(@project)
-      return
-    end
+    return if check_donation_limits(@donation, @project)
     
     @donation.project = @project
     if (current_user)
