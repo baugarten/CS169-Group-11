@@ -154,5 +154,6 @@ class CampaignsController < ApplicationController
         @friend.opened=0 
      end
      @friend.save
+     redirect_to @campaign.video_link
   end
 end
