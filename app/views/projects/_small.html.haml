@@ -4,4 +4,5 @@
     - path = photo_path(project.photos[0])
   = image_tag(path, 
     :data => {:farmer => project.farmer, :description => project.description,
-              :target => project.target, :current => project.current})
+              :target => project.target, :current => project.current,
+              :id => project.id})
