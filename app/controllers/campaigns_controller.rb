@@ -42,19 +42,22 @@ end
 
 class CampaignsController < ApplicationController
   before_filter :authenticate_user!, :except=>[:confirm_watched]
-  #before_filter :check_owner, :only=>[:manger]
+  before_filter :check_owner, :only=>[:manager]
   include CampaignHelper
 
   def check_owner
-    id = params[:id]
-    campaign = Campaign.find(id)
-    if not campaign.user == current_user
+    campaign = Campaign.find_by_id(params[:id])
+    if campaign==nil
+      flash[:error] = "Campaigns with id:#{params[:id]} doesnt exist!!"
+      redirect_to dashboard_path
+       
+    elsif not campaign.user == current_user
       flash[:error] = "You may only view your campaigns"
       redirect_to dashboard_path
     end
   end
 
-  def index
+  def new
     redirect_to campaign_farmers_path()
 	end
 
@@ -208,8 +211,11 @@ class CampaignsController < ApplicationController
 
   def manager
     @campaign = Campaign.find_by_id(params[:id])
-    
-    @friends = @campaign.campaign_friend unless @campaign==nil
+    if @campaign==nil
+      flash[:error]="Illegal Campaign Id to be inquired"
+    else
+      @friends = @campaign.campaign_friend 
+    end
     reset_session
   end
 
