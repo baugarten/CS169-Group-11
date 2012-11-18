@@ -27,24 +27,28 @@ Given /^farmers have been created$/ do
   })
 end
 
-Given /^that campaigns have been created$/ do
+Given /^campaigns have been created$/ do
   current_user = User.find(1)
   current_user.campaign.create!({
 	:name => "Help Farmer1",
 	:template => "Hi <name>, please look at this video. <link>",
 	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
   :priority => 1,
+  :project => Project.find(1),
+  :user_id => current_user.id
   })
 
   campaign = Campaign.find(1)
   friend = campaign.campaign_friend.new
   friend.name = "Bob Smith"
   friend.email = "bobsmith@gmail.com"
+  friend.opened = true
   friend.save
 
   friend = campaign.campaign_friend.new
   friend.name = "Jack Black"
   friend.email = "jblack@gmail.com"
+  friend.opened = false
   friend.save
 
   current_user.campaign.create!({
@@ -52,6 +56,8 @@ Given /^that campaigns have been created$/ do
 	:template => "Hi <name>, please look at this video. <link>",
 	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
   :priority => 1,
+  :project => Project.find(2),
+  :user_id => current_user.id
   })
 
   campaign = Campaign.find(2)
@@ -64,22 +70,14 @@ Given /^that campaigns have been created$/ do
 end
 
 Then /^the manager should show "(.*?)" have been sent the email$/ do |name|
-  text = name + " emailed"
-  if page.respond_to? :should
-    page.should have_content(text)
-  else
-    assert page.has_content?(text)
-  end
-
+  match = /#{name}.*Confirmed/m =~ page.body
+  assert match != nil
 end
 
 Then /^the manager should show "(.*?)" have not been sent the email$/ do |name|
-  text = name + " emailed"
-  if page.respond_to? :should
-    page.should have_no_content(text)
-  else
-    assert page.has_no_content?(text)
-  end
+  match = /#{name}.*Unconfirmed/m =~ page.body
+  assert match != nil
+
 end
 
 
@@ -145,7 +143,7 @@ end
 Then /^the manager should be on the "(.*)" page$/ do |campaign_name|
   current_path = URI.parse(current_url).path
   id = Campaign.find_by_name(campaign_name)
-  assert(current_path.match(/\/manager\/(.*)\//))
+  assert(current_path.match(/\/(.*)\/manager/))
 end
 
 Then /^the campaign should be on the "(.*)" page$/ do |page_name|
