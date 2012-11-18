@@ -1,5 +1,5 @@
 class Campaign < ActiveRecord::Base
-  attr_accessible :name, :template, :video_link, :priority, :user_id, :campaign_friend_id, :project_id
+  attr_accessible :name, :template, :video_link, :priority, :user_id, :campaign_friend_id, :project_id, :project
   after_initialize :init
 
   has_many :campaign_friend, :dependent => :destroy
