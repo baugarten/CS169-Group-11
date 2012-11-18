@@ -1,10 +1,17 @@
 module CampaignHelper
     def check_session_farmer()
+      
       if session[:project] ==nil
+         reset_session
          flash[:error]="Please Select a Farmer"
          redirect_to farmer_campaign_path
          return
        end
+      session[:template_content]=nil
+      session[:template_subject]=nil
+      session[:valid_email]=nil
+      session[:video_link]=nil
+      session[:email_list]=nil
     end
 
     def check_session_friends()
@@ -16,28 +23,9 @@ module CampaignHelper
     end
 
     def check_session_video()
-      if session[:video_link] ==nil
+      if session[:video_link] ==nil || session[:video_link].empty?
         flash[:error]="Please Enter a Video Link"
         redirect_to video_campaign_path
-        return
-      end 
-    end
-
-
-    def check_session_template()
-      if session[:template_subject] ==nil && session[:template_content]==nil
-        flash[:error]="Please Enter the Subject and Content"
-        redirect_to template_campaign_path
-        return
-
-      elsif session[:template_subject] ==nil
-        flash[:error]="Please Enter the Template Subject"
-        redirect_to template_campaign_path
-        return
-
-      elsif session[:template_content]==nil
-        flash[:error]="Please Enter the Template Content"
-        redirect_to template_campaign_path
         return
       end 
     end
@@ -48,7 +36,7 @@ module CampaignHelper
       session[:project]=nil
       session[:valid_email]=nil
       session[:video_link]=nil
-        
+      session[:email_list]=nil
     end
 end
 
@@ -162,7 +150,8 @@ class CampaignsController < ApplicationController
   end
   
   def submit_video
-    session[:video_link]=params[:campaign][:video_link]    
+    session[:video_link]=params[:campaign][:video_link] 
+    #render :text => session[:video_link].inspect  
     redirect_to template_campaign_path()
   end
   
@@ -174,40 +163,58 @@ class CampaignsController < ApplicationController
     session[:template_content]=params[:campaign][:template]
     session[:template_subject]=params[:campaign][:template_subject]
     
-    campaign = current_user.campaign.create
-    campaign.project=Project.find(session[:project])
+    a=session[:template_subject]
+    b=session[:template_content]
+    if (a==nil && b==nil) || ( a=="" && b=="") ||( a==nil && b=="") || (a=="" && b==nil)
+      flash[:error]="Please Enter the Subject and Content"
+      redirect_to template_campaign_path
+      return
 
-    emails=session[:valid_email]
+    elsif session[:template_subject] ==nil || session[:template_subject]==""
+      flash[:error]="Please Enter the Template Subject"
+      redirect_to template_campaign_path
+      return
 
-    emails.each do |temail,tname|
-      friend = campaign.campaign_friend.new
-      
-      friend.name = tname
-      friend.email = temail
-      friend.save
-    end
-
-    campaign.email_subject = session[:template_subject]
-    campaign.template = session[:template_content]
-
-    campaign.campaign_friend.each do |friend|
-      friend.email_subject = campaign.email_subject
-      friend.email_template = campaign.template
-      friend.email_template= "Hello #{friend.name} \n" + campaign.template + "\n \n My vidoe: #{campaign.video_link}"
-      
-      friend.confirm_link= request.protocol+request.host_with_port+"/"+"campaigns/#{campaign.id}/confirm_watched?friend=#{friend.id}"
-      friend.email_template += "\n\n Please click the link Confirm you Watched my video: #{friend.confirm_link}"
-      friend.save
-    end
-    campaign.save
-    redirect_to manager_campaign_path(campaign)
+    elsif session[:template_content]==nil || session[:template_content]==""
+      flash[:error]="Please Enter the Template Content"
+      redirect_to template_campaign_path
+      return
     
+    else
+      campaign = current_user.campaign.create
+      campaign.project=Project.find(session[:project])
+
+      emails=session[:valid_email]
+
+      emails.each do |temail,tname|
+        friend = campaign.campaign_friend.new
+      
+        friend.name = tname
+        friend.email = temail
+        friend.save
+      end
+
+      campaign.email_subject = session[:template_subject]
+      campaign.template = session[:template_content]
+
+      campaign.campaign_friend.each do |friend|
+        friend.email_subject = campaign.email_subject
+        friend.email_template = campaign.template
+        friend.email_template= "Hello #{friend.name} \n" + campaign.template + "\n \n My vidoe: #{campaign.video_link}"
+      
+        friend.confirm_link= request.protocol+request.host_with_port+"/"+"campaigns/#{campaign.id}/confirm_watched?friend=#{friend.id}"
+        friend.email_template += "\n\n Please click the link Confirm you Watched my video: #{friend.confirm_link}"
+        friend.save
+      end
+      campaign.save
+      redirect_to manager_campaign_path(campaign)
+    end
   end
 
   def manager
     @campaign = Campaign.find(params[:id])
     @friends = @campaign.campaign_friend
-    reset_campaign_session
+    reset_session
   end
 
   def track
