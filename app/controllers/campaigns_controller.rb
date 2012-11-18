@@ -62,10 +62,15 @@ class CampaignsController < ApplicationController
 	end
 
   def destroy
-    @campaign = Campaign.find(params[:id])
-    @campaign.destroy
-    flash[:notice] = "Campaign was Deleted Successfully"
-    redirect_to dashboard_path
+    @campaign = Campaign.find_by_id(params[:id])
+    if @campaign != nil
+      @campaign.destroy
+      flash[:notice] = "Campaign was Deleted Successfully"
+      redirect_to dashboard_path
+    else
+      flash[:notice] = "No campaign with id:#{params[:id]}"
+      redirect_to dashboard_path
+    end
   end
   
   def farmers
