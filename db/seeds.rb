@@ -5,7 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-if not Project.first
   30.times do 
     farmer = (0..20).map{ ('a'..'z').to_a[rand(26)] }.join
     description =  (0...100).map{ ('a'..'z').to_a[rand(26)] }.join
@@ -18,6 +17,7 @@ if not Project.first
       :completed => false,
       :priority => 1)
   end
+if not Project.first
   Project.create(
     :farmer => "Farmer3",
     :description => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed lorem massa. Proin posuere convallis erat et imperdiet. Curabitur sit amet metus quis velit euismod interdum. Duis tincidunt libero eget lorem congue et hendrerit velit viverra. In hac habitasse platea dictumst. Sed commodo posuere.",
