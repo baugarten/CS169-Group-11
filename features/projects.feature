@@ -64,3 +64,20 @@ Feature: Create a project and view it
     And I should be able to delete a video
     And I should be able to add a picture
     And I should be able to delete a picture
+
+  Scenario: Edit a project
+    Given I am logged in as an admin
+    And I am on the edit page for "farmer1"
+    And I fill in "Description" with "Hey I changed a description"
+    And I fill in "End date" with "11/29/2015"
+    And I press "Update Project"
+    Then I should see "Hey I changed a description"
+
+  Scenario: Edit a project failure
+    Given I am logged in as an admin
+    And I am on the edit page for "farmer1"
+    And I fill in "Description" with "Hey I changed a description"
+    And I fill in "project_end_date" with ""
+    And I uncheck "project_ending"
+    And I press "Update Project"
+    Then I should see "You must choose an end date"
