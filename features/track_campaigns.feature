@@ -38,16 +38,10 @@ Scenario: Manage Friends
   When I follow "Manage Friends"
   Then the campaign should be on the "enter friend" page
 
+
 Scenario: Campaign responses should be shown
   When I follow "Farmer1"
   Then the manager should be on the "Help Farmer1" page
-  Then the manager should show "Bob Smith" have not been sent the email
+  Then the manager should show "Bob Smith" have been sent the email
 
-  Then the manager should show "Jack Black" have been sent the email
-
-Scenario: Email should have the correct fields and changes confirmation status
-  When I follow "Farmer1"
-  Then I follow "Send Now"
-  Then the page should have "mailto:bobsmith@gmail.com"
-  
-
+  Then the manager should show "Jack Black" have not been sent the email
