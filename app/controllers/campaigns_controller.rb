@@ -42,7 +42,7 @@ class CampaignsController < ApplicationController
     end
 
     @projects=Project.find(:all, :conditions => ["id NOT IN (?)", result])
-    #render :text => @projects.inspect
+
   end
   
   def select_farmer
@@ -67,7 +67,7 @@ class CampaignsController < ApplicationController
     failed = false
     error = "Unable to understand these emails: <br/>"
     
-    # clear friends before adding entire list
+
     campaign.campaign_friend.clear
     
     emails.each do |email|
@@ -110,24 +110,22 @@ class CampaignsController < ApplicationController
   end
   
   def submit_template
-    # save campaign-wide template
+
     campaign = Campaign.find(params[:id])
     campaign.email_subject = params[:campaign][:email_subject]
     campaign.template = params[:campaign][:template]
     campaign.save
     
-    # propagage to each individual friend
+
     campaign.campaign_friend.each do |friend|
       friend.email_subject = campaign.email_subject
       friend.email_template = campaign.template
-      #friend.email_template= "Hello #{friend.name} \n" + campaign.template + "\n \n My vidoe: #{campaign.video_link}"
-      
       friend.confirm_link= request.protocol+request.host_with_port+"/"+"campaigns/#{campaign.id}/confirm_watched?friend=#{friend.id}"
-      #friend.email_template += "\n\n Please click the link Confirm you Watched my video: #{friend.confirm_link}"
+
       friend.save
     end
     
-    #redirect_to send_emails_campaign_path(campaign)
+
     redirect_to manager_campaign_path(campaign)
   end
   
