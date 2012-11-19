@@ -45,6 +45,7 @@ class Project < ActiveRecord::Base
   def init
     self.current ||= 0
     self.priority ||= 1
+    self.target ||= 0
     self.completed = (self.target <= self.current unless self.completed or self.target == 0)
   end
 
