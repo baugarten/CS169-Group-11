@@ -51,11 +51,9 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    debugger
     if params[:project][:ending].to_i == 0 and not params[:project][:end_date].blank?
       params[:project][:end_date] = Date.strptime(params[:project][:end_date], '%m/%d/%Y') 
     end
-    debugger
     @project = Project.new(params[:project])
     respond_to do |format|
       if @project.save
