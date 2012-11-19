@@ -7,6 +7,7 @@ class CampaignFriend < ActiveRecord::Base
     body.gsub!("<name>", name)
     body.gsub!("<email>", email)
     body.gsub!("<link>", confirm_link)
+
     return body
   end
 end

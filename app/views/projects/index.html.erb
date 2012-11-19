@@ -1,9 +1,13 @@
 <h1>Listing projects</h1>
 
-<ul class="unstyled clearfix">
+<ul class="unstyled clearfix projectlist">
 <% @projects.each do |project| %>
   <%= link_to project_path(project) do %>
     <%= render 'list', :project => project %>
   <% end %>
 <% end %>
 </ul>
+<br />
+<% if admin_signed_in? %>
+  <%= link_to 'New Project', new_project_path %>
+<% end %>

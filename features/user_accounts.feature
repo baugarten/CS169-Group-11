@@ -46,3 +46,21 @@ Scenario: sad path registration
     Given I am on the register user page
     When I press "Sign up"
     Then I should see "errors prohibited this user from being saved"
+
+Scenario: Make a user an admin
+    Given I am logged in as an admin
+    When I go to the admin user page
+    And I promote the test user to an admin
+    Then the test user should be an admin
+
+Scenario: Delete a user
+    Given I am logged in as an admin
+    When I go to the admin user page
+    And I delete the test user
+    Then the test user should be deleted
+
+Scenario: Delete an admin
+    Given I am logged in as an admin
+    When I go to the admin admins page
+    And I delete the bad admin
+    Then the bad admin should be deleted

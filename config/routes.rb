@@ -5,13 +5,31 @@ OneProsper::Application.routes.draw do
   devise_for :users
   devise_for :admins
 
+  scope "/admin" do
+    resources :users do 
+      member do
+        post "promote"
+      end
+    end
+    resources :admins do
+    end
+  end
+
   root :to => "application#frontpage"
   
   match 'dashboard' => 'dashboard#show'
   match 'dashboard/edit' => 'dashboard#edit'
   match 'dashboard/update' => 'dashboard#update'
   
-  
+
+  resources :projects do
+    member do
+      get 'donate'
+      post 'charge'
+    end
+  end
+
+
   resources :campaigns do
     member do
       get 'farmers'
@@ -22,7 +40,7 @@ OneProsper::Application.routes.draw do
       put 'submit_video'
       get 'template'
       put 'submit_template'
-      #get 'send_emails'
+
       get 'manager'
       get 'track'
       get 'confirm_watched'
@@ -30,6 +48,7 @@ OneProsper::Application.routes.draw do
   end
 
   match 'photo/:id' => 'photo#display', :as => :photo
+  match 'assets/before.jpeg' => 'photo#default', :as => 'default_photo'
   
   resources :updates
   # The priority is based upon order of creation:

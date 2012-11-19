@@ -10,7 +10,7 @@ Scenario: have logo
   Then I should see picture of logo
 
 Scenario: link to farmers page
-  When I press "All Projects"
+  When I follow "All Projects"
   Then I should be on the projects index page
 
 Scenario: link to login page

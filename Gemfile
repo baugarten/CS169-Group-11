@@ -17,6 +17,8 @@ gem 'bootstrap-sass'
 
 gem 'youtube_it'
 
+gem 'stripe'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'simplecov'
@@ -28,7 +30,7 @@ group :development, :test do
 end
 group :test do
   gem 'rspec-expectations'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
 end
 # Gems used only for assets and not required

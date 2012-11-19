@@ -4,6 +4,7 @@ class Campaign < ActiveRecord::Base
 
   has_many :campaign_friend, :dependent => :destroy
   has_one :project
+  has_one :video, :as => :recordable
   belongs_to :user
   
   def email_list
