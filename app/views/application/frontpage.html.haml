@@ -14,7 +14,7 @@
         - @projects.each.with_index do |project, index|
           = link_to project_path(project) do
             = render "projects/small", :project => project, :active => (if index == 0 then true else false end)
-      - pages = (@count / 12).ceil
+      - pages = (@count.to_f / 12).ceil
       .pagination
         %ul
           %li{:class => (@page == 1 ? "disabled" : nil)}
