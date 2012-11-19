@@ -1,16 +1,22 @@
-%table#campaigns
-  %thead
-    %tr
-      %th Farmer
-      %th Number of Friends
-      %th Progress     
-  %tbody
-    - @user.campaign.each do |campaign|
-      %tr
-      -if not campaign.project==nil && campaign!=nil
-        %td= link_to  "#{campaign.project.farmer}", manager_campaign_path(campaign)
-        %td= campaign.campaign_friend.find(:all).count
-        %td= "$" + campaign.project.current.to_s() + " / $" + campaign.project.target.to_s() 
-        %td= link_to "Delete", campaign_path(campaign), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
+#campaigns.row
+  .span1
+    ="Farmer"
+  .span2
+    ="# Friends"
+  .span2
+    ="Progress" 
+   
+
+- @user.campaign.each do |campaign|  
+  -if not campaign.project==nil && campaign!=nil
+    .row
+      .span1
+        =link_to  "  #{campaign.project.farmer}", manager_campaign_path(campaign)
+      .span2
+        = campaign.campaign_friend.find(:all).count
+      .span2
+        = "$" + campaign.project.current.to_s() + " / $" + campaign.project.target.to_s() 
+      .span1
+        = link_to "Delete", campaign_path(campaign), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
 
 
