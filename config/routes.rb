@@ -40,7 +40,6 @@ OneProsper::Application.routes.draw do
       put 'submit_video'
       get 'template'
       put 'submit_template'
-
       get 'manager'
       get 'track'
       get 'confirm_watched'

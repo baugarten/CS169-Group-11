@@ -132,11 +132,11 @@ class CampaignsController < ApplicationController
       friend.email_subject = campaign.email_subject
       friend.email_template = campaign.template
 
-      
       friend.confirm_link= request.protocol+request.host_with_port+"/"+"campaigns/#{campaign.id}/confirm_watched?friend=#{friend.id}"
 
       friend.save
     end
+
 
     redirect_to manager_campaign_path(campaign)
   end
