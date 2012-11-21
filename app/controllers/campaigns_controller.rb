@@ -116,11 +116,13 @@ class CampaignsController < ApplicationController
       
       email=m[1]
       if not email.nil?
+        #delete all spaces in email front& end, not including spaces between any two characters
         email=email.gsub(/(^\s+|\s+$)/,"")
-
+        #check validation,email=nil if not valid email
         email =email.match(/^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i) 
       end
       
+      #error_msg cases
       if(@name.empty? && email.nil?)
         error_msg="name field  and email field "
         break
@@ -135,21 +137,15 @@ class CampaignsController < ApplicationController
       valid_email["#{email}"]="#{@name}"
     end
     
+ 
     session[:valid_email]=valid_email unless valid_email.size ==0
-
+    
+  
     if error_msg !=""
       flash[:error] = error_msg
       redirect_to friends_campaign_path()
     else
       redirect_to video_campaign_path
-    end
-  end
-    
-    if failed
-      flash[:error] = error
-      redirect_to friends_campaign_path(campaign)
-    else
-      redirect_to video_campaign_path(campaign)
     end
   end
   
