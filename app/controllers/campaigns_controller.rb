@@ -58,24 +58,22 @@ class CampaignsController < ApplicationController
   end
 
   def new
-    campaign = current_user.campaign.create
-    campaign.project=nil
-    campaign.save!
-
-    redirect_to(farmers_campaign_path(campaign))
+    redirect_to campaign_farmers_path()
 	end
 
   def destroy
-    @campaign = Campaign.find(params[:id])
-    @campaign.destroy
-    flash[:notice] = "Campaign was deleted successfully"
-    redirect_to dashboard_path
+    @campaign = Campaign.find_by_id(params[:id])
+    if @campaign != nil
+      @campaign.destroy
+      flash[:notice] = "Campaign was Deleted Successfully"
+      redirect_to dashboard_path
+    else
+      flash[:notice] = "No campaign with id:#{params[:id]}"
+      redirect_to dashboard_path
+    end
   end
   
   def farmers
-    id = params[:id]
-    @campaign = Campaign.find(id)
-
     @existed_projects=Campaign.all(:conditions=>["user_id=?",current_user.id])
     result=[]
     @existed_projects .each do|campaign|
@@ -88,48 +86,64 @@ class CampaignsController < ApplicationController
     end
 
     @projects=Project.find(:all, :conditions => ["id NOT IN (?)", result])
-
   end
   
   def select_farmer
-    campaign = Campaign.find(params[:id])
-    project = Project.find(params[:farmer])
-    
-    campaign.project = project
-    campaign.save!
-    
-    redirect_to friends_campaign_path(campaign)
+    session[:project]=params[:project]
+    redirect_to friends_campaign_path()
   end
   
   def friends
-    @campaign = Campaign.find(params[:id])
-    
+		check_session_farmer()
   end
   
-  def submit_friends
-    campaign = Campaign.find(params[:id])
-    emails = params[:campaign][:email_list].split(",")
-    
-    failed = false
-    error = "Unable to understand these emails: <br/>"
-    
+    def submit_friends
+    error_msg =""
+    session[:email_list]=params[:campaign][:email_list]
 
-    campaign.campaign_friend.clear
+    email_list=params[:campaign][:email_list]
+    email_friends_count=0
+    valid_email={}
     
-    emails.each do |email|
-      friend = campaign.campaign_friend.new
-      if (email =~ /\s*(.*)\s*<(.*)>/)
-        friend.name = $1
-        friend.email = $2
-        friend.save
-      else
-        if failed
-          error += ", "
+    email_list.scan(/[\s]?([\w\s]+)<([\s+\w+\.\@]+)>+/).each do | m |
+      @name=""
+      m[0].nil? ? temp0="" : temp0=m[0]
+      temp0.scan(/\s*([a-zA-Z]+)/).each do|t|   
+        if not t[0].nil?
+          @name.empty? ? @name += t[0] : @name +=" "+ t[0]
         end
-        error += "#{email}"
-        failed = true
       end
+      
+      email=m[1]
+      if not email.nil?
+        email=email.gsub(/(^\s+|\s+$)/,"")
+
+        email =email.match(/^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i) 
+      end
+      
+      if(@name.empty? && email.nil?)
+        error_msg="name field  and email field "
+        break
+      elsif(@name.empty?)
+        error_msg="Name field is incorrect for #{email}"
+        break
+      elsif(email.nil? ) 
+        error_msg="Email field is incorrect for #{@name}" 
+        break
+      end
+
+      valid_email["#{email}"]="#{@name}"
     end
+    
+    session[:valid_email]=valid_email unless valid_email.size ==0
+
+    if error_msg !=""
+      flash[:error] = error_msg
+      redirect_to friends_campaign_path()
+    else
+      redirect_to video_campaign_path
+    end
+  end
     
     if failed
       flash[:error] = error
