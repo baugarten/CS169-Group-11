@@ -4,7 +4,7 @@ module CampaignHelper
       if session[:project] ==nil
          reset_session
          flash[:error]="Please Select a Farmer"
-         redirect_to farmer_campaign_path
+         redirect_to campaign_farmers_path
          return
        end
       session[:template_content]=nil

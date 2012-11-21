@@ -3,7 +3,7 @@
 %div{:class=>"unstyled clearfix"}
   -if not @projects.nil?
     -@projects.each do |project| 
-      =link_to select_farmer_campaign_path() do
+      =link_to select_farmer_campaign_path(:project=>project) do
         =render 'projects/list', :project => project 
   -else
     %center
