@@ -150,7 +150,7 @@ class CampaignsController < ApplicationController
   end
   
   def video
-    @campaign = Campaign.find(params[:id])
+    check_session_friends
   end
   
   def submit_video
