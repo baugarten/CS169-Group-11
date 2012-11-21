@@ -47,7 +47,11 @@ class CampaignsController < ApplicationController
   def check_owner
     id = params[:id]
     campaign = Campaign.find(id)
-    if not campaign.user == current_user
+    if campaign==nil
+      flash[:error] = "Campaigns with id:#{params[:id]} doesnt exist!!"
+      redirect_to dashboard_path
+       
+    elsif not campaign.user == current_user
       flash[:error] = "You may only view your campaigns"
       redirect_to dashboard_path
     end
