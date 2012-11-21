@@ -226,28 +226,30 @@ class CampaignsController < ApplicationController
   end
   
   def manager
-    @campaign = Campaign.find(params[:id])
-    @friends = @campaign.campaign_friend
+    @campaign = Campaign.find_by_id(params[:id])
+    if @campaign==nil
+      flash[:error]="Illegal Campaign Id to be inquired"
+    else
+      @friends = @campaign.campaign_friend 
+    end
+    reset_session
   end
 
   def track
-     @campaign = Campaign.find(params[:id])
-     
+     @campaign = Campaign.find_by_id(params[:id])   
      @friend=@campaign.campaign_friend.find(params[:friend])
      @friend.sent_count=@friend.sent_count+1
      @friend.save
   end
 
   def confirm_watched
-     @campaign = Campaign.find(params[:id])
+     @campaign = Campaign.find_by_id(params[:id])
      @friend=@campaign.campaign_friend.find(params[:friend])
      if @friend.sent_count>0
         @friend.opened= @friend.opened+1
-
      else
         @friend.opened=0 
      end
      @friend.save
-     redirect_to @campaign.video_link
   end
 end
