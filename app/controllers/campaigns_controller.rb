@@ -1,3 +1,45 @@
+module CampaignHelper
+    def check_session_farmer()
+      
+      if session[:project] ==nil
+         reset_session
+         flash[:error]="Please Select a Farmer"
+         redirect_to farmer_campaign_path
+         return
+       end
+      session[:template_content]=nil
+      session[:template_subject]=nil
+      session[:valid_email]=nil
+      session[:video_link]=nil
+      session[:email_list]=nil
+    end
+
+    def check_session_friends()
+      if session[:valid_email] ==nil
+        flash[:error]="Please Enter Some Valid Name and Email"
+        redirect_to friends_campaign_path
+        return
+      end
+    end
+
+    def check_session_video()
+      if session[:video_link] ==nil || session[:video_link].empty?
+        flash[:error]="Please Enter a Video Link"
+        redirect_to video_campaign_path
+        return
+      end 
+    end
+
+    def reset_session
+      session[:template_content]=nil
+      session[:template_subject]=nil
+      session[:project]=nil
+      session[:valid_email]=nil
+      session[:video_link]=nil
+      session[:email_list]=nil
+    end
+end
+
 class CampaignsController < ApplicationController
   before_filter :authenticate_user!, :except=>[:confirm_watched]
   before_filter :check_owner, :except=>[:new,:confirm_watched]
