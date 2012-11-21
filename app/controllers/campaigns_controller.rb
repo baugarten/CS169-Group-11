@@ -173,28 +173,56 @@ class CampaignsController < ApplicationController
   end
   
   def template
-    @campaign = Campaign.find(params[:id])
+    check_session_video
   end
   
   def submit_template
-
-    campaign = Campaign.find(params[:id])
-    campaign.email_subject = params[:campaign][:email_subject]
-    campaign.template = params[:campaign][:template]
-    campaign.save
+    session[:template_content]=params[:campaign][:template]
+    session[:template_subject]=params[:campaign][:email_subject]
     
+    a=session[:template_subject]
+    b=session[:template_content]
+    if (a==nil && b==nil) || ( a=="" && b=="") ||( a==nil && b=="") || (a=="" && b==nil)
+      flash[:error]="Please Enter the Subject and Content"
+      redirect_to template_campaign_path
+      return
 
-    campaign.campaign_friend.each do |friend|
-      friend.email_subject = campaign.email_subject
-      friend.email_template = campaign.template
+    elsif session[:template_subject] ==nil || session[:template_subject]==""
+      flash[:error]="Please Enter the Template Subject"
+      redirect_to template_campaign_path
+      return
 
-      friend.confirm_link= request.protocol+request.host_with_port+"/"+"campaigns/#{campaign.id}/confirm_watched?friend=#{friend.id}"
+    elsif session[:template_content]==nil || session[:template_content]==""
+      flash[:error]="Please Enter the Template Content"
+      redirect_to template_campaign_path
+      return
+    
+    else
+      campaign = current_user.campaign.create
+      campaign.project=Project.find(session[:project])
 
-      friend.save
+      emails=session[:valid_email]
+
+      emails.each do |temail,tname|
+        friend = campaign.campaign_friend.new
+      
+        friend.email_subject = tname
+        friend.email_template = temail
+        friend.save
+      end
+
+      campaign.email_subject = session[:template_subject]
+      campaign.template = session[:template_content]
+
+      campaign.campaign_friend.each do |friend|
+        friend.email_subject = campaign.email_subject
+        friend.email_template = campaign.template
+        friend.confirm_link= request.protocol+request.host_with_port+"/"+"campaigns/#{campaign.id}/confirm_watched?friend=#{friend.id}"
+        friend.save
+      end
+      campaign.save
+      redirect_to manager_campaign_path(campaign)
     end
-
-
-    redirect_to manager_campaign_path(campaign)
   end
   
   def manager
