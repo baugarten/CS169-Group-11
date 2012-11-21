@@ -154,7 +154,7 @@ class CampaignsController < ApplicationController
   end
   
   def submit_video
-    campaign = Campaign.find(params[:id])
+    
     if params[:video] == 'recorded' and params[:videos].nil? or 
       params[:video] == 'link' and params[:campaign][:video_link].blank?
       redirect_to video_campaign_path(campaign)
@@ -162,14 +162,12 @@ class CampaignsController < ApplicationController
     end
 
     if params[:video] == 'recorded'
-      video = Video.create(params[:videos]["0"])
+      session[:video_link]=params[:videos]["0"]
     else
-      video = Video.create({ :video_id => params[:campaign][:video_link] })
+      session[:video_link]=params[:campaign][:video_link]
     end
-    campaign.video = video
-    campaign.save
-    
-    redirect_to template_campaign_path(campaign)
+  
+    redirect_to template_campaign_path()
   end
   
   def template

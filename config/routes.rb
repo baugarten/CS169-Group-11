@@ -29,17 +29,20 @@ OneProsper::Application.routes.draw do
     end
   end
 
-
-  resources :campaigns do
+  resource :campaign do
     member do
-      get 'farmers'
-      match 'select_farmer/:farmer' => 'campaigns#select_farmer', :as=>:select_farmer
+      get 'select_farmer'
       get 'friends'
       put 'submit_friends'
       get 'video'
       put 'submit_video'
       get 'template'
       put 'submit_template'
+    end
+  end
+
+  resources :campaigns do
+    member do
       get 'manager'
       get 'track'
       get 'confirm_watched'
