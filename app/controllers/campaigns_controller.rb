@@ -207,8 +207,8 @@ class CampaignsController < ApplicationController
       emails.each do |temail,tname|
         friend = campaign.campaign_friend.new
       
-        friend.email_subject = tname
-        friend.email_template = temail
+        friend.name = tname
+        friend.email = temail
         friend.save
       end
 
