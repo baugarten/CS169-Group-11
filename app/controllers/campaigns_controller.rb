@@ -11,6 +11,7 @@ module CampaignHelper
       session[:template_subject]=nil
       session[:valid_email]=nil
       session[:video_link]=nil
+      session[:video_type]=nil
       session[:email_list]=nil
     end
 
@@ -36,6 +37,7 @@ module CampaignHelper
       session[:project]=nil
       session[:valid_email]=nil
       session[:video_link]=nil
+      session[:video_type]=nil
       session[:email_list]=nil
     end
 end
