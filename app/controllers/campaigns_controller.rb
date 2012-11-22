@@ -183,6 +183,12 @@ class CampaignsController < ApplicationController
     
     a=session[:template_subject]
     b=session[:template_content]
+    
+    if session[:valid_email]==nil || session[:project] ==nil || session[:video_type]==nil || session[:video_link]==nil
+      flash[:error]="Incomplete information to create a campaign"
+      redirect_to campaign_farmers_path
+      return
+
     if (a==nil && b==nil) || ( a=="" && b=="") ||( a==nil && b=="") || (a=="" && b==nil)
       flash[:error]="Please Enter the Subject and Content"
       redirect_to template_campaign_path
@@ -197,7 +203,12 @@ class CampaignsController < ApplicationController
       flash[:error]="Please Enter the Template Content"
       redirect_to template_campaign_path
       return
-    
+
+    elsif session[:template_content]==nil || session[:template_content]==""
+      flash[:error]="Please Enter the Template Content"
+      redirect_to template_campaign_path
+      return
+
     else
       campaign = current_user.campaign.create
       campaign.project=Project.find(session[:project])
