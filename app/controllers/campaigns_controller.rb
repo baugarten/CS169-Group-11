@@ -188,6 +188,7 @@ class CampaignsController < ApplicationController
       flash[:error]="Incomplete information to create a campaign"
       redirect_to campaign_farmers_path
       return
+    end
 
     if (a==nil && b==nil) || ( a=="" && b=="") ||( a==nil && b=="") || (a=="" && b==nil)
       flash[:error]="Please Enter the Subject and Content"
