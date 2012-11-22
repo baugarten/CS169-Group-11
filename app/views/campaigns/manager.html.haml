@@ -12,8 +12,11 @@
 %br
 = link_to  "Change Template", template_campaign_path()
 
-%h3 Video Link
-= @campaign.video_link
+%br
+%br
+Video:
+%br
+= render "youtube/upload", :videos => [@campaign.video]
 %br
 = link_to  "Change Link", video_campaign_path()
 

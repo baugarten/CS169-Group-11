@@ -6,7 +6,7 @@ module CampaignHelper
          flash[:error]="Please Select a Farmer"
          redirect_to campaign_farmers_path
          return
-       end
+      end
       session[:template_content]=nil
       session[:template_subject]=nil
       session[:valid_email]=nil
@@ -98,7 +98,7 @@ class CampaignsController < ApplicationController
 		check_session_farmer()
   end
   
-    def submit_friends
+  def submit_friends
     error_msg =""
     session[:email_list]=params[:campaign][:email_list]
 
@@ -164,8 +164,10 @@ class CampaignsController < ApplicationController
 
     if params[:video] == 'recorded'
       session[:video_link]=params[:videos]["0"]
+      session[:video_type]=0
     else
       session[:video_link]=params[:campaign][:video_link]
+      session[:video_type]=1
     end
   
     redirect_to template_campaign_path()
@@ -201,7 +203,7 @@ class CampaignsController < ApplicationController
       campaign.project=Project.find(session[:project])
 
       emails=session[:valid_email]
-
+      
       emails.each do |temail,tname|
         friend = campaign.campaign_friend.new
       
@@ -212,6 +214,12 @@ class CampaignsController < ApplicationController
 
       campaign.email_subject = session[:template_subject]
       campaign.template = session[:template_content]
+      
+      if session[:video_type] == 0
+        campaign.video = Video.create(session[:video_link])
+      elsif session[:video_type] == 1
+        campaign.video = Video.create(:video_id => session[:video_link])
+      end
 
       campaign.campaign_friend.each do |friend|
         friend.email_subject = campaign.email_subject
