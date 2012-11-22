@@ -2,7 +2,6 @@ module CampaignHelper
     def check_session_farmer()
       
       if session[:project] ==nil
-         reset_session
          flash[:error]="Please Select a Farmer"
          redirect_to campaign_farmers_path
          return
@@ -23,15 +22,15 @@ module CampaignHelper
       end
     end
 
-    def check_session_video()
-      if session[:video_link] ==nil || session[:video_link].empty?
-        flash[:error]="Please Enter a Video Link"
-        redirect_to video_campaign_path
-        return
-      end 
-    end
+    #def check_session_video()
+    #  if session[:video_link] ==nil || session[:video_link].empty?
+    #    flash[:error]="Please Enter a Video Link"
+     #   redirect_to video_campaign_path
+      #  return
+      #end 
+    #end
 
-    def reset_session
+    def reset_campaign_session
       session[:template_content]=nil
       session[:template_subject]=nil
       session[:project]=nil
@@ -49,7 +48,7 @@ class CampaignsController < ApplicationController
 
   def check_owner
     id = params[:id]
-    campaign = Campaign.find(id)
+    campaign = Campaign.find_by_id(id)
     if campaign==nil
       flash[:error] = "Campaigns with id:#{params[:id]} doesnt exist!!"
       redirect_to dashboard_path
@@ -60,9 +59,9 @@ class CampaignsController < ApplicationController
     end
   end
 
-  def new
-    redirect_to campaign_farmers_path()
-	end
+  #def new
+  #  redirect_to campaign_farmers_path()
+  #end
 
   def destroy
     @campaign = Campaign.find_by_id(params[:id])
@@ -97,55 +96,51 @@ class CampaignsController < ApplicationController
   end
   
   def friends
-		check_session_farmer()
+    check_session_farmer()
   end
   
   def submit_friends
-    error_msg =""
+    
+    fail_list=""
     session[:email_list]=params[:campaign][:email_list]
 
     email_list=params[:campaign][:email_list]
     email_friends_count=0
     valid_email={}
     
-    email_list.scan(/[\s]?([\w\s]+)<([\s+\w+\.\@]+)>+/).each do | m |
-      @name=""
-      m[0].nil? ? temp0="" : temp0=m[0]
-      temp0.scan(/\s*([a-zA-Z]+)/).each do|t|   
-        if not t[0].nil?
-          @name.empty? ? @name += t[0] : @name +=" "+ t[0]
-        end
+    email_list.split(',').each do |entry|
+      name=""
+      email=""
+     
+      entry.scan(/[\s]?([\w\s]+)<([\s+\w+\.\@]+)>+/).each do |y|
+        name=y[0]
+        email=y[1]
       end
       
-      email=m[1]
-      if not email.nil?
-        #delete all spaces in email front& end, not including spaces between any two characters
-        email=email.gsub(/(^\s+|\s+$)/,"")
-        #check validation,email=nil if not valid email
+      array=name.split(' ')
+      if array.size !=2
+        fail_list.empty? ? fail_list=entry : fail_list += ", "+entry
+      else
+        name=array[0]+" "+array[1]
+
         email =email.match(/^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i) 
-      end
-      
-      #error_msg cases
-      if(@name.empty? && email.nil?)
-        error_msg="name field  and email field "
-        break
-      elsif(@name.empty?)
-        error_msg="Name field is incorrect for #{email}"
-        break
-      elsif(email.nil? ) 
-        error_msg="Email field is incorrect for #{@name}" 
-        break
+        
+        if email ==nil || email ==""
+          fail_list.empty? ? fail_list=entry : fail_list += ","+entry
+        end
+
+        valid_email["#{email}"]="#{name}"   
       end
 
-      valid_email["#{email}"]="#{@name}"
     end
     
  
     session[:valid_email]=valid_email unless valid_email.size ==0
     
   
-    if error_msg !=""
-      flash[:error] = error_msg
+    if fail_list.size >0
+      session[:valid_email]=nil 
+      flash[:error] ="Unable to understand these emails: #{fail_list}"
       redirect_to friends_campaign_path()
     else
       redirect_to video_campaign_path
@@ -160,7 +155,8 @@ class CampaignsController < ApplicationController
     
     if params[:video] == 'recorded' and params[:videos].nil? or 
       params[:video] == 'link' and params[:campaign][:video_link].blank?
-      redirect_to video_campaign_path(campaign)
+      flash[:error]="No video submited"
+      redirect_to video_campaign_path()
       return
     end
 
@@ -176,7 +172,7 @@ class CampaignsController < ApplicationController
   end
   
   def template
-    check_session_video
+    #check_session_video
   end
   
   def submit_template
@@ -199,11 +195,6 @@ class CampaignsController < ApplicationController
 
     elsif session[:template_subject] ==nil || session[:template_subject]==""
       flash[:error]="Please Enter the Template Subject"
-      redirect_to template_campaign_path
-      return
-
-    elsif session[:template_content]==nil || session[:template_content]==""
-      flash[:error]="Please Enter the Template Content"
       redirect_to template_campaign_path
       return
 
@@ -248,12 +239,8 @@ class CampaignsController < ApplicationController
   
   def manager
     @campaign = Campaign.find_by_id(params[:id])
-    if @campaign==nil
-      flash[:error]="Illegal Campaign Id to be inquired"
-    else
-      @friends = @campaign.campaign_friend 
-    end
-    reset_session
+    @friends = @campaign.campaign_friend
+    reset_campaign_session
   end
 
   def track

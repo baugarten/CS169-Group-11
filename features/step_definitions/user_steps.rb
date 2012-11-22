@@ -16,70 +16,21 @@ Given /^farmers have been created$/ do
 	:description => "First farmer! 50char 50char 50char 50char 50char 50char 50char 50char",
 	:target => 500,
   :ending => true,
-	:current => 0,
+	:current => 0
   })
   Project.create!({
 	:farmer => "Farmer2",
 	:description => "I farm turnips and pie 50char 50char 50char 50char 50char 50char",
-	:target => 500,
+	:target => 600,
   :ending => true,
-	:current => 0,
+	:current => 0
   })
 end
 
-Given /^campaigns have been created$/ do
-  current_user = User.find(1)
-  current_user.campaign.create!({
-	:name => "Help Farmer1",
-	:template => "Hi <name>, please look at this video. <link>",
-	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
-  :priority => 1,
-  :project => Project.find(1),
-  :user_id => current_user.id
-  })
-
-  campaign = Campaign.find(1)
-  friend = campaign.campaign_friend.new
-  friend.name = "Bob Smith"
-  friend.email = "bobsmith@gmail.com"
-  friend.opened = true
-  friend.save
-
-  friend = campaign.campaign_friend.new
-  friend.name = "Jack Black"
-  friend.email = "jblack@gmail.com"
-  friend.opened = false
-  friend.save
-
-  current_user.campaign.create!({
-	:name => "Help Farmer2",
-	:template => "Hi <name>, please look at this video. <link>",
-	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
-  :priority => 1,
-  :project => Project.find(2),
-  :user_id => current_user.id
-  })
-
-  campaign = Campaign.find(2)
-  friend = campaign.campaign_friend.new
-  friend.name = "John Smith"
-  friend.email = "johnsmith@gmail.com"
-  friend.save
-
-
+When /^I try to donate "(.*)" to "(.*)"$/ do |amount, farmer_name|
+  farmer = Project.find_by_farmer(farmer_name)
+  post charge_project_path(farmer, :donation=>{:amount=>amount, :email=>""})
 end
-
-Then /^the manager should show "(.*?)" have been sent the email$/ do |name|
-  match = /#{name}.*Confirmed/m =~ page.body
-  assert match != nil
-end
-
-Then /^the manager should show "(.*?)" have not been sent the email$/ do |name|
-  match = /#{name}.*Unconfirmed/m =~ page.body
-  assert match != nil
-
-end
-
 
 Then /^the manager should show "(.*?)" have donated "(.*?)"$/ do |name, donation_amount|
   text = name + " " + donation_amount
@@ -158,11 +109,11 @@ end
 Then /^the campaign should be on the "(.*)" page$/ do |page_name|
   current_path = URI.parse(current_url).path
   case page_name
-  when "select farmer" then assert(current_path.match(/\/campaigns\/(.*)\/farmers/))
-  when "enter friends" then assert(current_path.match(/\/campaigns\/(.*)\/friends/))
-  when "record video" then assert(current_path.match(/\/campaigns\/(.*)\/video/))
-  when "message template" then assert(current_path.match(/\/campaigns\/(.*)\/template/))
-  when "send message" then assert(current_path.match(/\/campaigns\/(.*)\/send/))
+  when "select farmer" then assert(current_path.match(/\/campaign\/farmers/))
+  when "enter friends" then assert(current_path.match(/\/campaign\/friends/))
+  when "record video" then assert(current_path.match(/\/campaign\/video/))
+  when "message template" then assert(current_path.match(/\/campaign\/template/))
+  when "send message" then assert(current_path.match(/\/campaign\/manger/))
   end
 end
 
@@ -226,10 +177,3 @@ When /^I fill in invalid payment information$/ do
   fill_in('paymentName', :with=>"John Doe")
   fill_in('paymentCVC', :with=>"123")
 end
-
-When /^I try to donate "(.*)" to "(.*)"$/ do |amount, farmer_name|
-  farmer = Project.find_by_farmer(farmer_name)
-  post charge_project_path(farmer, :donation=>{:amount=>amount, :email=>""})
-end
-
-

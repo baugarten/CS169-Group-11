@@ -18,5 +18,3 @@
         = "$" + campaign.project.current.to_s() + " / $" + campaign.project.target.to_s() 
       .span1
         = link_to "Delete", campaign_path(:id=>campaign), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
-
-

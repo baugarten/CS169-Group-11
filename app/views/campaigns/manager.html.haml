@@ -16,7 +16,7 @@
 %br
 Video:
 %br
-= render "youtube/upload", :videos => [@campaign.video]
+= @campaign.video_link
 %br
 = link_to  "Change Link", video_campaign_path()
 
