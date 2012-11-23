@@ -55,3 +55,7 @@ Scenario: Open the response link after the mail sent
   Then I should see "Thankyou for Confirmation"
   And I opened the tracking response link "second" time
   And I should see "You Already Confirmed You Read The Mail"
+
+Scenario: campaigns can only opened if it not exist
+  When I follow "Start a new campaign"
+  Then I should not see "Farmer 1"

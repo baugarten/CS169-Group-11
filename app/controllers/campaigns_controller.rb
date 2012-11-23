@@ -1,6 +1,5 @@
 module CampaignHelper
-    def check_session_farmer()
-      
+    def check_session_farmer()      
       if session[:project] ==nil
          flash[:error]="Please Select a Farmer"
          redirect_to campaign_farmers_path
@@ -11,7 +10,7 @@ module CampaignHelper
       session[:valid_email]=nil
       session[:video_link]=nil
       session[:video_type]=nil
-      session[:email_list]=nil
+      #session[:email_list]=nil
     end
 
     def check_session_friends()
@@ -57,9 +56,6 @@ class CampaignsController < ApplicationController
       @campaign.destroy
       flash[:notice] = "Campaign was Deleted Successfully"
       redirect_to dashboard_path
-    else
-      flash[:notice] = "No campaign with id:#{params[:id]}"
-      redirect_to dashboard_path
     end
   end
   
@@ -94,11 +90,11 @@ class CampaignsController < ApplicationController
     @email_list=params[:campaign][:email_list]
     email_friends_count=0
     valid_email={}
-    
+
     @email_list.split(',').each do |entry|
       name=""
       email=""
-     
+      
       entry.scan(/[\s]?([\w\s]+)<([\s+\w+\.\@]+)>+/).each do |y|
         name=y[0]
         email=y[1]
@@ -111,17 +107,17 @@ class CampaignsController < ApplicationController
         name=array[0]+" "+array[1]
 
         email =email.match(/^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i) 
-        
-        if email =="" || email ==nil
-          fail_list.empty? ? fail_list=entry : fail_list += ","+entry
-        end
 
-        valid_email["#{email}"]="#{name}"   
+        if email =="" || email ==nil
+          fail_list.empty? ? fail_list=entry : fail_list += ","+entry          
+        else
+          valid_email["#{email}"]="#{name}" 
+        end  
       end
     end
     
     session[:valid_email]=valid_email unless valid_email.size ==0
-  
+    
     if fail_list.size >0
       session[:valid_email]=nil 
       flash[:error] ="Unable to understand these emails: #{fail_list}"
@@ -156,7 +152,7 @@ class CampaignsController < ApplicationController
   end
   
   def template
-    #check_session_video
+    
   end
   
   def submit_template

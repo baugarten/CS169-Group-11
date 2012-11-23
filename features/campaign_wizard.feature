@@ -42,13 +42,14 @@ Scenario: Should notify you on invalid emails
 
 	Then the campaign should be on the "select farmer" page
 	When I follow "Farmer1"
-
 	Then the campaign should be on the "enter friends" page
 	When I fill in "Friends" with "My Friend <myfriend@bunkmail.com>, Admiral Crunch <friend2@bunkmail.com>,OMG Not EMAIL, quack quack"
 	And I press "Next"
-
   Then the campaign should be on the "enter friends" page
   And I should see "Unable to understand these emails: OMG Not EMAIL, quack quack"
+  When I fill in "Friends" with "My Friend <myfriendbunkmail.com>"
+  And I press "Next"
+  And I should see "Unable to understand these emails: My Friend"
 
 Scenario: Must enter something for friends email page
   When I follow "Start a new campaign"
