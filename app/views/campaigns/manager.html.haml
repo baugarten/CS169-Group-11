@@ -13,7 +13,7 @@
 %br
 %b Video:
 %br
-= render "youtube/upload", :videos => [@campaign.video]
+= render "youtube/upload", :videos => [@campaign.video] unless @campaign.video==nil
 %br
 
 %h3 Send Emails
