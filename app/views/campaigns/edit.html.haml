@@ -1,0 +1,33 @@
+-# edit.html.haml using partial
+
+%h1 Edit Existing Campaign
+
+= form_tag campaign_path(@campaign), :method => :put do
+
+  = label :campaign, :email_list, 'Friends'
+  = text_area :campaign, :email_list
+  %br
+  
+  .row
+    .span3
+    .span9{:style => "height: 300px;" }
+      = radio_button_tag 'video', 'recorded', false, :class => "pull-left video-select", :id => "recorded"
+      = render 'youtube/upload', :height => 300, :width => 500, :editable => false, :form => true, :extras => 1
+  %br
+  %br
+  .row
+    .span12{:style => "margin-top: 30px; height: 14px"}
+      = radio_button_tag 'video', 'link', true, :class => "pull-left video-select", :id => "link"
+      = label :campaign, :video_link, 'Video Link', :class => "pull-left unstyled-label"
+      = text_field :campaign, :video_link
+
+  %br
+  %br
+  = label :campaign, :email_subject, 'Subject'
+  = text_field :campaign, :email_subject, :style => 'width: 550px'
+  = label :campaign, :template, 'Template'
+  = text_area :campaign, :template, :style => 'width: 550px'
+
+  .row
+    .offset1
+      = submit_tag 'Update Campaign Info'
