@@ -62,8 +62,7 @@ module CampaignHelper
     end
 
     def video_format_pass(video,video_link,videos)
-      if video== 'recorded' and videos==nil or 
-        video== 'link' and video_link.blank?
+      if (video== 'recorded' && videos==nil) || (video== 'link' && video_link.blank?)
         error="No video submited"
         return false,error
       else
@@ -249,17 +248,17 @@ class CampaignsController < ApplicationController
       flash[:error]=error
       redirect_to video_campaign_path()
       return
-    end
-
-    if params[:video] == 'recorded'
-      session[:video_link]=params[:videos]["0"]
-      session[:video_type]=0
     else
-      session[:video_link]=params[:campaign][:video_link]
-      session[:video_type]=1
-    end
+      if params[:video] == 'recorded'
+        session[:video_link]=params[:videos]["0"]
+        session[:video_type]=0
+      else
+        session[:video_link]=params[:campaign][:video_link]
+        session[:video_type]=1
+      end
   
-    redirect_to template_campaign_path()
+      redirect_to template_campaign_path()
+    end
   end
   
   def template
