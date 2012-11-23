@@ -22,14 +22,6 @@ module CampaignHelper
       end
     end
 
-    #def check_session_video()
-    #  if session[:video_link] ==nil || session[:video_link].empty?
-    #    flash[:error]="Please Enter a Video Link"
-     #   redirect_to video_campaign_path
-      #  return
-      #end 
-    #end
-
     def reset_campaign_session
       session[:template_content]=nil
       session[:template_subject]=nil
@@ -58,10 +50,6 @@ class CampaignsController < ApplicationController
       redirect_to dashboard_path
     end
   end
-
-  #def new
-  #  redirect_to campaign_farmers_path()
-  #end
 
   def destroy
     @campaign = Campaign.find_by_id(params[:id])
@@ -100,15 +88,14 @@ class CampaignsController < ApplicationController
   end
   
   def submit_friends
-    
     fail_list=""
     session[:email_list]=params[:campaign][:email_list]
 
-    email_list=params[:campaign][:email_list]
+    @email_list=params[:campaign][:email_list]
     email_friends_count=0
     valid_email={}
     
-    email_list.split(',').each do |entry|
+    @email_list.split(',').each do |entry|
       name=""
       email=""
      
@@ -125,18 +112,15 @@ class CampaignsController < ApplicationController
 
         email =email.match(/^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i) 
         
-        if email ==nil || email ==""
+        if email =="" || email ==nil
           fail_list.empty? ? fail_list=entry : fail_list += ","+entry
         end
 
         valid_email["#{email}"]="#{name}"   
       end
-
     end
     
- 
     session[:valid_email]=valid_email unless valid_email.size ==0
-    
   
     if fail_list.size >0
       session[:valid_email]=nil 

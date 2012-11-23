@@ -7,7 +7,7 @@
     = "Example: Bob Smith <bsmith@mail.com>, John Doe <jdoe@mail.com>"
   %br
   = label :campaign, :email_list, "Friends"
-  = text_area :campaign, :email_list, :value=> (session[:email_list]==nil ? "" : session[:email_list])
+  = text_area :campaign, :email_list,{:value=>@email_list}
 
   %br
   = submit_tag 'Next'
