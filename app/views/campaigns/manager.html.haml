@@ -13,7 +13,7 @@
 %br
 %b Video:
 %br
-= @campaign.video_link
+= render "youtube/upload", :videos => [@campaign.video]
 %br
 
 %h3 Send Emails
