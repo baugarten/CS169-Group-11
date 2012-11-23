@@ -16,15 +16,13 @@ Scenario: Dashboard should show campaign status
   And I should see "Farmer2"
   And I should see "$0.0 / $600"
 
-Scenario: Following campaign manager should show campaign detail and be able to change them
+Scenario: Following campaign manager should show campaign detail
   When I follow "Farmer1"
   Then the manager should be on the "Farmer1" page
   Then I should see "Hi <name>, please look at this video. <link>"
   Then I should see "http://www.youtube.com/watch?v=oHg5SJYRHA0"
   Then I should see "Bob Smith"
   Then I should see "bobsmith@gmail.com"
-  When I follow "Change Template"
-  Then the campaign should be on the "message template" page
 
 Scenario: Campaign responses should be shown
   When I follow "Farmer1"

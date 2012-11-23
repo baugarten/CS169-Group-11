@@ -10,7 +10,7 @@ Background: User logged in and on profile page
 	And I am logged in as the test user
 	And I am on the user dashboard
 
-Scenario: Complete a campaign
+Scenario: Complete a campaign and able to edit it
 	When I follow "Start a new campaign"
 
 	Then the campaign should be on the "select farmer" page
@@ -36,7 +36,28 @@ Scenario: Complete a campaign
 	And I should see "Admiral Crunch"
   And I should see /[contains(@href,myfriend@bunkmail.com)]/
   And I should see /[contains(@href,friend2@bunkmail.com)]/
-  
+  Given I am on the user dashboard
+  When I follow "Edit"
+	And I should see "Hi <name>, please watch this video about funding farmers <link>! Thanks!"
+	And I should see "My Friend"
+	And I should see "Admiral Crunch"
+  And I should see "myfriend@bunkmail.com"
+  And I should see "friend2@bunkmail.com"
+  And I fill in "Template" with "testing editing 123!"
+	And I press "Update Campaign Info"
+  And I should see "Campaign was successfully updated"
+  And I should see "testing editing 123!"
+  And I fill in "Friends" with "not a email"
+  And I press "Update Campaign Info"
+  And I should see "Unable to understand these emails: not a email"
+  And I fill in "Template" with ""
+  And I press "Update Campaign Info"
+  And I should see "Please Enter the Template Content"
+  When I fill in "Video Link" with ""
+  And I choose "link"
+	And I press "Update Campaign Info"
+  Then I should see "No video submited"
+
 Scenario: Should notify you on invalid emails
 	When I follow "Start a new campaign"
 

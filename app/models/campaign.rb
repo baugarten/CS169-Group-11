@@ -1,12 +1,12 @@
 class Campaign < ActiveRecord::Base
   attr_accessible :name, :template, :video_link, :priority, :user_id, :campaign_friend_id, :project_id, :project
   after_initialize :init
-
+  
   has_many :campaign_friend, :dependent => :destroy
   has_one :project
   has_one :video, :as => :recordable
   belongs_to :user
-  
+
   def email_list
     list = ""
     campaign_friend.each do |friend|

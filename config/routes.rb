@@ -30,6 +30,14 @@ OneProsper::Application.routes.draw do
     end
   end
 
+  resources :campaigns do
+    member do
+      get 'manager'
+      get 'track'
+      get 'confirm_watched'
+    end
+  end
+
   resource :campaign do
     member do
       get 'select_farmer'
@@ -42,13 +50,7 @@ OneProsper::Application.routes.draw do
     end
   end
 
-  resources :campaigns do
-    member do
-      get 'manager'
-      get 'track'
-      get 'confirm_watched'
-    end
-  end
+  match 'campaigns/:id/edit' => 'campaigns#edit'
 
   match 'photo/:id' => 'photo#display', :as => :photo
   match 'assets/before.jpeg' => 'photo#default', :as => 'default_photo'

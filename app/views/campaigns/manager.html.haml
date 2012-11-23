@@ -5,23 +5,18 @@
 %br
 = @campaign.email_subject
 %br
+%br
 %b Body:
 %br
 = @campaign.template
-
-%br
-= link_to  "Change Template", template_campaign_path()
-
 %br
 %br
-Video:
+%b Video:
 %br
 = @campaign.video_link
 %br
-= link_to  "Change Link", video_campaign_path()
 
 %h3 Send Emails
-= link_to  "Manage Friends", friends_campaign_path()
 .row
   .span2
     %b Name
