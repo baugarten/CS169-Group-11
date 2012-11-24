@@ -1,3 +1,7 @@
+= content_for :title do
+  = "List of users"
+
+%h1 List of users
 %table.table
   %tr
     %th #
@@ -8,8 +12,6 @@
     %th Created at
   - @users.each.with_index do |user, index|
     %tr{:id => "user#{user.id}"}
-      %td 
-        = index
       %td
         = user.id
       %td 
