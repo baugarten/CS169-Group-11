@@ -109,7 +109,7 @@ end
 Then /^the campaign should be on the "(.*)" page$/ do |page_name|
   current_path = URI.parse(current_url).path
   case page_name
-  when "select farmer" then assert(current_path.match(/\/campaign\/farmers/))
+  when "select farmer" then visit campaign_farmers_path
   when "enter friends" then assert(current_path.match(/\/campaign\/friends/))
   when "record video" then assert(current_path.match(/\/campaign\/video/))
   when "message template" then assert(current_path.match(/\/campaign\/template/))

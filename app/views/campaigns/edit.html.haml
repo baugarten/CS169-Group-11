@@ -19,7 +19,7 @@
     .span12{:style => "margin-top: 30px; height: 14px"}
       = radio_button_tag 'video', 'link', true, :class => "pull-left video-select", :id => "link"
       = label :campaign, :video_link, 'Video Link', :class => "pull-left unstyled-label"
-      = text_field :campaign, :video_link
+      = text_field :campaign, :video_link, :value=>@campaign.video.link
 
   %br
   %br

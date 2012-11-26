@@ -1,4 +1,4 @@
-module CampaignHelper
+module CampaignsHelper
     def check_session_farmer()      
       if session[:project] ==nil
          flash[:error]="Please Select a Farmer"
