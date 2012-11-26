@@ -86,7 +86,7 @@ module CampaignHelper
    end
 
    def create_campaign(campaign_id,project_id,valid_email,template_subject,template_content,video_type,video_link)
-      if campaign_id == -1
+      if campaign_id == nil
         campaign = current_user.campaign.create
         campaign.project=Project.find(project_id)
       else
@@ -281,7 +281,7 @@ class CampaignsController < ApplicationController
       return
     
     else
-      campaign=create_campaign(-1,session[:project],session[:valid_email],session[:template_subject],session[:template_content],session[:video_type],session[:video_link])
+      campaign=create_campaign(nil,session[:project],session[:valid_email],session[:template_subject],session[:template_content],session[:video_type],session[:video_link])
 
       redirect_to manager_campaign_path(campaign)
     end
