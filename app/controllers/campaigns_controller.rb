@@ -70,15 +70,15 @@ module CampaignHelper
       end
     end
 
-    def template_format_pass(a,b)
+    def template_format_pass(subject,content)
 
-      if (a==nil && b==nil) || ( a=="" && b=="") ||( a==nil && b=="") || (a=="" && b==nil)
+      if (subject==nil && content==nil) || ( subject=="" && content=="") ||( subject==nil && content=="") || (subject=="" && content==nil)
         return false,"Please Enter the Subject and Content"
 
-      elsif a==nil || a=="" || a.blank?
+      elsif subject==nil || subject=="" || subject.blank?
         return false,"Please Enter the Template Subject"
 
-      elsif b==nil || b=="" || b.blank?
+      elsif content==nil || content=="" || content.blank?
         return false,"Please Enter the Template Content"
       else
         return true,""
