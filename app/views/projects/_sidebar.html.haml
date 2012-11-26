@@ -1,11 +1,11 @@
 - if not project.nil?
   .hero-unit.project_sidebar{:style => "background-color: transparent;"}
-    %h1 
+    %h3 
       = project.farmer
     %p
-      = project.description
-    %h2 
-      $#{project.current.to_i} donated of $#{project.target.to_i} goal
+      = "#{project.description[0..110]}..."
+    %h4 
+      $#{project.current.to_i*1.0} donated of $#{project.target.to_i} goal
     .progress.progress.striped.active
       - width = 100 - (project.target - project.current) * 100 / project.target
       .bar{:style => "width: #{width}%;"}
