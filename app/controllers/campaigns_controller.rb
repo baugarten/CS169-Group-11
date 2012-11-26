@@ -110,9 +110,9 @@ module CampaignHelper
       campaign.email_subject = template_subject
       campaign.template = template_content
       
-      if video_type == 0
+      if video_type == "webcam"
         campaign.video = Video.create(video_link)
-      elsif video_type == 1
+      elsif video_type == "link"
         campaign.video = Video.create(:video_id => video_link)
       end
 
@@ -255,10 +255,10 @@ class CampaignsController < ApplicationController
     else
       if params[:video] == 'recorded'
         session[:video_link]=params[:videos]["0"]
-        session[:video_type]=0
+        session[:video_type]="webcam"
       else
         session[:video_link]=params[:campaign][:video_link]
-        session[:video_type]=1
+        session[:video_type]="link"
       end
   
       redirect_to template_campaign_path()
