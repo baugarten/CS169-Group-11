@@ -94,14 +94,18 @@ module CampaignHelper
       end
       campaign.campaign_friend.clear
       emails=valid_email
-      
+ 
+      friends = []
       emails.each do |temail,tname|
-        friend = campaign.campaign_friend.new
+        new_friend=CampaignFriend.new()
       
-        friend.name = tname
-        friend.email = temail
-        friend.save
+        new_friend.name = tname
+        new_friend.email = temail
+        new_friend.save
+        friends.push(new_friend)
       end
+      campaign.campaign_friend= friends
+
 
       campaign.email_subject = template_subject
       campaign.template = template_content
@@ -179,7 +183,7 @@ class CampaignsController < ApplicationController
     end
 
     template_format_passed,error=template_format_pass(params[:campaign][:email_subject],params[:campaign][:template])
-    #render :text=>params[:template_subject].inspect
+   
     if not template_format_passed
       flash[:error]=error
       redirect_to edit_campaign_path(@campaign)
