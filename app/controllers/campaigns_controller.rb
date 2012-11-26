@@ -85,10 +85,10 @@ module CampaignHelper
       end
    end
 
-   def create_campaign(campaign_id,project,valid_email,template_subject,template_content,video_type,video_link)
+   def create_campaign(campaign_id,project_id,valid_email,template_subject,template_content,video_type,video_link)
       if campaign_id == -1
         campaign = current_user.campaign.create
-        campaign.project=Project.find(project)
+        campaign.project=Project.find(project_id)
       else
         campaign = Campaign.find_by_id(campaign_id)
       end
