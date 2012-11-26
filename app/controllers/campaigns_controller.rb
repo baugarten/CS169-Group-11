@@ -116,9 +116,6 @@ module CampaignHelper
         campaign.video = Video.create(:video_id => video_link)
       end
 
-      campaign.video_link = campaign.video.link
-
-      
       campaign.campaign_friend.each do |friend|
         friend.email_subject = campaign.email_subject
         friend.email_template = campaign.template

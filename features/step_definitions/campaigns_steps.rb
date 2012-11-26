@@ -3,12 +3,12 @@ Given /^campaigns have been created$/ do
   current_user.campaign.create!({
 	:name => "Help Farmer1",
 	:template => "Hi <name>, please look at this video. <link>",
-	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
+	:video => Video.create(:video_id=>"http://www.youtube.com/watch?v=oHg5SJYRHA0"),
   :priority => 1,
   :project => Project.find(1),
   :user_id => current_user.id
   })
-
+  
   campaign = Campaign.find(1)
   friend = campaign.campaign_friend.new
   friend.name = "Bob Smith"
@@ -29,7 +29,7 @@ Given /^campaigns have been created$/ do
   current_user.campaign.create!({
 	:name => "Help Farmer2",
 	:template => "Hi <name>, please look at this video. <link>",
-	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
+	:video => Video.create(:video_id=>"http://www.youtube.com/watch?v=oHg5SJYRHA0"),
   :priority => 1,
   :project => Project.find(2),
   :user_id => current_user.id
@@ -50,7 +50,7 @@ Given /^another user created a campaign$/ do
   current_user.campaign.create!({
 	:name => "Help Farmer1",
 	:template => "Hi <name>, please look at this video. <link>",
-	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
+	:video => Video.create(:video_id=>"http://www.youtube.com/watch?v=oHg5SJYRHA0"),
   :priority => 1,
   :project => Project.find(1),
   :user_id => current_user.id
