@@ -1,10 +1,12 @@
 %li.well.project_details
-  %h2 
+  %h2.title 
     = project.farmer
-  = project.target - project.current
-  left!
-  %br
-  - maxlength = 270
+  .current
+    $
+    = project.target - project.current
+    left!
+  %p.description
+  - maxlength = 200
   - if project.description.length > maxlength
     = %Q{#{project.description[0..project.description[0..maxlength].rindex(' ')]}<br /> Read more...}.html_safe
   - else 

@@ -63,12 +63,21 @@ $white: #FFFFFF;
 
 .projectlist {
   .project_details {
+    border: 2px solid rgb(0,64,0);
+    border-radius: 25px;
+    box-shadow: 8px 8px 5px #888;
+    background-color: white;
     width: 250px;
     height: 250px;
     float: left;
     margin-right: 50px;
     word-wrap: break-word;
+    font-size:16px;
   }
+  .title {
+    color: rgb(0,64,0);
+  }
+
 }
 
 .pagination {
