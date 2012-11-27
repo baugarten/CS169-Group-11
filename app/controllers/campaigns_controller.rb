@@ -1,5 +1,6 @@
 class CampaignsController < ApplicationController
   before_filter :authenticate_user!, :except=>[:confirm_watched]
+  before_filter :authenticate_admin!, :only =>  [:destroy]
   before_filter :check_owner, :only=>[:manager]
   include CampaignsHelper
 
