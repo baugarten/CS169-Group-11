@@ -29,16 +29,20 @@ end
 
 Given /^campaigns have been created$/ do
   current_user = User.find(1)
-  current_user.campaign.create!({
+  campaign = current_user.campaign.create!({
 	:name => "Help Farmer1",
 	:template => "Hi <name>, please look at this video. <link>",
-	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
   :priority => 1,
   :project => Project.find(1),
   :user_id => current_user.id
   })
 
-  campaign = Campaign.find(1)
+  video = Video.create!({
+    :video_id=>"oHg5SJYRHA0"
+  })
+  campaign.video = video
+  campaign.save!
+  
   friend = campaign.campaign_friend.new
   friend.name = "Bob Smith"
   friend.email = "bobsmith@gmail.com"
@@ -51,22 +55,86 @@ Given /^campaigns have been created$/ do
   friend.opened = false
   friend.save
 
-  current_user.campaign.create!({
+  campaign = current_user.campaign.create!({
 	:name => "Help Farmer2",
 	:template => "Hi <name>, please look at this video. <link>",
-	:video_link => "http://www.youtube.com/watch?v=oHg5SJYRHA0",
   :priority => 1,
   :project => Project.find(2),
   :user_id => current_user.id
   })
 
-  campaign = Campaign.find(2)
+  video = Video.create!({
+    :video_id=>"oHg5SJYRHA0"
+  })
+  campaign.video = video
+  campaign.save!
+  
   friend = campaign.campaign_friend.new
   friend.name = "John Smith"
   friend.email = "johnsmith@gmail.com"
   friend.save
+end
 
+Given /^test donations exist$/ do
+  user = User.create!({
+    :email=>"test@email.com",
+    :password=>"password",
+    :first_name=>"Mister",
+    :last_name=>"Test"
+  })
+  
+  project = Project.create!({
+    :farmer => "Farmah1",
+    :description => "First pharma! 50char 50char 50char 50char 50char 50char 50char 50char",
+    :target => 500,
+    :ending => true,
+    :current => 0
+  })
+  
+  campaign = Campaign.create!({
+    :name => "Help Farmer1",
+    :template => "Hi <name>, please look at this video. <link>",
+    :project => project,
+    :user => user
+  })
 
+  video = Video.create!({
+    :video_id=>"oHg5SJYRHA0"
+  })
+  campaign.video = video
+  campaign.save!
+  
+  friend1 = campaign.campaign_friend.create!({
+    :name => "Peter Griffin",
+    :email => "prez@petoria.gov"
+  })
+  friend2 = campaign.campaign_friend.create!({
+    :name => "Jack Sparrow",
+    :email => "jsparrow@rms.titanic.davyjones-locker.cx"
+  })
+
+  donation = Donation.create!({
+    :email => "prez@petoria.gov",
+    :readable_amount => "$50",
+    :project => project,
+    :campaign_friend => friend1
+  })
+  donation = Donation.create!({
+    :email => "jsparrow@rms.titanic.davyjones-locker.cx",
+    :readable_amount => "$5",
+    :project => project,
+    :campaign_friend => friend2
+  })
+  
+  campaign.update_donated()
+end
+
+Given /^I am logged in as the test donations user$/ do
+  # Login user
+  visit path_to('the login user page')
+  fill_in('Email', :with => 'test@email.com')
+  fill_in('Password', :with => 'password')
+  click_button('Sign in')
 end
 
 Then /^the manager should show "(.*?)" have been sent the email$/ do |name|
@@ -79,7 +147,6 @@ Then /^the manager should show "(.*?)" have not been sent the email$/ do |name|
   assert match != nil
 
 end
-
 
 Then /^the manager should show "(.*?)" have donated "(.*?)"$/ do |name, donation_amount|
   text = name + " " + donation_amount

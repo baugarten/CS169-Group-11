@@ -1,10 +1,13 @@
 class Donation < ActiveRecord::Base
-  attr_accessible :email, :amount, :project_id, :user_id, :stripe_token, :readable_amount
+  attr_accessible :email, :amount, :project, :project_id, :campaign_friend, :campaign_friend_id, :user_id, :stripe_token, :readable_amount
   
   belongs_to :project
   belongs_to :user
+  belongs_to :campaign_friend
   
   def readable_amount
+    return "" if self.amount == 0 or not self.amount
+    
     donation_amount = self.amount
     dollars = donation_amount / 100
     cents = donation_amount % 100

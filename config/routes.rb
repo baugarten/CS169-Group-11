@@ -46,6 +46,12 @@ OneProsper::Application.routes.draw do
     end
   end
 
+  resources :campaign_friends do
+    member do
+      get 'video'
+    end
+  end
+  
   match 'photo/:id' => 'photo#display', :as => :photo
   match 'assets/before.jpeg' => 'photo#default', :as => 'default_photo'
   

@@ -1,16 +1,17 @@
 .hero-unit.project_sidebar
-  = render 'farmer'
+  = render 'farmer', :project=>@project
   
   %h2
     Donate:
   = form_for :donation, :url => charge_project_path(@project) do |form|
+    = text_field :donation, :campaign_friend_id, :type=>:hidden
     .row
       .span3
         Donation amount
       .span3
         = text_field :donation, :readable_amount, :readonly=>:true
       .span1
-        = link_to "Edit", project_path(@project), :class => "btn btn-warning"
+        = link_to "Edit", request.referer, :class => "btn btn-warning"
     .row
       .span3
         Email

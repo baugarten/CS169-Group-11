@@ -1,0 +1,8 @@
+%h2 Your Friend's Video
+- if (campaign_friend.youtube_id)
+  %iframe{:allowfullscreen => "", :frameborder => "0", :height => "349",
+        :src => "http://www.youtube.com/embed/#{campaign_friend.youtube_id}", :width => "560"}
+- else
+  The embedded viewer is only available for YouTube videos...
+  %br
+  = link_to "View your friend's video", campaign_friend.video_link

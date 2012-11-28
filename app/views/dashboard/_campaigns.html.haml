@@ -1,10 +1,12 @@
 #campaigns.row
   .span1
-    ="Farmer"
+    = "Farmer"
+  .span1
+    = "Friends"
+  .span1
+    = "Donated"
   .span2
-    ="# Friends"
-  .span2
-    ="Progress" 
+    = "Farmer Progress" 
    
 
 - @user.campaign.each do |campaign|  
@@ -12,8 +14,10 @@
     .row
       .span1
         =link_to  "  #{campaign.project.farmer}", manager_campaign_path(campaign)
-      .span2
+      .span1
         = campaign.campaign_friend.find(:all).count
+      .span1
+        = campaign.readable_donated
       .span2
         = "$" + campaign.project.current.to_s() + " / $" + campaign.project.target.to_s() 
       .span1

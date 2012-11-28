@@ -1,5 +1,5 @@
 %h2 Donate:
-= form_tag donate_project_path(project.id), :method => :get, :id => 'donation-form' do
+= form_tag donate_project_path(project), :method => :get, :id => 'donation-form' do
   .row
     .span1
       = radio_button_tag "amount", "5" 
@@ -17,11 +17,31 @@
       = label :amount, 20, "$20"
   .row
     .span1
-      = radio_button_tag "amount" ,"other"
+      = radio_button_tag "amount", "other"
     .span2
       = label :amount, "other", "Other"
     .span4
-      = text_field :donation, :amount, :cols => "5", :disabled => :disabled
+      = text_field :donation, :readable_amount, :cols => "5", :disabled => :disabled
+  .row
+    .span3
+      Custom donations must at at least $5, and be in multiples of $5.
   .row
     .span3
       = button_tag "Donate"
+  = text_field :donation, :email, :type=>:hidden
+  = text_field :donation, :campaign_friend_id, :type=>:hidden
+      
+:javascript
+  $(document).ready(function(){
+      $('#amount_10').click(function(){
+        $('#donation_readable_amount').attr("disabled","disabled");
+      });
+
+      $('#amount_20').click(function(){
+        $('#donation_readable_amount').attr("disabled","disabled");
+      });
+
+      $('#amount_other').click(function(){
+        $('#donation_readable_amount').removeAttr("disabled");
+      });
+  });

@@ -22,7 +22,7 @@ Scenario: Following campaign manager should show campaign detail and be able to 
   When I follow "Farmer1"
   Then the manager should be on the "Farmer1" page
   Then I should see "Hi <name>, please look at this video. <link>"
-  Then I should see "http://www.youtube.com/watch?v=oHg5SJYRHA0"
+  Then I should see "http://youtube.com/watch?v=oHg5SJYRHA0"
   Then I should see "Bob Smith"
   Then I should see "bobsmith@gmail.com"
   When I follow "Change Template"
