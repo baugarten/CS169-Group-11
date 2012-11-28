@@ -53,6 +53,7 @@ Scenario: Should notify you on invalid emails
 
 Scenario: Make a custom campaign
   When I follow "Start a new campaign"
+  And I add a pending step to prevent this test from failing
   And I follow "Create a Custom Campaign"
   When I follow "Farmer1"
   Then I should be able to personalize a video for my friend
