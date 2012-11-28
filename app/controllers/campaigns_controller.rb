@@ -1,20 +1,26 @@
 class CampaignsController < ApplicationController
-  before_filter :authenticate_user!, :except=>[:confirm_watched]
-  before_filter :authenticate_admin!, :only =>  [:destroy]
+  before_filter :authenticate_user!, :except=>[:confirm_watched,:index]
+  before_filter :authenticate_admin!, :only =>  [:destroy,:index]
   before_filter :check_owner, :only=>[:manager]
   include CampaignsHelper
 
   def check_owner
-    id = params[:id]
-    campaign = Campaign.find_by_id(id)
-    if campaign==nil
-      flash[:error] = "Campaigns with id:#{params[:id]} doesnt exist!!"
-      redirect_to dashboard_path
+    if not current_user.admin?
+      id = params[:id]
+      campaign = Campaign.find_by_id(id)
+      if campaign==nil
+        flash[:error] = "Campaigns with id:#{params[:id]} doesnt exist!!"
+        redirect_to dashboard_path
        
-    elsif not campaign.user == current_user
-      flash[:error] = "You may only view your campaigns"
-      redirect_to dashboard_path
+      elsif not campaign.user == current_user
+        flash[:error] = "You may only view your campaigns"
+        redirect_to dashboard_path
+      end
     end
+  end
+
+  def index
+     @campaign = Campaign.find(:all)
   end
 
   def destroy
