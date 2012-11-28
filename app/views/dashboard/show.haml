@@ -1,12 +1,11 @@
+= content_for :title do
+  = "My Dashboard"
+
 #title.row
   .span6
     %h1 User Dashboard
   .span2
     = link_to "Edit Profile", dashboard_edit_path  
-  .span2
-    = link_to "Invitations to Fund", root_path  
-  .span2
-    = link_to "Projects to Fund", root_path
 
 = render :partial => "profile"
 
