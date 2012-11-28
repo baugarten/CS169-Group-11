@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
     if params[:page]
       page_ = params[:page]
     end
-    @projects = Project.order('id').page(page_).per(15)
+    @projects = Project.order('farmer').page(page_).per(15)
 
     respond_to do |format|
       format.html # index.html.erb

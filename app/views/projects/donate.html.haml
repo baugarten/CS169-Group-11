@@ -1,21 +1,7 @@
 =content_for :title do "Donation" end
-.row-fluid.box-unit
-  .span6#picture-donate
-    = render 'picture'
-  .span6
-    %h1.title.row-fluid
-      = @project.farmer
-    .row-fluid.description
-      -if @project.description.length > 250
-        = "#{@project.description[1..250]}..."
-      -else
-        = @project.description
-    .row-fluid
-      %h3 
-        $#{@project.current.to_i} donated of #{@project.target.to_i} goal
-      .progress.progress-strive.active
-        - width = 100 - (@project.target - @project.current) * 100 / @project.target
-        .bar{:style => "width: #{width}%;"}
+
+= render "donate_farmer_info"
+
 .row-fluid#stripe-section
   .row-fluid
     %h2

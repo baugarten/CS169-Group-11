@@ -16,6 +16,8 @@
 
     $('iframe').css("background-color", "white");
 
+    $('.stripe-button-frame').css("background-color", "rgb(225,255,225)");
+
     $("#videos").nestedmodel({
       base: $(".video").not(".extra").length,
       handle: ".video.extra",
