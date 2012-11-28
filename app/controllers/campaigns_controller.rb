@@ -174,6 +174,12 @@ class CampaignsController < ApplicationController
      @friend=@campaign.campaign_friend.find(params[:friend])
      @friend.sent_count=@friend.sent_count+1
      @friend.save
+     email="mailto:#{@friend.email}?subject=#{@friend.email_subject}&body=#{@friend.email_body}"
+     email=email.gsub(' ','%20')
+     respond_to do |format|
+       format.html { redirect_to email}
+     end
+    
   end
 
   def confirm_watched
