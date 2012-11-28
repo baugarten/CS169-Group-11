@@ -1,5 +1,5 @@
-﻿div.jHtmlArea { display: inline block; }
-div.jHtmlArea div { padding: 0px; margin: 0px; }
+﻿div.jHtmlArea { display: inline block; background-color: rgb(225,255,225);}
+div.jHtmlArea div { padding: 0px; margin: 0px;}
 div.jHtmlArea .ToolBar { }
 div.jHtmlArea .ToolBar ul { border: solid 1px #ccc; margin: 1px; padding: 1px; float: left; background: #fff url(jHtmlArea_Toolbar_Group_BG.png) repeat-x;}
 div.jHtmlArea .ToolBar ul li { list-style-type: none; float: left; border: none; padding: 1px; margin: 1px; }
@@ -45,4 +45,5 @@ div.jHtmlArea .ToolBar ul li a.justifycenter { background-position: -16px -32px;
 div.jHtmlArea .ToolBar ul li a.justifyright { background-position: -32px -32px;}
 div.jHtmlArea .ToolBar ul li a.increasefontsize { background-position: -48px -32px;}
 div.jHtmlArea .ToolBar ul li a.decreasefontsize { background-position: -64px -32px;}
-div.jHtmlArea .ToolBar ul li a.forecolor { background-position: -80px -32px;}
+div.jHtmlArea .ToolBar ul li a.forecolor { background-position: -80px -32px;
+
