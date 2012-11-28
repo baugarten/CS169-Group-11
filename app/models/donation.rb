@@ -21,6 +21,8 @@ class Donation < ActiveRecord::Base
     
     return if not parse
     
-    self.amount = (parse[:amount].to_f * 100).to_i
+    # rounding is necessary because of FP precision issues
+    # example: inputting $19.99 would have returned $19.98
+    self.amount = ((parse[:amount].to_f + 0.0049) * 100).to_i
   end
 end

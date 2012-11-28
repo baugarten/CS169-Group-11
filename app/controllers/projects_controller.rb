@@ -109,12 +109,19 @@ class ProjectsController < ApplicationController
       return true
     end
     
-    if (donation.amount < 100)
-      flash[:error] = "Minimum donation amount is $1.00; you attempted to donate #{donation.readable_amount}"
+    if (donation.amount < 500)
+      flash[:error] = "Minimum donation amount is $5.00; you attempted to donate #{donation.readable_amount}"
+      redirect_to project_path(project)
+      return true
+    end
+
+    if (donation.amount % 500 != 0)
+      flash[:error] = "Donations must be a multiple of $5.00; you attempted to donate #{donation.readable_amount}"
       redirect_to project_path(project)
       return true
     end
     
+    # This should never happen because of the minimum donation multiple, but remains as a sanity check
     if (donation.amount > project.current_remaining * 100)
       flash[:error] = "There is only #{project.readable_current_remaining} left to fund for this project; you attempted to donate #{donation.readable_amount}"
       redirect_to project_path(project)

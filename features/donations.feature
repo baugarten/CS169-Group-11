@@ -50,21 +50,30 @@ Scenario: Empty custom donation choice should return error
   Then I should see "Invalid donation amount"
   
 @javascript
-Scenario: Minimum donation amount of $1.00
+Scenario: Minimum donation amount of $5.00
   When I am on the project details page for "Farmer John"
   And I choose "Other"
-  And I fill in "donation_amount" with "0.99"
+  And I fill in "donation_amount" with "4.99"
   And I press "Donate"
   Then I should be on the project details page for "Farmer John"
-  Then I should see "Minimum donation amount is $1.00; you attempted to donate $0.99"
+  Then I should see "Minimum donation amount is $5.00; you attempted to donate $4.99"
+
+@javascript
+Scenario: Donation multiple of $5.00
+  When I am on the project details page for "Farmer John"
+  And I choose "Other"
+  And I fill in "donation_amount" with "19.99"
+  And I press "Donate"
+  Then I should be on the project details page for "Farmer John"
+  Then I should see "Donations must be a multiple of $5.00; you attempted to donate $19.99"
   
 @javascript
 Scenario: Farmer and custom donation amount choice should correctly transfer to donation payment page
   When I am on the project details page for "Farmer John"
   And I choose "Other"
-  And I fill in "donation_amount" with "6"
+  And I fill in "donation_amount" with "10"
   And I press "Donate"
   Then I should see "Farmer John"
-  And the "donation_readable_amount" field should contain "\$6.00"
+  And the "donation_readable_amount" field should contain "\$10.00"
  
 
