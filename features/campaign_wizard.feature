@@ -50,3 +50,11 @@ Scenario: Should notify you on invalid emails
   Then the campaign should be on the "enter friends" page
   And I should see "Unable to understand these emails: OMG IM NOT A EMAIL LOLOLOLOL, quack"
   And I should see "My Friend <myfriend@bunkmail.com>, Admiral Crunch <friend2@bunkmail.com>"
+
+Scenario: Make a custom campaign
+  When I follow "Start a new campaign"
+  And I follow "Create a Custom Campaign"
+  When I follow "Farmer1"
+  Then I should be able to personalize a video for my friend
+  When I press "Add Another"
+  Then I should be able to personalize a video for my friend
