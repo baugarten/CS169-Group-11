@@ -1,20 +1,22 @@
-.hero-unit.project_sidebar
+.project_sidebar
   = render 'farmer'
 
-  = render 'donation', :project=>@project
-  
-  
 = render 'youtube/upload', :videos => @project.videos, :width => 400
 
 - if admin_signed_in?
-  = link_to 'Edit', edit_project_path(@project) 
-
-= link_to 'Back', projects_path 
-- if admin_signed_in?
-  = button_to 'Delete', project_path(@project), :method => :delete
+  .row-fluid
+    .span1
+      = link_to 'Edit', edit_project_path(@project), :class => 'btn btn-warning' 
+    .span1
+      = link_to 'Delete', project_path(@project), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
+  %br
+= link_to 'Back to project list', projects_path 
 
 :javascript
   $(document).ready(function(){
+      $('#amount_5').click(function(){
+        $('#donation_amount').attr("disabled","disabled");
+      });
       $('#amount_10').click(function(){
         $('#donation_amount').attr("disabled","disabled");
       });

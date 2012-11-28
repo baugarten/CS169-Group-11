@@ -1,13 +1,30 @@
 $barColor : #4B9123;
 $white: #FFFFFF;
-
+body {
+  background-color: rgb(225,255,225);
+}
 .navbar{
   border-botton-width: 5px;
   border-bottom-style: solid;
   border-bottom-color: darken($barColor, 9%);
   margin-bottom: 0;
 }
+.box-unit {
+  background-color: white;
+  border: 2px solid rgb(0,64,0);
+  border-radius: 25px;
+  moz-box-shadow: 8px 8px 5px #888;
+  webkit-box-shadow: 8px 8px 5px #888;
+  box-shadow: 8px 8px 5px #888;
+  padding: 0px 5px 0px 5px;
+  img {
+    height: 85%;
+  }
+}
 
+.progress {
+  width: 90%;
+}
 #bar {
   height: 40px;
   padding-top: 5px;
@@ -60,26 +77,49 @@ $white: #FFFFFF;
     }
   }
 }
-
 .projectlist {
   .project_details {
     border: 2px solid rgb(0,64,0);
     border-radius: 25px;
+    moz-box-shadow: 8px 8px 5px #888;
+    webkit-box-shadow: 8px 8px 5px #888;
     box-shadow: 8px 8px 5px #888;
     background-color: white;
-    width: 250px;
-    height: 250px;
-    float: left;
-    margin-right: 50px;
+    width: 80%;
+    height: 180px;
+    margin-right: auto;
+    margin-left: auto;
     word-wrap: break-word;
     font-size:16px;
+    
   }
   .title {
     color: rgb(0,64,0);
   }
+  .current {
+    color: rgb(0,85,170);
+  }
 
 }
 
+#donation-box {
+  .header {
+    text-align: center;
+    color: #5CB8E6;
+  }
+  #donation_amount {
+  width: 60px;
+  }
+}
+
+#progress-box{
+  padding: 0px;
+  text-align: center;
+  .progress.progress-stripe.active {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 .pagination {
   display: inline;
 }
@@ -94,4 +134,25 @@ input.video-select {
 }
 label.unstyled-label {
   margin-right: 20px;
+}
+
+.title {
+  color: rgb(0,64,0);
+  word-wrap: break-word;
+}
+
+.farmer-pic {
+  max-width: 400px;
+}
+
+#picture-donate {
+  img {
+    margin: 15px 15px 15px 15px;
+
+  }
+}
+#stripe-section {
+  form {
+    margin: 20px;
+  }
 }
