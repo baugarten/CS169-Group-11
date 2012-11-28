@@ -1,13 +1,15 @@
 %h1 Add a Video
 
-= form_tag submit_video_campaign_path(@campaign), :method => :put do 
+= form_tag submit_video_campaign_path(), :method => :put do 
   %p Record a video or link to a video on youtube!
   %br
   
   .row
-    .span12{:style => "height: 300px;" }
+    .span3
+    .span9{:style => "height: 300px;" }
       = radio_button_tag 'video', 'recorded', true, :class => "pull-left video-select", :id => "recorded"
       = render 'youtube/upload', :height => 300, :width => 500, :editable => false, :form => true, :extras => 1
+  %br
   .row
     .span12{:style => "margin-top: 30px; height: 14px"}
       = radio_button_tag 'video', 'link', false, :class => "pull-left video-select", :id => "link"

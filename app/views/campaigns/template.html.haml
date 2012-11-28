@@ -1,15 +1,15 @@
 %h1 Write Your Message Template
 
-= form_tag submit_template_campaign_path(@campaign), :method => :put do
+= form_tag submit_template_campaign_path(), :method => :put do
   %p Enter your email subject and body template
   %p 
     ="In your template, you can use <name> for the recipient's name, and <link> for the video link entered on the previous step"
   %br
   
   = label :campaign, :email_subject, 'Subject'
-  = text_field :campaign, :email_subject, :style => 'width: 550px', :value =>"Help Farmer Call!"
+  = text_field :campaign, :email_subject, :style => 'width: 550px', :value=>(session[:template_subject]==nil ? "" : session[:template_subject])
   = label :campaign, :template, 'Template'
-  = text_area :campaign, :template, :style => 'width: 550px'
+  = text_area :campaign, :template, :style => 'width: 550px', :value=>(session[:template_content]==nil ? "" : session[:template_content])
 
   %br
   = submit_tag 'Next'

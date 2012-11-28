@@ -1,9 +1,9 @@
 %h2 Select Farmer to Fund
 
 %div{:class=>"unstyled clearfix"}
-  -if not @projects.empty?
+  -if not @projects.nil?
     -@projects.each do |project| 
-      =link_to select_farmer_campaign_path(@campaign, project) do
+      =link_to select_farmer_campaign_path(:project=>project) do
         =render 'projects/list', :project => project 
   -else
     %center
