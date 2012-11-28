@@ -30,3 +30,7 @@ Scenario: have steps of how website works
 
 Scenario: have picture of farmers 
     #  And I should see picture of farmers
+#
+Scenario: have link to project index page
+  When I follow "Projects"
+  Then I should be on the projects index page
