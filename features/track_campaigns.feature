@@ -42,17 +42,6 @@ Scenario: Delete the campaign
   When I follow "Delete"
   Then I should see "Campaign was Deleted Successfully"
 
-Scenario: Open the response link before the mail sent
-  Given I opened the tracking response link "first" time
-  Then I should see "Oh, I havent send the mail to you yet...."
-
-Scenario: Open the response link after the mail sent
-  Given I sent the email out to my fd already
-  And I opened the tracking response link "first" time
-  Then I should see "Thankyou for Confirmation"
-  And I opened the tracking response link "second" time
-  And I should see "You Already Confirmed You Read The Mail"
-
 Scenario: campaigns can only opened if it not exist
   When I follow "Start a new campaign"
   Then I should not see "Farmer 1"
