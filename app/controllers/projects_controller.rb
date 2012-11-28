@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
     @photo_extras = build_extras(@photo_extras, params[:photo_extras], :photos)
 
     respond_to do |format|
-      format.html { render "_form" } # new.html.erb
+      format.html #{ render "_form" } # new.html.erb
       format.json { render json: @project }
     end
   end
