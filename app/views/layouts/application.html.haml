@@ -28,4 +28,34 @@
                   - flash[:error] = flash[:alert]
                 %span#notice.alert.alert-error= flash[:error].html_safe
               = yield
-            %footer
+        #footer
+          .container
+            .row
+              .title      
+                .span3
+                  About Us
+                .span3
+                  Contact Us
+            .row
+              .content
+                .span3        
+                  =link_to "About", '/about'
+                .span3        
+                  =link_to "Facebook", 'http://www.facebook.com/oneprosperinternational'
+            .row
+              .content
+                .span3        
+                  =link_to "Mission", '/mission'
+                .span3        
+                  =mail_to 'raju@oneprosper.org' , 'Email'
+            .row
+              .content
+                .span3        
+                  =link_to "Model", '/model'
+                .span3        
+                
+            .row
+              .content
+                .span3        
+                  =link_to "Impact", '/impact'
+                

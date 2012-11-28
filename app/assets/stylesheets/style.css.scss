@@ -86,3 +86,24 @@ input.video-select {
 label.unstyled-label {
   margin-right: 20px;
 }
+
+#footer{ 
+
+  .title{
+    color: white;
+    font-family: 'Proxima Nova Light','Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-size: 22px;
+    line-height: 40px;
+  }
+  .content{
+    color: white;
+    font-family: 'Proxima Nova Light','Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-size: 18px;
+    line-height: 28px;
+  }
+  text-align: center; 
+  background-color:#56a628; 
+  a:link {text-decoration:none; color:black;}    /* unvisited link */
+  a:visited {text-decoration:none; color:black;} /* visited link */
+    
+}  
