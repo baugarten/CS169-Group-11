@@ -1,23 +1,23 @@
 module CampaignsHelper
-    def check_session_farmer()      
+    def fail_check_session_farmer()      
       if session[:project] ==nil
          flash[:error]="Please Select a Farmer"
-         redirect_to campaign_farmers_path
-         return
+         return true
       end
       session[:template_content]=nil
       session[:template_subject]=nil
       session[:valid_email]=nil
       session[:video_link]=nil
       session[:video_type]=nil
+      return false
     end
 
-    def check_session_friends()
+    def fail_check_session_friends()
       if session[:valid_email] ==nil
         flash[:error]="Please Enter Some Valid Name and Email"
-        redirect_to friends_campaign_path
-        return
+        return true
       end
+      return false
     end
 
     def reset_campaign_session

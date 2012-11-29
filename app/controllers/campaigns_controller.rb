@@ -92,7 +92,9 @@ class CampaignsController < ApplicationController
   end
   
   def friends
-    check_session_farmer()
+    if fail_check_session_farmer()
+      redirect_to campaign_farmers_path
+    end
   end
   
   def submit_friends
@@ -116,7 +118,9 @@ class CampaignsController < ApplicationController
   end
   
   def video
-    check_session_friends
+    if fail_check_session_friends
+      redirect_to friends_campaign_path
+    end
   end
   
   def submit_video
