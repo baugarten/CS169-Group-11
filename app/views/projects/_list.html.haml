@@ -1,6 +1,6 @@
 %li.well.project_details
   .span4
-    = if not project.photos.empty? then image_tag(photo_path(project.photos[0]), :width => 180, :class => 'pull-left') else image_tag(default_photo_path, :width=> '220px' ,:class => 'pull-left') end
+    = if not project.photos.empty? then image_tag(photo_path(project.photos[0]), :width => 220, :class => 'pull-left') else image_tag(default_photo_path, :width=> '220px' ,:class => 'pull-left') end
   .span8
     %h2.title 
       = project.farmer
