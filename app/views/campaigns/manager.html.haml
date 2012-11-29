@@ -1,3 +1,6 @@
+=content_for :title do
+  ="Campaign Manager"
+
 %h1 Send your Donation Requests!
 
 %h3 Message Template
@@ -5,20 +8,18 @@
 %br
 = @campaign.email_subject
 %br
+%br
 %b Body:
 %br
 = @campaign.template
-
 %br
-= link_to  "Change Template", template_campaign_path()
-
-%h3 Video Link
-= @campaign.video_link
 %br
-= link_to  "Change Link", video_campaign_path()
+%b Video:
+%br
+= render "youtube/upload", :videos => [@campaign.video] unless @campaign.video==nil
+%br
 
 %h3 Send Emails
-= link_to  "Manage Friends", friends_campaign_path()
 .row
   .span2
     %b Name

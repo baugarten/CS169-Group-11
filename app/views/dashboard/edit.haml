@@ -1,3 +1,6 @@
+= content_for :title do
+  = "Edit Profile"
+
 = form_for :user, :url => {:controller => 'dashboard', :action => 'update'}, :html => {:multipart => true} do |form|
   #title.row
     %h1 Edit Profile

@@ -3,7 +3,7 @@
   %head
     %meta{:charset => "utf-8"}
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
-    %title= content_for?(:title) ? yield(:title) : "Myapp"
+    %title= content_for?(:title) ? yield(:title) : "OneProsper"
     %meta{:content => "", :name => "description"}
     %meta{:content => "", :name => "author"}
     = stylesheet_link_tag    "application", :media => "all"
@@ -22,10 +22,10 @@
           .row-fluid.content
             .span12
               - if flash[:notice]
-                %span#notice.label.label-success= flash[:notice].html_safe
+                %span#notice.alert.alert-success= flash[:notice].html_safe
               - if flash[:error] or flash[:alert]
                 - if flash[:alert]
                   - flash[:error] = flash[:alert]
-                %span#notice.label.label-error= flash[:error].html_safe
+                %span#notice.alert.alert-error= flash[:error].html_safe
               = yield
             %footer

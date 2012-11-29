@@ -1,3 +1,7 @@
+
+= content_for :title do 
+  ="OneProser: Home"
+
 = content_for :bar do
   #bar
     .container.center
@@ -67,7 +71,7 @@
                   4
                 Keep track of the impact of your campaign.
         %center
-          %a{:class => "btn btn-success", :href => new_campaign_path} Start Your Campaign
+          %a{:class => "btn btn-success", :href => campaign_farmers_path} Start Your Campaign
     %div.span5.updates
       .row-fluid
         .span4.offset4.lead
