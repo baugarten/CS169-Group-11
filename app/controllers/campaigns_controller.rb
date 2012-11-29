@@ -176,8 +176,12 @@ class CampaignsController < ApplicationController
      @friend=@campaign.campaign_friend.find(params[:friend])
      @friend.sent_count=@friend.sent_count+1
      @friend.save
-     email="mailto:#{@friend.email}?subject=#{@friend.email_subject}&body=#{@friend.email_body}"
-     email=email.gsub(' ','%20')
+     email_body=@friend.email_body
+     email_subject=@friend.email_subject
+     email_body=html_symbol_process(email_body)
+     email_subject=html_symbol_process(email_subject)
+     email="mailto:#{@friend.email}?subject=#{email_subject}&body=#{email_body}"
+
      respond_to do |format|
        format.html { redirect_to email}
      end

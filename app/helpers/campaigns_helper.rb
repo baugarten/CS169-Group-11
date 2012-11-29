@@ -126,4 +126,13 @@ module CampaignsHelper
       return campaign
    end
 
+   def html_symbol_process(email_part)
+     email_part=email_part.gsub(' ','%20')
+     email_part=email_part.gsub(':','%3A')
+     email_part=email_part.gsub('/','%2F')
+     email_part=email_part.gsub('?','%3F')
+     email_part=email_part.gsub('=','%3D')
+     return email_part
+   end
+
 end
