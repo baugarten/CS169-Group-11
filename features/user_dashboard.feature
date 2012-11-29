@@ -25,10 +25,5 @@ Scenario: Dashboard should show list of donations (from the user)
   Then I should see "My Donations"
   # rest to be added when donations are implemented
 
-Scenario: Dashboard should have link to list of farmers page (homepage) as a "Projects Fund" button
-  When I follow "Projects to Fund"
-  Then I should be on the oneProsper homepage
-
 Scenario: Dashboard should have link to page of farmers that you have been invited to donate to as "Invitation to Fund" button
-  When I follow "Invitations to Fund"
   # rest to be added when we add invitation to doante
