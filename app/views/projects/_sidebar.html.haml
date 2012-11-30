@@ -3,7 +3,7 @@
     %h1 
       = project.farmer
     %p
-      = project.description
+      = :description => project.description[0..[270,project.description.length].min]
     %h2 
       $#{project.current.to_i} donated of $#{project.target.to_i} goal
     .progress.progress.striped.active
