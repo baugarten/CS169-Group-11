@@ -20,15 +20,18 @@
         // We have no idea what to do if there isn't already a model
         return;
       } 
+      // If there are no remove handles, then die
       if (!settings.removeObj && $(this).find(settings.removeHandle).length == 0) {
-        $(this).append("<a id='remove' class='btn'>Remove</a>");
+        return;
+        /*$(this).append("<a id='remove' class='btn'>Remove</a>");
         settings.removeHandle = "#remove";
         if (count <= orig+1) {
           $(settings.removeHandle).attr("disabled", "disabled");
-        }
+        }*/
       } 
+      // If there is no add handle, then die
       if ($(this).find(settings.addHandle).length == 0) {
-        $(this).append("<a id='add' class='btn'>Add</a>");
+        return;
       }
       $(settings.addHandle).on("click", add);
       $(settings.removeHandle).on("click", remove);
