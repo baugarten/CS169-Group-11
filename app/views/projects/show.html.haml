@@ -1,8 +1,9 @@
 = content_for :title do @project.farmer end
 .project_sidebar
   = render 'farmer'
-
-= render 'youtube/upload', :videos => @project.videos, :width => 400
+.row-fluid
+  %center
+    = render 'youtube/upload', :videos => @project.videos, :width => 400
 
 - if admin_signed_in?
   .row-fluid

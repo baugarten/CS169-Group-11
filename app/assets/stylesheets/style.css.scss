@@ -164,7 +164,12 @@ label.unstyled-label {
 }
 
 #galleria {
-  max-width: 550px;
-  height: 300px;
+  max-width: 80%;
+  height: 400px;
   cursor: pointer;
 }
+
+#farmer-info.box-unit {
+  padding: 5px 10px 5px 10px;
+}
+
