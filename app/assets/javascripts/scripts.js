@@ -12,7 +12,8 @@
        "html", "bold","italic","underline","strikethrough","|", "subscript", "forecolor","increasefontsize", "decreasefontsize", "orderedlist", "unorderedlist", "indent", "outdent", "justifyleft", "justifycenter", "justifyright", "link", "unlink", "image", "horizontalrule", "h1","h2","h3","h4","h5","h6"]});
 
     $("#project_description").htmlarea({
-      toolbar:["html"]});
+      toolbar:["html", "bold","italic","underline","strikethrough","|","increasefontsize", "decreasefontsize"]});
+
 
     $('iframe').css("background-color", "white");
 

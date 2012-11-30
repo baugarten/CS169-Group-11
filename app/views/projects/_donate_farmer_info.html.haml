@@ -5,10 +5,10 @@
     %h1.title.row-fluid
       = @project.farmer
     .row-fluid.description
-      -if @project.description.length > 250
-        = "#{@project.description[1..250]}..."
+      -if @project.description.length > 400
+        = "#{@project.description[0..400]}...".html_safe
       -else
-        = @project.description
+        = @project.description.html_safe
     .row-fluid
       %h3 
         $#{@project.current.to_i} donated of #{@project.target.to_i} goal
