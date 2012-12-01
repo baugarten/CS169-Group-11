@@ -173,4 +173,3 @@ class ProjectsController < ApplicationController
     redirect_to donate_project_path(params[:id])
   end
 end
-

@@ -7,7 +7,7 @@
   %br
   %br
   -#= button_to "hello", (mail_to @friend.email, "#{@friend.name}",:subject=>@friend.email_subject)
-  = mail_to @friend.email, "SEND TO #{@friend.name}",:subject=>@friend.email_subject, :body=>@friend.email_body, :class => 'button'
+  = mail_to @friend.email, "SEND TO #{@friend.name}",:subject=>@friend.email_subject, :body=>@friend.email_body, :class => 'button','data-popup' => true 
   %br
   %br
   = link_to "Back to Previous Page", manager_campaign_path(@campaign)
