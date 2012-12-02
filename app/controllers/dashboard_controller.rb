@@ -37,7 +37,7 @@ class DashboardController < ApplicationController
       u_image_url = params[:user_image_url][:image_url]
       non_db_url = u_image_url
       u_image_url = u_image_url.sub!(/www.dropbox.com/, "dl.dropbox.com")   
-      if u_image_url = ""
+      if u_image_url.nil?
         u_image_url = non_db_url
       end
       user_photo = Photo.new

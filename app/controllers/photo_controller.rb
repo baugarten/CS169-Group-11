@@ -16,8 +16,4 @@ class PhotoController < ApplicationController
     end
   end
 
-  def default
-    debugger
-    return "before.jpeg"
-  end
 end
