@@ -18,7 +18,8 @@ body {
   moz-box-shadow: 8px 8px 5px #888;
   webkit-box-shadow: 8px 8px 5px #888;
   box-shadow: 8px 8px 5px #888;
-  padding: 0px 5px 0px 5px;
+  padding: 5px 5px 5px 5px;
+  margin: 0px 0px 15px 0px;
   img {
     height: 85%;
   }
@@ -173,3 +174,10 @@ label.unstyled-label {
   padding: 5px 10px 5px 10px;
 }
 
+#farmer_info {
+  padding-left: 10px;
+} 
+
+#vid {
+  margin-left: 15px;
+  float:right;}
