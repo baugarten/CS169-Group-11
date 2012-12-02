@@ -1,6 +1,6 @@
 =content_for :title do "Donation" end
 
-= render "donate_farmer_info"
+= render "donate_farmer_info", :project => @project
 
 .row-fluid#stripe-section
   .row-fluid
@@ -8,6 +8,8 @@
       Donate:
   .row-fluid
     = form_for :donation, :url => charge_project_path(@project) do |form|
+      = text_field :donation, :email, :type=>:hidden
+      = text_field :donation, :campaign_friend_id, :type=>:hidden
       .row
         .span3
           Donation amount:

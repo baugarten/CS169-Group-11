@@ -147,15 +147,4 @@ class CampaignsController < ApplicationController
      end
     
   end
-
-  def confirm_watched
-     @campaign = Campaign.find_by_id(params[:id])
-     @friend=@campaign.campaign_friend.find(params[:friend])
-     if @friend.sent_count>0
-        @friend.opened= @friend.opened+1
-     else
-        @friend.opened=0 
-     end
-     @friend.save
-  end
 end
