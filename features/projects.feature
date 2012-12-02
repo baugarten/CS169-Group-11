@@ -43,7 +43,7 @@ Feature: Create a project and view it
   Scenario: Delete Project
     Given I am logged in as an admin
     When I am on the project details page for "farmer1"
-    And I press "Delete"
+    And I follow "Delete"
     Then I should be on the projects index page
     And I should not see "farmer1"
 

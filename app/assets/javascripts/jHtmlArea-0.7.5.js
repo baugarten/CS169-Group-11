@@ -211,6 +211,8 @@
                 this.ec("fontSize", false, this.qc("fontSize") + 1);
             } else if ($.browser.safari) {
                 this.getRange().surroundContents($(this.iframe[0].contentWindow.document.createElement("span")).css("font-size", "larger")[0]);
+            } else if ($.browser.chrome){
+                this.ec("fontSize", false, parseInt(this.qc("fontSize")) + 1);
             } else {
                 this.ec("increaseFontSize", false, "big");
             }
@@ -220,6 +222,8 @@
                 this.ec("fontSize", false, this.qc("fontSize") - 1);
             } else if ($.browser.safari) {
                 this.getRange().surroundContents($(this.iframe[0].contentWindow.document.createElement("span")).css("font-size", "smaller")[0]);
+            } else if ($.browser.chrome){
+                this.ec("fontSize", false, parseInt(this.qc("fontSize")) + 1);
             } else {
                 this.ec("decreaseFontSize", false, "small");
             }
