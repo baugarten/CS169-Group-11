@@ -1,23 +1,25 @@
 = content_for :title do
   = "My Dashboard"
 
-#title.row
+#title.row-fluid
   .span6
     %h1 User Dashboard
   .span2
-    = link_to "Edit Profile", dashboard_edit_path  
+    = link_to "Edit Profile", dashboard_edit_path, :class => 'btn btn-warning'  
 
-= render :partial => "profile"
-
-%h1 My Impact
-#impact.row
-  #donations.span6
-    %h2 My Donations
-    = render :partial => "donations"
-  #campaigns.span6
-    %h2 My Campaigns
-    .row
-      = link_to "Start a new campaign", campaign_farmers_path, :class => 'btn btn-success'
-    .row
-      = render :partial => "campaigns"
+#dashboard
+  .box-unit
+    = render :partial => "profile"
+    %hr
+    %h1 My Impact:
+    #impact.row-fluid
+      #donations.row-fluid
+        %h2 My Donations
+        = render :partial => "donations"
+      #campaigns.row-fluid
+        %h2 
+          My Campaigns
+          = link_to "Start a new campaign", campaign_farmers_path, :class => 'btn btn-success'
+        .row-fluid
+          = render :partial => "campaigns"
 
