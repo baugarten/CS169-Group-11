@@ -1,6 +1,9 @@
 class CampaignFriend < ActiveRecord::Base
-  attr_accessible :name, :email, :campaign_id, :email_template, :email_subject, :sent_count, :opened, :confirm_link
+  has_one :video, :as => :recordable
+
+  attr_accessible :name, :email, :campaign_id, :email_template, :email_subject, :sent_count, :opened, :confirm_link, :video
   belongs_to :campaign
+
   
   def email_body
     body = email_template

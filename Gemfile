@@ -15,6 +15,8 @@ gem 'kaminari'
 
 gem 'bootstrap-sass'
 
+gem 'email_veracity'
+
 gem 'youtube_it'
 
 gem 'stripe'

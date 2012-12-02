@@ -1,4 +1,5 @@
 module CampaignsHelper
+    require 'email_veracity'
     def fail_check_session_farmer()      
       if session[:project] ==nil
          flash[:error]="Please Select a Farmer"
@@ -12,14 +13,6 @@ module CampaignsHelper
       return false
     end
 
-    def fail_check_session_friends()
-      if session[:valid_email] ==nil
-        flash[:error]="Please Enter Some Valid Name and Email"
-        return true
-      end
-      return false
-    end
-
     def reset_campaign_session
       session[:template_content]=nil
       session[:template_subject]=nil
@@ -30,43 +23,44 @@ module CampaignsHelper
       session[:email_list]=nil
     end
 
-    def check_email_format(email_list)
-      valid_email={}
-      fail_list=""
-      email_list.split(',').each do |entry|
-        name=""
-        email=""
-      
-        entry.scan(/[\s]?([\w\s]+)<([\s+\w+\.\@]+)>+/).each do |y|
-          name=y[0]
-          email=y[1]
-        end
-      
-        array=name.split(' ')
-        if array.size !=2
-          fail_list.empty? ? fail_list=entry : fail_list += ", "+entry
-        else
-          name=array[0]+" "+array[1]
-
-          email =email.match(/^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i) 
-
-          if email =="" || email ==nil || email.blank?
-            fail_list.empty? ? fail_list=entry : fail_list += ","+entry          
-          else
-            valid_email["#{email}"]="#{name}" 
-          end  
-        end
+    def valid_email?(email)
+      first, last, email = parse_email(email)
+      email_address = EmailVeracity::Address::new(email.delete("<").delete(">"))
+      if email_address.valid?
+        return true
+      else
+        return false
       end
-      
-      return fail_list,valid_email,"Unable to understand these emails: #{fail_list}"
     end
 
-    def video_format_pass(video,video_link,videos)
-      if (video== 'recorded' && videos==nil) || (video== 'link' && video_link.blank?)
-        error="No video submited"
-        return false,error
+    def parse_email(full_email)
+      fname, lname = "", ""
+      if index = full_email.index(/\<.+\>/)
+        email = full_email.match(/\<.*\>/)[0].gsub(/[\<\>]/, "").strip
+        name  = full_email[0..index-1].split(" ")
+        fname = name.first
+        lname = name[1..name.size] * " "
       else
-        return true,""
+        email = full_email.strip
+        #your choice, what the string could be... only mail, only name?
+      end
+      return fname, lname, email
+    end
+
+    def valid_campaign_video?(videohash)
+      if videohash[:video] == "recorded"
+        ret = !videohash[:videos].nil?
+      else
+        ret = !videohash[:campaign][:video_link].nil?
+      end
+    end
+
+    # Parses a valid campaign video from videohash
+    def parse_campaign_video(videohash)
+      if videohash[:video] == 'recorded'
+        return videohash[:videos]["0"]
+      else
+        return videohash[:campaign][:video_link]
       end
     end
 
@@ -85,7 +79,8 @@ module CampaignsHelper
       end
    end
 
-   def create_campaign(campaign_id,project_id,valid_email,template_subject,template_content,video_type,video_link)
+   def create_campaign(campaign_id, project_id, campaign_friends,
+                       template_subject, template_content)
       if campaign_id == nil
         campaign = current_user.campaign.create
         campaign.project=Project.find(project_id)
@@ -93,36 +88,21 @@ module CampaignsHelper
         campaign = Campaign.find_by_id(campaign_id)
       end
       campaign.campaign_friend.clear
-      emails=valid_email
- 
-      friends = []
-      emails.each do |temail,tname|
-        new_friend=CampaignFriend.new()
-      
-        new_friend.name = tname
-        new_friend.email = temail
-        new_friend.save
-        friends.push(new_friend)
-      end
-      campaign.campaign_friend= friends
-
-
       campaign.email_subject = template_subject
       campaign.template = template_content
-      
-      if video_type == "webcam"
-        campaign.video = Video.create(video_link)
-      elsif video_type == "link"
-        campaign.video = Video.create(:video_id => video_link)
-      end
 
-      campaign.campaign_friend.each do |friend|
+      friends = []
+
+      campaign_friends.each do |friend|
+        friend.campaign = campaign
         friend.email_subject = campaign.email_subject
         friend.email_template = campaign.template
         friend.confirm_link= request.protocol+request.host_with_port+"/"+"campaigns/#{campaign.id}/confirm_watched?friend=#{friend.id}"
-        friend.save
+        friends << friend
       end
+      campaign.campaign_friend = campaign_friends
       campaign.save
+
       return campaign
    end
 
