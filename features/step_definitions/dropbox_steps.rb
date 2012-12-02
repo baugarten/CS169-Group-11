@@ -1,10 +1,18 @@
-When /^(?:|I )attach the file "([^"]*)" to dropbox$/ do |path|
-  fill_in("user_image_url", :with => path)
+When /^(?:|I )attach the file "([^"]*)" to dropbox for user$/ do |path|
+  fill_in("user_image_url_image_url", :with => path)
 end
 
-Then /^(?:|I )should see my picture linked from dropbox$/
+When /^(?:|I )attach the file "([^"]*)" to dropbox for project$/ do |path|
+  fill_in("project_photos_attributes_0_url", :with => path)
+end
+
+
+Then /^(?:|I )should see my picture linked from dropbox$/ do
+
   if page.respond_to? :should
-    page.should have_content("https://dl.dropbox.com/s/seh66m5mbjwrt69/rails.png")
+    page.should have_xpath("//img[@src=\"/photo/1\"]")
   else
-    assert page.has_content?("https://dl.dropbox.com/s/seh66m5mbjwrt69/rails.png") 
+    assert page.has_xpath?("//img[@src=\"/photo/1\"]")
+  end
+
 end

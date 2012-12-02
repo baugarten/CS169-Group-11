@@ -58,20 +58,26 @@
       .controls
         %a#add-video.btn{:href => new_or_edit_path(@project, @project.new_record?, @project.videos.length+1, @project.photos.length)} Add
         %a#remove-video.btn{:href => new_or_edit_path(@project, @project.new_record?, @video_extras-1, @photo_extras), :disabled => @video_extras <= 1 } Remove
-
+        != '<input type="dropbox-chooser" name="selected-file" id="db-chooser" style="visibility: hidden;"/>'
   - index = 0
 
     
   
   #photos
+    
+    
     != '<script type="text/javascript"> var num = 0; </script>'
+    
+    
+    
     = f.fields_for :photos do |builder|
+      
       .control-group.photo{:class => ("extra" if builder.object.new_record?)}
         = builder.label "Photo #{index+1}", :class => "control-label"
         .controls
           = builder.text_field :url
-          != '<input type="dropbox-chooser" name="selected-file" id="db-chooser" style="visibility: hidden;"/>'
-          != '<script type="text/javascript"> document.getElementById("db-chooser").addEventListener("DbxChooserSuccess", function(e) {var link = e.files[0].link; link = link.replace("www.dropbox.com", "dl.dropbox.com"); document.getElementById(\'project_photos_attributes_\'+num+\'_url\').value = link; num++;}, false); </script>'
+          
+          
           - unless builder.object.new_record?
             = builder.check_box '_destroy'
             %span Remove
@@ -81,7 +87,7 @@
       .controls
         %a#add-photo.btn{:href => new_or_edit_path(@project, @project.new_record?, @project.videos.length, @project.photos.length + 1)} Add
         %a#remove-photo.btn{:href => new_or_edit_path(@project, @project.new_record?, @video_extras, @photo_extras - 1), :disabled => @photo_extras <= 1 } Remove
-
+  != '<script type="text/javascript"> document.getElementById("db-chooser").addEventListener("DbxChooserSuccess", function(e) {var link = e.files[0].link; link = link.replace("www.dropbox.com", "dl.dropbox.com"); document.getElementById(\'project_photos_attributes_\'+num+\'_url\').value = link; num++;}, false); </script>'
   .control-group
     .controls
       = f.submit :class => "btn btn-primary"
