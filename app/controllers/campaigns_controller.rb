@@ -82,7 +82,7 @@ class CampaignsController < ApplicationController
     if session[:email_list].nil? then session[:email_list] = [] end
     if params[:campaign] and params[:campaign][:email] 
       if not valid_email? params[:campaign][:email] or not valid_campaign_video?(params)
-        flash[:error] = "Your last friend wasn't correct"
+        @error = "Your last friend wasn't correct"
         @current = params[:campaign][:email]
       else
         fname, lname, email = parse_email(params[:campaign][:email])
