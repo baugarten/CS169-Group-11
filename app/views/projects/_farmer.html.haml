@@ -1,13 +1,16 @@
-.row
-  .span6
-    = if not @project.photos.empty? then image_tag(photo_path(@project.photos[0]), :width => 400, :class => 'pull-left') else image_tag(default_photo_path, :width => 400, :class => 'pull-left') end
-  .span6
-    %h1 
-      = @project.farmer
-    %h2 
-      $#{@project.current.to_i} donated of $#{@project.target.to_i} goal
-    %p
-      = @project.description
-    .progress.progress-striped.active
-      - width = 100 - (@project.target - @project.current) * 100 / @project.target
-      .bar{:style => "width: #{width}%;"} 
+.row-fluid
+  .span7#galleria
+    = render 'galleria'
+  .span5#donation-box
+    %br
+    %br
+    .row-fluid
+      = render 'donation', :project => @project
+    %br
+    %div{:class => "row-fluid box-unit", :id => "progress-box"}
+      %h3
+        $#{@project.current.to_i} donated of $#{@project.target.to_i} goal
+      .progress.progress-stripe.active
+        - width = 100 - (@project.target - @project.current) * 100 / @project.target
+        .bar{:style => "width: #{width}%;"}
+

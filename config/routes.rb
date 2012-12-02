@@ -22,6 +22,12 @@ OneProsper::Application.routes.draw do
   match 'dashboard/update' => 'dashboard#update'
   match 'campaign/farmers' => 'campaigns#farmers'
   
+  
+  match 'about' => 'pages#about'
+  match 'mission' => 'pages#mission'
+  match 'impact' => 'pages#impact'
+  match 'model' => 'pages#model'
+  match 'students' => 'pages#students'
 
   resources :projects do
     member do

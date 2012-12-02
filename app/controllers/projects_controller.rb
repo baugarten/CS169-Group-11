@@ -5,7 +5,11 @@ class ProjectsController < ApplicationController
   require 'cgi'
 
   def index
-    @projects = Project.all
+    page_ = 0
+    if params[:page]
+      page_ = params[:page]
+    end
+    @projects = Project.order('farmer').page(page_).per(15)
 
     respond_to do |format|
       format.html # index.html.erb
