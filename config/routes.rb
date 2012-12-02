@@ -43,6 +43,7 @@ OneProsper::Application.routes.draw do
       get 'select_farmer'
       get 'friends'
       post 'template'
+      get 'template'
       put 'submit_template'
     end
   end
