@@ -139,9 +139,12 @@ label.unstyled-label {
   margin-right: 20px;
 }
 
+.title-small {
+  word-wrap:break-word;
+  color: rgb(0,64,0);
+}
 .title {
   color: rgb(0,64,0);
-  word-wrap: break-word;
 }
 
 .farmer-pic {
@@ -181,3 +184,9 @@ label.unstyled-label {
 #vid {
   margin-left: 15px;
   float:right;}
+
+#update{
+  .box-unit {
+    padding: 0px 15px 10px 15px;
+  }
+}
