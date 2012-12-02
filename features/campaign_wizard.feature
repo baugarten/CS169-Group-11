@@ -102,15 +102,6 @@ Scenario: Template content input check
 	And I press "Next"
   Then I should see "Please Enter the Template Content"
 
-Scenario: Make a custom campaign
-  When I follow "Start a new campaign"
-  And I add a pending step to prevent this test from failing
-  And I follow "Create a Custom Campaign"
-  When I follow "Farmer1"
-  Then I should be able to personalize a video for my friend
-  When I press "Add Another"
-  Then I should be able to personalize a video for my friend
-
 Scenario: Template content input check
   Given we are on the template page
   Then the campaign should be on the "message template" page
