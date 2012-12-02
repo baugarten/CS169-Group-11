@@ -21,6 +21,8 @@ gem 'youtube_it'
 
 gem 'stripe'
 
+gem 'mail'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'simplecov'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115232008) do
+ActiveRecord::Schema.define(:version => 20121201202446) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -29,9 +29,11 @@ ActiveRecord::Schema.define(:version => 20121115232008) do
     t.integer "sent_count",     :default => 0
     t.integer "opened",         :default => 0
     t.string  "confirm_link",   :default => "No LINK"
+    t.integer "donation_id"
   end
 
   add_index "campaign_friends", ["campaign_id"], :name => "index_campaign_friends_on_campaign_id"
+  add_index "campaign_friends", ["donation_id"], :name => "index_campaign_friends_on_donation_id"
 
   create_table "campaigns", :force => true do |t|
     t.string  "name"
@@ -42,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20121115232008) do
     t.integer "campaign_friends_id"
     t.integer "campaign_project_id"
     t.text    "email_subject"
+    t.integer "donated",             :default => 0
   end
 
   add_index "campaigns", ["campaign_friends_id"], :name => "index_campaigns_on_campaign_friends_id"
@@ -54,9 +57,12 @@ ActiveRecord::Schema.define(:version => 20121115232008) do
     t.text     "email"
     t.integer  "amount"
     t.text     "stripe_charge_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "campaign_friend_id"
   end
+
+  add_index "donations", ["campaign_friend_id"], :name => "index_donations_on_campaign_friend_id"
 
   create_table "photos", :force => true do |t|
     t.string  "filename"
@@ -64,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20121115232008) do
     t.binary  "binary_data"
     t.integer "imageable_id"
     t.string  "imageable_type"
+    t.string  "url"
   end
 
   create_table "projects", :force => true do |t|

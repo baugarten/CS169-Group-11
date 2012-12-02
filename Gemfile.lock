@@ -233,6 +233,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   launchy
+  mail
   pg
   rails (= 3.2.8)
   rspec-expectations
