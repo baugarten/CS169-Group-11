@@ -48,9 +48,6 @@ OneProsper::Application.routes.draw do
     member do
       get 'select_farmer'
       get 'friends'
-      put 'submit_friends'
-      get 'video'
-      put 'submit_video'
       get 'template'
       put 'submit_template'
     end

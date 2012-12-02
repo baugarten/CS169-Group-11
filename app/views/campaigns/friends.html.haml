@@ -1,17 +1,26 @@
 = content_for :title do
   ="Campaign: Add friends"
 
-%h1 Add Friends to Your Campaign
+POOP
+%h2 Add friends to your campaign
 
 
-= form_tag submit_friends_campaign_path(), :method => :put do
-  %p Enter your friends emails separated by commas
+= form_tag friends_campaign_path, :method => :get do
+  /- if not session[:email_list].empty?
+  %p Done so far:
+  - for friend in session[:email_list] do
+    = %Q{#{friend.email}, }
+  %div 
+    = link_to "Finished", template_campaign_path, :class => "btn btn-success"
+  %p Enter your friend's email
   %p 
     = "Example: Bob Smith <bsmith@mail.com>, John Doe <jdoe@mail.com>"
   %br
 
-  = label :campaign, :email_list, "Friends"
-  = text_area :campaign, :email_list, :value=> (session[:email_list]==nil ? "" : session[:email_list])
+  = label :campaign, :email, "Friend"
+  = text_field :campaign, :email
+
+  = render 'video'
 
   %br
   = submit_tag 'Next'

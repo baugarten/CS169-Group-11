@@ -9,7 +9,7 @@ class Campaign < ActiveRecord::Base
 
   def email_list
     list = ""
-    campaign_friend.each do |friend|
+    self.campaign_friend.each do |friend|
       if not list.empty?
         list += ", "
       end
@@ -17,6 +17,7 @@ class Campaign < ActiveRecord::Base
     end
     return list
   end
+
   
   def init
     self.priority = 0
