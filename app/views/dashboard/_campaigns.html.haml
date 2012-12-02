@@ -1,17 +1,17 @@
 #campaigns.row
   .span1
-    = "Farmer"
+    Farmer
   .span1
-    = "Donated"
+    Donated
   .span2
-    = "Farmer Progress" 
+    Farmer Progress
    
 
 - @user.campaign.each do |campaign|  
   -if not campaign.project==nil && campaign!=nil
     .row
       .span1
-        =link_to  "  #{campaign.project.farmer}", manager_campaign_path(campaign)
+        =link_to  "#{campaign.project.farmer}", manager_campaign_path(campaign)
       .span1
         = campaign.readable_donated
       .span2

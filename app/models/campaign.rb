@@ -10,7 +10,7 @@ class Campaign < ActiveRecord::Base
   def update_donated
     total = 0
     self.campaign_friend.each do |friend|
-      friend.donation.each do |donation|
+      friend.donations.each do |donation|
         total += donation.amount
       end
     end
