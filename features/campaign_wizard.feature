@@ -17,15 +17,17 @@ Scenario: Complete a campaign and able to edit it
 	When I follow "Farmer1"
 
 	Then the campaign should be on the "enter friends" page
-	When I fill in "Friends" with "My Friend <myfriend@bunkmail.com>, Admiral Crunch <friend2@bunkmail.com>"
-	And I press "Next"
-
-	Then the campaign should be on the "record video" page
-	When I fill in "Video Link" with "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  When I fill in "Friend" with "My Friend <myfriend@bunkmail.com>"
   And I choose "link"
+  And I fill in "Video Link" with "ajshdlkjahdskf"
+  And I press "Next"
+  And I fill in "Friend" with "Admiral Crunch <friend2@bunkmail.com>"
+  And I choose "link"
+  And I fill in "Video Link" with "kliusljgsjdfng"
 	And I press "Next"
+  And I follow "Finished"
+  Then the campaign should be on the "message template" page
 
-	Then the campaign should be on the "message template" page
   When I fill in "Subject" with "Help farmers in India!"
 	And I fill in "Template" with "Hi <name>, please watch this video about funding farmers <link>! Thanks!"
 	And I press "Next"
@@ -36,6 +38,7 @@ Scenario: Complete a campaign and able to edit it
 	And I should see "Admiral Crunch"
   And I should see /[contains(@href,myfriend@bunkmail.com)]/
   And I should see /[contains(@href,friend2@bunkmail.com)]/
+
   Given I am on the user dashboard
   When I follow "Edit"
 	And I should see "Hi <name>, please watch this video about funding farmers <link>! Thanks!"
@@ -47,16 +50,9 @@ Scenario: Complete a campaign and able to edit it
 	And I press "Update Campaign Info"
   And I should see "Campaign was successfully updated"
   And I should see "testing editing 123!"
-  And I fill in "Friends" with "not a email"
-  And I press "Update Campaign Info"
-  And I should see "Unable to understand these emails: not a email"
   And I fill in "Template" with ""
   And I press "Update Campaign Info"
-  And I should see "Please Enter the Template Content"
-  When I fill in "Video Link" with ""
-  And I choose "link"
-	And I press "Update Campaign Info"
-  Then I should see "No video submited"
+  Then I should see "Please Enter the Template Content"
 
 Scenario: Should notify you on invalid emails
 	When I follow "Start a new campaign"
@@ -64,13 +60,20 @@ Scenario: Should notify you on invalid emails
 	Then the campaign should be on the "select farmer" page
 	When I follow "Farmer1"
 	Then the campaign should be on the "enter friends" page
-	When I fill in "Friends" with "My Friend <myfriend@bunkmail.com>, Admiral Crunch <friend2@bunkmail.com>,OMG Not EMAIL, quack quack"
-	And I press "Next"
-  Then the campaign should be on the "enter friends" page
-  And I should see "Unable to understand these emails: OMG Not EMAIL, quack quack"
-  When I fill in "Friends" with "My Friend <myfriendbunkmail.com>"
+  When I fill in "Friend" with "My Friend <myfriend@bunkmail.com>" 
+  And I choose "link"
+  And I fill in "Video Link" with "KAJSHDKLAJSHD"
   And I press "Next"
-  And I should see "Unable to understand these emails: My Friend"
+  And I fill in "Friend" with "Admiral Crunch <friend2@bunkmail.com>"
+  And I choose "link"
+  And I fill in "Video Link" with "KAJSHDKLAJSHD"
+  And I press "Next"
+  And I fill in "Friend" with "OMG Not EMAIL, quack quack"
+  And I choose "link"
+  And I fill in "Video Link" with "KAJSHDKLAJSHD"
+  And I press "Next"
+  Then the campaign should be on the "enter friends" page
+  And I should see "Your last friend wasn't correct"
 
 Scenario: Must enter something for friends email page
   When I follow "Start a new campaign"
@@ -78,17 +81,17 @@ Scenario: Must enter something for friends email page
 	When I follow "Farmer1"
 	Then the campaign should be on the "enter friends" page
 	And I press "Next"
-  Then I should see "Please Enter Some Valid Name and Email"
+  Then I should see "last friend wasn't correct"
 
 Scenario: Must enter something for video page
   When I follow "Start a new campaign"
 	Then the campaign should be on the "select farmer" page
 	When I follow "Farmer1"
 	Then the campaign should be on the "enter friends" page
-  When I fill in "Friends" with "My Friend <myfriend@bunkmail.com>"
+  When I fill in "Friend" with "My Friend <myfriend@bunkmail.com>"
   And I press "Next"
   And I press "Next"
-  Then I should see "No video submited"
+  Then I should see "Your last friend wasn't correct"
 
 Scenario: Template content input check 
   Given we are on the template page
