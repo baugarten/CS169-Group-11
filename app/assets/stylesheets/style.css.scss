@@ -190,3 +190,59 @@ label.unstyled-label {
     padding: 0px 15px 10px 15px;
   }
 }
+
+#footer{ 
+
+  .title{
+    color: white;
+    font-family: 'Proxima Nova Light','Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-size: 22px;
+    line-height: 40px;
+  }
+  .content{
+    color: white;
+    font-family: 'Proxima Nova Light','Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-size: 18px;
+    line-height: 28px;
+  }
+  text-align: center; 
+  background-color:#56a628; 
+  a:link {text-decoration:none; color:black;}    /* unvisited link */
+  a:visited {text-decoration:none; color:black;} /* visited link */
+    
+}  
+
+#homeBoxes {
+	overflow:hidden;
+  margin-left:60px
+}
+
+#homeBoxes .homeBox {
+	width:290px;
+	float:left;
+	margin-right:40px;
+	background:url(images/bk_dotted_thick.png) 0 0 repeat-x;
+}
+
+#homeBoxes .homeBox img {
+	border:6px solid #E2E2E2;
+	background:#fff;
+	padding:1px;
+}
+
+#homeBoxes .homeBox img:hover {
+	border-color:#F9F9F9;
+}
+
+
+#homeBoxes .last{
+	margin-right:0;
+}
+
+#homeBoxes .homeBox h2 {
+	padding:10px 0 15px;
+	color:#333;
+	font-weight:normal;
+	font-size:24px;
+}
+
