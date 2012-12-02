@@ -85,6 +85,7 @@ class CampaignsController < ApplicationController
         @error = "Your last friend wasn't correct"
         @current = params[:campaign][:email]
       else
+        @error = nil
         fname, lname, email = parse_email(params[:campaign][:email])
         video_link, video_type = parse_campaign_video params
         if fname == '' and lname == '' then name = '' else name = %Q{#{fname} #{lname}} end
