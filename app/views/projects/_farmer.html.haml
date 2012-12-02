@@ -1,16 +1,7 @@
 .row-fluid
   .span7#galleria
-    = render 'galleria'
+    = render 'projects/galleria', :project => project
   .span5#donation-box
     %br
     %br
-    .row-fluid
-      = render 'donation', :project => @project
-    %br
-    %div{:class => "row-fluid box-unit", :id => "progress-box"}
-      %h3
-        $#{@project.current.to_i} donated of $#{@project.target.to_i} goal
-      .progress.progress-stripe.active
-        - width = 100 - (@project.target - @project.current) * 100 / @project.target
-        .bar{:style => "width: #{width}%;"}
-
+      = render 'donation', :project => project

@@ -1,17 +1,17 @@
 .row-fluid.box-unit
   .span6#picture-donate
-    = render 'picture'
+    = render 'projects/picture', :project=>project
   .span6
     %h1.title-small.row-fluid
-      = @project.farmer
+      = project.farmer
     .row-fluid.description
-      -if @project.description.length > 400
-        = "#{@project.description[0..400]}...".html_safe
+      -if project.description.length > 400
+        = "#{project.description[0..400]}...".html_safe
       -else
-        = @project.description.html_safe
+        = project.description.html_safe
     .row-fluid
       %h3 
-        $#{@project.current.to_i} donated of #{@project.target.to_i} goal
+        $#{project.current.to_i} donated of #{project.target.to_i} goal
       .progress.progress-strive.active
-        - width = 100 - (@project.target - @project.current) * 100 / @project.target
+        - width = 100 - (project.target - project.current) * 100 / project.target
         .bar{:style => "width: #{width}%;"}

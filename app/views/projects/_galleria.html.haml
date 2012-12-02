@@ -1,5 +1,5 @@
-- if not @project.photos.empty? 
-  - @project.photos.each do |photo|
+- if not project.photos.empty? 
+  - project.photos.each do |photo|
     = image_tag(photo_path(photo), :class => 'pull-left farmer-pic') 
 - else 
   = image_tag(default_photo_path, :class => 'pull-left farmer-pic')

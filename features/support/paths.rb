@@ -39,6 +39,10 @@ module NavigationHelpers
 
     when /^the admin user page$/ then '/admin/users/'
     when /^the admin admins page$/ then '/admin/admins/'
+    
+    when /^the campaign details page for "(.*)"$/ then manager_campaign_path(Campaign.find_by_name($1))
+    when /^the campaign friend video page for "(.*)"$/ then video_campaign_friend_path(CampaignFriend.find_by_name($1))
+    
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
