@@ -1,12 +1,12 @@
 class Campaign < ActiveRecord::Base
   attr_accessible :name, :template, :priority, :video, :user_id, :user, :campaign_friend_id, :project_id, :project, :readable_donated
   after_initialize :init
-
+  
   has_many :campaign_friend, :dependent => :destroy
   has_one :project
   has_one :video, :as => :recordable
   belongs_to :user
-  
+
   def update_donated
     total = 0
     self.campaign_friend.each do |friend|

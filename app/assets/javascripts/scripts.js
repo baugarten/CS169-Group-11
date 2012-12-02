@@ -40,5 +40,7 @@
       $(".hero-unit.project_sidebar").html(toRender);
       return false;
     });
+
+    $('a[data-popup]').live('click', function(e) { window.open($(this).attr('href')); e.preventDefault(); });
   });
 })(jQuery)

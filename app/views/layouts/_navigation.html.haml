@@ -11,11 +11,20 @@
       = link_to "Updates", updates_path
     %li 
       %br
+      = link_to "Projects", projects_path
+    %li 
+      %br
       = link_to("Logout", destroy_user_session_path, :method => :delete)
   -elsif admin_signed_in?
     %li
       %br
       = link_to "Updates", updates_path
+    %li
+      %br
+      = link_to "Projects", projects_path
+    %li
+      %br
+      = link_to "Campaigns", campaigns_path
     %li
       %br
       = link_to("Logout", destroy_admin_session_path, :method => :delete)

@@ -2,8 +2,6 @@
   .span1
     = "Farmer"
   .span1
-    = "Friends"
-  .span1
     = "Donated"
   .span2
     = "Farmer Progress" 
@@ -15,11 +13,11 @@
       .span1
         =link_to  "  #{campaign.project.farmer}", manager_campaign_path(campaign)
       .span1
-        = campaign.campaign_friend.find(:all).count
-      .span1
         = campaign.readable_donated
       .span2
         = "$" + campaign.project.current.to_s() + " / $" + campaign.project.target.to_s() 
+      .span1
+        = link_to 'Edit', edit_campaign_path(:id=>campaign), :class => 'btn btn-warning'
       .span1
         = link_to "Delete", campaign_path(campaign), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
 
