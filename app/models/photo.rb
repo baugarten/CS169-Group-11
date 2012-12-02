@@ -9,9 +9,7 @@ class Photo < ActiveRecord::Base
   before_validation :init
 
   def init
-    if self.input_data
 
-    end
   end
   def image_file=(input_data)
     self.filename = input_data.original_filename

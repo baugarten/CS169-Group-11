@@ -6,6 +6,9 @@ When /^(?:|I )attach the file "([^"]*)" to dropbox for project$/ do |path|
   fill_in("project_photos_attributes_0_url", :with => path)
 end
 
+And /^(?:|I )should be able to access the picture$/ do
+  visit photo_path("1")
+end
 
 Then /^(?:|I )should see my picture linked from dropbox$/ do
 

@@ -17,4 +17,5 @@ Scenario: Uploaded pictures should return to user dashboard with success message
   And I should see "Picture URL saved"
   And I should not see "No picture available"
   Then I should see my picture linked from dropbox
+  And I should be able to access the picture
   
