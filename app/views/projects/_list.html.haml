@@ -1,12 +1,17 @@
 %li.well.project_details
-  %h2 
-    = project.farmer
-  = project.target - project.current
-  left!
-  %br
-  - maxlength = 270
-  - if project.description.length > maxlength
-    = %Q{#{project.description[0..project.description[0..maxlength].rindex(' ')]}<br /> Read more...}.html_safe
-  - else 
-    = project.description 
+  .span4
+    = if not project.photos.empty? then image_tag(photo_path(project.photos[0]), :width => 220, :class => 'pull-left') else image_tag(default_photo_path, :width=> '220px' ,:class => 'pull-left') end
+  .span8
+    %h2.title 
+      = project.farmer
+    .current
+      $
+      = project.target - project.current
+      left!
+    %p.description
+    - maxlength = 200
+    - if project.description.length > maxlength
+      = %Q{#{project.description[0..project.description[0..maxlength].rindex(' ')]}<br /> Read more...}.html_safe
+    - else 
+      = project.description.html_safe 
 

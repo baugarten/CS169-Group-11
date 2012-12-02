@@ -1,0 +1,1 @@
+= if not @project.photos.empty? then image_tag(photo_path(@project.photos[0]), :class => 'pull-left farmer-pic') else image_tag(default_photo_path, :class => 'pull-left farmer-pic') end
