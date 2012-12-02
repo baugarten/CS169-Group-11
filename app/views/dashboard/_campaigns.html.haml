@@ -1,22 +1,22 @@
 #campaigns.row
-  .span1
+  .span2
     ="Farmer"
-  .span2
+  .span1
     ="# Friends"
-  .span2
+  .span1
     ="Progress" 
    
 
 - @user.campaign.each do |campaign|  
   -if not campaign.project==nil && campaign!=nil
     .row
-      .span1
+      .span2
         =link_to  "  #{campaign.project.farmer}", manager_campaign_path(campaign)
-      .span2
+      .span1
         = campaign.campaign_friend.find(:all).count
-      .span2
+      .span1
         = "$" + campaign.project.current.to_s() + " / $" + campaign.project.target.to_s() 
       .span1
-        = link_to "Delete", campaign_path(campaign), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
-
-
+        = link_to 'Edit', edit_campaign_path(:id=>campaign), :class => 'btn btn-warning'
+      .span1
+        = link_to "Delete", campaign_path(:id=>campaign), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'

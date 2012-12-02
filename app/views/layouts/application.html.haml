@@ -17,9 +17,9 @@
           = render 'layouts/navigation'
     #main{:role => "main"}
       = yield :bar
-      .container.content
+      .container-fluid
         .push-down
-          .row
+          .row-fluid.content
             .span12
               - if flash[:notice]
                 %span#notice.alert.alert-success= flash[:notice].html_safe

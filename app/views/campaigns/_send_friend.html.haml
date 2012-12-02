@@ -8,5 +8,5 @@
   .span2
     = friend.opened==0?"Unconfirmed":"Confirmed"
   .span4
-    =link_to "Send Now" ,track_campaign_path(:friend=>friend)
-
+    =link_to "Send Now" ,track_campaign_path(:friend=>friend),'data-popup' => true
+    
