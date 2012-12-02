@@ -1,5 +1,9 @@
 $barColor : #4B9123;
 $white: #FFFFFF;
+body {
+  background-color: rgb(225,255,225);
+}
+
 
 .navbar{
   border-botton-width: 5px;
@@ -7,7 +11,23 @@ $white: #FFFFFF;
   border-bottom-color: darken($barColor, 9%);
   margin-bottom: 0;
 }
+.box-unit {
+  background-color: white;
+  border: 2px solid rgb(0,64,0);
+  border-radius: 25px;
+  moz-box-shadow: 8px 8px 5px #888;
+  webkit-box-shadow: 8px 8px 5px #888;
+  box-shadow: 8px 8px 5px #888;
+  padding: 5px 5px 5px 5px;
+  margin: 0px 0px 15px 0px;
+  img {
+    height: 85%;
+  }
+}
 
+.progress {
+  width: 90%;
+}
 #bar {
   height: 40px;
   padding-top: 5px;
@@ -60,17 +80,49 @@ $white: #FFFFFF;
     }
   }
 }
-
 .projectlist {
   .project_details {
-    width: 250px;
-    height: 250px;
-    float: left;
-    margin-right: 50px;
+    border: 2px solid rgb(0,64,0);
+    border-radius: 25px;
+    moz-box-shadow: 8px 8px 5px #888;
+    webkit-box-shadow: 8px 8px 5px #888;
+    box-shadow: 8px 8px 5px #888;
+    background-color: white;
+    width: 80%;
+    height: 180px;
+    margin-right: auto;
+    margin-left: auto;
     word-wrap: break-word;
+    font-size:16px;
+    
+  }
+  .title {
+    color: rgb(0,64,0);
+  }
+  .current {
+    color: rgb(0,85,170);
+  }
+
+}
+
+#donation-box {
+  .header {
+    text-align: center;
+    color: #5CB8E6;
+  }
+  #donation_amount {
+  width: 60px;
   }
 }
 
+#progress-box{
+  padding: 0px;
+  text-align: center;
+  .progress.progress-stripe.active {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 .pagination {
   display: inline;
 }
@@ -86,3 +138,111 @@ input.video-select {
 label.unstyled-label {
   margin-right: 20px;
 }
+
+.title-small {
+  word-wrap:break-word;
+  color: rgb(0,64,0);
+}
+.title {
+  color: rgb(0,64,0);
+}
+
+.farmer-pic {
+  max-width: 400px;
+}
+
+#picture-donate {
+  img {
+    margin: 15px 15px 15px 15px;
+
+  }
+}
+#stripe-section {
+  form {
+    margin: 20px;
+  }
+}
+
+.description {
+  word-wrap: break-word;
+}
+
+#galleria {
+  max-width: 80%;
+  height: 400px;
+  cursor: pointer;
+}
+
+#farmer-info.box-unit {
+  padding: 5px 10px 5px 10px;
+}
+
+#farmer_info {
+  padding-left: 10px;
+} 
+
+#vid {
+  margin-left: 15px;
+  float:right;}
+
+#update{
+  .box-unit {
+    padding: 0px 15px 10px 15px;
+  }
+}
+
+#footer{ 
+
+  .title{
+    color: white;
+    font-family: 'Proxima Nova Light','Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-size: 22px;
+    line-height: 40px;
+  }
+  .content{
+    color: white;
+    font-family: 'Proxima Nova Light','Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-size: 18px;
+    line-height: 28px;
+  }
+  text-align: center; 
+  background-color:#56a628; 
+  a:link {text-decoration:none; color:black;}    /* unvisited link */
+  a:visited {text-decoration:none; color:black;} /* visited link */
+    
+}  
+
+#homeBoxes {
+	overflow:hidden;
+  margin-left:60px
+}
+
+#homeBoxes .homeBox {
+	width:290px;
+	float:left;
+	margin-right:40px;
+	background:url(images/bk_dotted_thick.png) 0 0 repeat-x;
+}
+
+#homeBoxes .homeBox img {
+	border:6px solid #E2E2E2;
+	background:#fff;
+	padding:1px;
+}
+
+#homeBoxes .homeBox img:hover {
+	border-color:#F9F9F9;
+}
+
+
+#homeBoxes .last{
+	margin-right:0;
+}
+
+#homeBoxes .homeBox h2 {
+	padding:10px 0 15px;
+	color:#333;
+	font-weight:normal;
+	font-size:24px;
+}
+

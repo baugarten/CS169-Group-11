@@ -3,7 +3,7 @@
 <%end%>
 
 <h1>Listing projects</h1>
-
+<%=paginate @projects%>
 <ul class="unstyled clearfix projectlist">
 <% @projects.each do |project| %>
   <%= link_to project_path(project) do %>
@@ -13,5 +13,5 @@
 </ul>
 <br />
 <% if admin_signed_in? %>
-  <%= link_to 'New Project', new_project_path %>
+  <%= link_to 'New Project', new_project_path, :class => 'btn btn-success' %>
 <% end %>

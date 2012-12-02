@@ -1,4 +1,3 @@
-
 = content_for :title do 
   ="OneProser: Home"
 
@@ -7,9 +6,6 @@
     .container.center
       %h3
         People Seek Empowerment. Not Dependence.
-
-  
-
 
 %div.container-fluid.frontpage
   %div.row-fluid
@@ -84,11 +80,12 @@
             - @updates.each do |update|
               %tr
                 %td= link_to "#{update.title}", update_path(update)
-                %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")
-                
+                %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")             
   %br
   %br
 
-
-
-
+  #homebox
+    .container
+      = render 'layouts/homebox' 
+  %br
+  %br

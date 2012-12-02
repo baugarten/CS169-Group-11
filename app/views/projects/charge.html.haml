@@ -1,7 +1,7 @@
-.hero-unit.project_sidebar
-  %h2
-    Thanks for your donation
+=content_for :title do "Thank you" end
+
+%h2.title
   #{@project.farmer} thanks you for your contribution of #{@donation.readable_amount}
-  %br
-  %br
-  = render 'farmer', :project=>@project
+
+=render "donate_farmer_info", :project => @project
+

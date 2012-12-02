@@ -1,30 +1,33 @@
 =content_for :title do "Donation" end
-.hero-unit.project_sidebar
-  = render 'farmer', :project=>@project
-  
-  %h2
-    Donate:
-  = form_for :donation, :url => charge_project_path(@project) do |form|
-    = text_field :donation, :campaign_friend_id, :type=>:hidden
-    .row
-      .span3
-        Donation amount
-      .span3
-        = text_field :donation, :readable_amount, :readonly=>:true
-      .span1
-        = link_to "Edit", request.referer, :class => "btn btn-warning"
-    .row
-      .span3
-        Email
-        (optional)
-      .span3
-        = text_field :donation, :email
-    .row
-      .span3
-        Donate by credit card through Stripe
-      .span3
-        <script src="https://button.stripe.com/v1/button.js" class="stripe-button"
-        data-key="#{Rails.configuration.stripe[:publishable_key]}"
-        data-description="Donation to #{@project.farmer}"
-        data-label="Donate"
-        data-amount="#{@donation.amount}"></script>
+
+= render "donate_farmer_info", :project => @project
+
+.row-fluid#stripe-section
+  .row-fluid
+    %h2
+      Donate:
+  .row-fluid
+    = form_for :donation, :url => charge_project_path(@project) do |form|
+      = text_field :donation, :email, :type=>:hidden
+      = text_field :donation, :campaign_friend_id, :type=>:hidden
+      .row
+        .span3
+          Donation amount:
+        .span3
+          = text_field :donation, :readable_amount, :readonly=>:true
+        .span1
+          = link_to "Edit", project_path(@project), :class => "btn btn-warning"
+      .row
+        .span3
+          Email (optional):
+        .span3
+          = text_field :donation, :email
+      .row
+        .span3
+          Donate by credit card through Stripe
+        .span3
+          <script src="https://button.stripe.com/v1/button.js" class="stripe-button"
+          data-key="#{Rails.configuration.stripe[:publishable_key]}"
+          data-description="Donation to #{@project.farmer}"
+          data-label="Donate"
+          data-amount="#{@donation.amount}"></script>

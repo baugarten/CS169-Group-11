@@ -39,23 +39,6 @@ class CampaignsController < ApplicationController
   def update
     @campaign = Campaign.find_by_id(params[:id])
     
-    valid_email={}
-    fail_list=""
-    fail_list,valid_email,email_error=check_email_format(params[:campaign][:email_list])
-
-    if not fail_list.empty?
-      flash[:error]=email_error
-      redirect_to edit_campaign_path(@campaign)
-      return
-    end
-
-    video_format_passed,error=video_format_pass(params[:video],params[:campaign][:video_link],params[:videos])
-    if not video_format_passed
-      flash[:error]=error
-      redirect_to edit_campaign_path(@campaign)
-      return
-    end
-
     template_format_passed,error=template_format_pass(params[:campaign][:email_subject],params[:campaign][:template])
    
     if not template_format_passed
@@ -63,15 +46,16 @@ class CampaignsController < ApplicationController
       redirect_to edit_campaign_path(@campaign)
       return
     end
+    @campaign.email_subject = params[:campaign][:email_subject]
+    @campaign.template = params[:campaign][:template]
+    @campaign.save
     
-    campaign=create_campaign(@campaign.id,-1,valid_email,params[:campaign][:email_subject],params[:campaign][:template],params[:video_type],params[:video_link])
-
-
     flash[:notice] = "Campaign was successfully updated"	
     redirect_to edit_campaign_path(@campaign)
   end
   
   def farmers
+    reset_campaign_session
     @existed_projects=Campaign.all(:conditions=>["user_id=?",current_user.id])
     result=[]
     @existed_projects .each do|campaign|
@@ -88,58 +72,28 @@ class CampaignsController < ApplicationController
   
   def select_farmer
     session[:project]=params[:project]
-    redirect_to friends_campaign_path()
+    redirect_to friends_campaign_path
   end
-  
+
   def friends
     if fail_check_session_farmer()
       redirect_to campaign_farmers_path
     end
-  end
-  
-  def submit_friends
-    
-    session[:email_list]=params[:campaign][:email_list]
-    email_friends_count=0
-    valid_email={}
-    fail_list=""
-
-    fail_list,valid_email,error=check_email_format(params[:campaign][:email_list])
-    
-    session[:valid_email]=valid_email unless valid_email.size ==0
-    
-    if fail_list.size >0
-      session[:valid_email]=nil 
-      flash[:error] =error
-      redirect_to friends_campaign_path()
-    else
-      redirect_to video_campaign_path
-    end
-  end
-  
-  def video
-    if fail_check_session_friends
-      redirect_to friends_campaign_path
-    end
-  end
-  
-  def submit_video
-    
-    video_format_passed,error=video_format_pass(params[:video],params[:campaign][:video_link],params[:videos])
-    if not video_format_passed
-      flash[:error]=error
-      redirect_to video_campaign_path()
-      return
-    else
-      if params[:video] == 'recorded'
-        session[:video_link]=params[:videos]["0"]
-        session[:video_type]="webcam"
+    if session[:email_list].nil? then session[:email_list] = [] end
+    if params[:campaign] and params[:campaign][:email] 
+      if not valid_email? params[:campaign][:email] or not valid_campaign_video?(params)
+        flash[:error] = "Your last friend wasn't correct"
+        @current = params[:campaign][:email]
       else
-        session[:video_link]=params[:campaign][:video_link]
-        session[:video_type]="link"
+        fname, lname, email = parse_email(params[:campaign][:email])
+        video_link, video_type = parse_campaign_video params
+        if fname == '' and lname == '' then name = '' else name = %Q{#{fname} #{lname}} end
+        session[:email_list] << CampaignFriend.new({
+          :name => name,
+          :email => email,
+          :video => Video.new(:video_id => video_link)
+        })
       end
-  
-      redirect_to template_campaign_path()
     end
   end
   
@@ -156,17 +110,19 @@ class CampaignsController < ApplicationController
     if not format_passed
       flash[:error]=error
       redirect_to template_campaign_path
-    
-    elsif session[:valid_email]==nil || session[:project] ==nil || session[:video_type]==nil || session[:video_link]==nil
-      flash[:error]="Incomplete information to create a campaign"
+      return
+    end
+    if session[:email_list].nil? || session[:email_list].empty? || session[:project] == nil 
+      flash[:error] = %Q{Incomplete information to create a campaign #{session[:email_list]} #{session[:project]}} 
       redirect_to campaign_farmers_path
       return
-    
-    else
-      campaign=create_campaign(nil,session[:project],session[:valid_email],session[:template_subject],session[:template_content],session[:video_type],session[:video_link])
-
-      redirect_to manager_campaign_path(campaign)
     end
+    email_list = session[:email_list].clone
+    session.delete(:email_list)
+    campaign = create_campaign(nil, session[:project], email_list,
+                               session[:template_subject], session[:template_content])
+
+    redirect_to manager_campaign_path(campaign)
   end
   
   def manager
