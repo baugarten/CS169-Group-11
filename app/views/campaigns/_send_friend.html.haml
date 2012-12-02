@@ -1,12 +1,12 @@
 .row
   .span2
-    = friend.name
+    = ((friend.name != '') ? friend.name : "anonymous")
   .span2
     = friend.email
   .span2
     = friend.sent_count
   .span2
-    = friend.opened==0?"Unconfirmed":"Confirmed"
+    = friend.opened == 0 ? "Unconfirmed" : "Confirmed"
   .span4
     =link_to "Send Now" ,track_campaign_path(:friend=>friend),'data-popup' => true
     

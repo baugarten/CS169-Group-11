@@ -75,12 +75,15 @@ end
 Given /^we are on the template page$/ do
   click_link("Start a new campaign")
   click_link("Farmer1")
-  fill_in("Friends", :with => "My Friend <myfriend@bunkmail.com>, Admiral Crunch <friend2@bunkmail.com>")
-	click_button("Next")
+  fill_in("Friend", :with => "My Friend <myfriend@bunkmail.com>")
   choose("link")
-	fill_in("Video Link", :with=>"http://www.youtube.com/watch?v=dQw4w9WgXcQ")
+  fill_in("Video Link", :with => "kjshfklg")
+  click_button("Next")
+  fill_in("Friend", :with => "Admiral Crunch <friend2@bunkmail.com>")
   choose("link")
-	click_button("Next")
+  fill_in("Video Link", :with => "kjshfklg")
+  click_button("Next")
+	click_link("Finished")
 end
 
 Given /^we are on the friends page$/ do
