@@ -16,4 +16,8 @@ class Photo < ActiveRecord::Base
     self.content_type = input_data.content_type.chomp
     self.binary_data = input_data.read
   end
+
+  def to_param
+    return "poop"
+  end
 end

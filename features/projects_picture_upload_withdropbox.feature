@@ -25,7 +25,6 @@ Feature: Project pictures are uploaded on dropbox
     And I should see "I don't have a description"
     Then I should see my picture linked from dropbox
 
-
   Scenario: picture change on project edit
     Given I am logged in as an admin
     And I am on the edit page for "farmer1"
