@@ -1,3 +1,6 @@
+!= '<script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropbox.js" id="dropboxjs" data-app-key="7ozihv3lo89xdih"></script>'
+!= '<script type="text/javascript"> document.getElementById("db-chooser").addEventListener("DbxChooserSuccess", function(e) {document.getElementById(\'user_image_url\').value = e.files[0].link;}, false); </script>'
+
 = form_for :user, :url => {:controller => 'dashboard', :action => 'update'}, :html => {:multipart => true} do |form|
   #title.row
     %h1 Edit Profile
@@ -51,9 +54,8 @@
       
       = text_field_tag :user_image_url, nil
     .span2
-      != '<script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropbox.js" id="dropboxjs" data-app-key="7ozihv3lo89xdih"></script>'
       != '<input type="dropbox-chooser" name="selected-file" id="db-chooser" style="visibility: hidden;"/>'
-      != '<script type="text/javascript"> document.getElementById("db-chooser").addEventListener("DbxChooserSuccess", function(e) {document.getElementById(\'user_image_url\').value = e.files[0].link;}, false); </script>'
+      
   .row
     %h3 Save Profile Changes
   

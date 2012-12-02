@@ -10,7 +10,7 @@ class PhotoController < ApplicationController
       send_file tmpfile.path, :filename => "db-image.jpg", :disposition => 'inline' 
       }
     else
-      
+      return "https://dl.dropbox.com/s/seh66m5mbjwrt69/rails.png"
       @image = @image_data.binary_data
       send_data @image, :type     => @image_data.content_type, :filename => @image_data.filename, :disposition => 'inline'
     end

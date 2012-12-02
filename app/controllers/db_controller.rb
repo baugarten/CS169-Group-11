@@ -1,21 +1,9 @@
 require 'dropbox_sdk'
 
-# This is an example of a Rails 3 controller that authorizes an application
-# and then uploads a file to the user's Dropbox.
 
-# You must set these
 APP_KEY = "pf4w3lncvc7zdu6"
-APP_SECRET = "eymz5rxgi0y8p5o"
-ACCESS_TYPE = :app_folder #The two valid values here are :app_folder and :dropbox
-                          #The default is :app_folder, but your application might be
-                          #set to have full :dropbox access.  Check your app at
-                          #https://www.dropbox.com/developers/apps
-
-
-# Examples routes for config/routes.rb  (Rails 3)
-#match 'db/authorize', :controller => 'db', :action => 'authorize'
-#match 'db/upload', :controller => 'db', :action => 'upload'
-
+APP_SECRET = ""
+ACCESS_TYPE = :app_folder 
 class DbController < ApplicationController
     def authorize
         if not params[:oauth_token] then

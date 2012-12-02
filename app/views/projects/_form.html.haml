@@ -1,4 +1,4 @@
-
+!= '<script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropbox.js" id="dropboxjs" data-app-key="7ozihv3lo89xdih"></script>'
 = form_for @project, :html => { :class => 'form-horizontal' } do |f|
   .control-group{:class => ("error" unless @project.errors['farmer'].empty?)}
     = f.label :farmer, :class => 'control-label', :for => "project_farmer"
@@ -60,8 +60,7 @@
         %a#remove-video.btn{:href => new_or_edit_path(@project, @project.new_record?, @video_extras-1, @photo_extras), :disabled => @video_extras <= 1 } Remove
 
   - index = 0
-  #dbphotos
-    != '<script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropbox.js" id="dropboxjs" data-app-key="7ozihv3lo89xdih"></script>'
+
     
   
   #photos
