@@ -98,7 +98,16 @@ class CampaignsController < ApplicationController
   end
   
   def template
-    
+    debugger
+    if not params[:campaign].nil? and not params[:campaign][:campaign_friend_attributes].nil?
+      params[:campaign][:campaign_friend_attributes].values.each do |friend|
+        session[:email_list] << CampaignFriend.new({
+          :name => friend['name'],
+          :email => friend['email'],
+          :video => Video.new(:video_id => friend['video'])
+        })
+      end
+    end
   end
   
   def submit_template

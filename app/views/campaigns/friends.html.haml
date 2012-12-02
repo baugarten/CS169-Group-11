@@ -1,19 +1,22 @@
 = content_for :title do
   ="Campaign: Add friends"
 
-%span#notice.alert.alert-error 
+%span#campaign-notice.alert.alert-error 
   = @error
 
 %h2 Add friends to your campaign
 
-
-= form_tag friends_campaign_path, :method => :get do
+= form_tag template_campaign_path, :method => :post do |f|
   /- if not session[:email_list].empty?
   %p Done so far:
+  %ul#friends
   - for friend in session[:email_list] do
-    = %Q{#{friend.email}, }
+    %li
+      = %Q{#{friend.name}: #{friend.email}}
   %div 
-    = link_to "Finished", template_campaign_path, :class => "btn btn-success"
+    = submit_tag "Finished", :class => "btn btn-success"
+
+= form_tag friends_campaign_path, :method => :get, :id => 'campaign-friends' do |f|
   %p Enter your friend's email
   %p 
     = "Example: Bob Smith <bsmith@mail.com>, John Doe <jdoe@mail.com>"
