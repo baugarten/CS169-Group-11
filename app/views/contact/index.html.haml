@@ -1,0 +1,8 @@
+-# app/views/contact/index.html.haml
+  = simple_form_for @contact do |f|
+    = f.input :name, :required => false
+    = f.input :email, :required => false
+    = f.input :message, :as => :text, :required => false
+    .hidden
+      = f.input :nickname, :hint => 'Leave this field blank!'
+    = f.button :submit, 'Send message'
