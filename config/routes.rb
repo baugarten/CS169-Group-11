@@ -21,6 +21,8 @@ OneProsper::Application.routes.draw do
   match 'dashboard/edit' => 'dashboard#edit'
   match 'dashboard/update' => 'dashboard#update'
   
+  match 'db/authorize', :controller => 'db', :action => 'authorize'
+  match 'db/upload', :controller => 'db', :action => 'upload'
 
   resources :projects do
     member do

@@ -1,5 +1,5 @@
-= form_for @project, :html => { :class => 'form-horizontal' } do |f|
 
+= form_for @project, :html => { :class => 'form-horizontal' } do |f|
   .control-group{:class => ("error" unless @project.errors['farmer'].empty?)}
     = f.label :farmer, :class => 'control-label', :for => "project_farmer"
     .controls
@@ -60,12 +60,19 @@
         %a#remove-video.btn{:href => new_or_edit_path(@project, @project.new_record?, @video_extras-1, @photo_extras), :disabled => @video_extras <= 1 } Remove
 
   - index = 0
+  #dbphotos
+    != '<script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropbox.js" id="dropboxjs" data-app-key="7ozihv3lo89xdih"></script>'
+    
+  
   #photos
+    != '<script type="text/javascript"> var num = 0; </script>'
     = f.fields_for :photos do |builder|
       .control-group.photo{:class => ("extra" if builder.object.new_record?)}
         = builder.label "Photo #{index+1}", :class => "control-label"
         .controls
-          = builder.file_field :input_data
+          = builder.text_field :url
+          != '<input type="dropbox-chooser" name="selected-file" id="db-chooser" style="visibility: hidden;"/>'
+          != '<script type="text/javascript"> document.getElementById("db-chooser").addEventListener("DbxChooserSuccess", function(e) {var link = e.files[0].link; link = link.replace("www.dropbox.com", "dl.dropbox.com"); document.getElementById(\'project_photos_attributes_\'+num+\'_url\').value = link; num++;}, false); </script>'
           - unless builder.object.new_record?
             = builder.check_box '_destroy'
             %span Remove

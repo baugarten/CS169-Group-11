@@ -69,6 +69,8 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.1.3)
+    dropbox-sdk (1.5.1)
+      json
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -226,6 +228,7 @@ DEPENDENCIES
   cucumber-rails-training-wheels
   database_cleaner
   devise
+  dropbox-sdk
   haml
   jquery-rails
   kaminari

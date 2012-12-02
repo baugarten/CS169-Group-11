@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115232008) do
+ActiveRecord::Schema.define(:version => 20121201202446) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20121115232008) do
     t.binary  "binary_data"
     t.integer "imageable_id"
     t.string  "imageable_type"
+    t.string  "url"
   end
 
   create_table "projects", :force => true do |t|

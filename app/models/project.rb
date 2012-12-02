@@ -7,7 +7,7 @@ class Project < ActiveRecord::Base
 
 
   accepts_nested_attributes_for :videos, :reject_if => lambda { |video| video[:video_id].blank? }, :allow_destroy => true
-  accepts_nested_attributes_for :photos, :reject_if => lambda { |photo| photo[:input_data].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :photos, :reject_if => lambda { |photo| photo[:url].blank? }, :allow_destroy => true
 
   after_initialize :init
 
