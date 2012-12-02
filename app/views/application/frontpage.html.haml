@@ -7,8 +7,8 @@
       %h3
         People Seek Empowerment. Not Dependence.
 
-%div.container-fluid.frontpage
-  %div.row-fluid
+%div.row-fluid
+  %div.row-fluid.project-section
     %div.span8
       %ul.unstyled.clearfix.smallprojectlist
         - @projects.each.with_index do |project, index|
@@ -33,7 +33,7 @@
     %div.span4
       = render "projects/sidebar", :project => @projects[0]
       %div{:class => 'row-fluid', :height => '300px'}
-
+  %br
   %div.row-fluid
     %div.span7
       %div{:class => 'howitworks'}
@@ -45,7 +45,6 @@
           %tbody
             
             %tr
-              %center
               %td
                 %div{:class => 'circle'}
                   1 
@@ -69,23 +68,23 @@
                 Keep track of the impact of your campaign.
         %center
           %a{:class => "btn btn-success", :href => campaign_farmers_path} Start Your Campaign
-    %div.span5
-      %div{:class=> 'updates'}
-        %table#updates
-          %thead
-            %tr
-              %center
-                %th.lead Announcements
-          %tbody
-            - @updates.each do |update|
-              %tr
-                %td= link_to "#{update.title}", update_path(update)
-                %td= update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")             
+    %div.span5.updates
+      .row-fluid
+        .span4.offset4.lead
+          =link_to "Announcements", updates_path(), :class => 'header'
+      .row
+        - @updates.each do |update|
+          .row-fluid
+            .span8.offset1
+              =link_to "#{update.title}", update_path(update)
+            .span2
+              = update.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%m-%d")
+                
   %br
   %br
 
   #homebox
-    .container
+    .row-fluid
       = render 'layouts/homebox' 
   %br
   %br
