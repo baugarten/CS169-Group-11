@@ -1,0 +1,14 @@
+%h1
+  = @campaign_friend.campaign.name
+.row
+  .span7
+    = render 'video', :campaign_friend=>@campaign_friend
+  .span5
+    %br
+    %br
+    = render 'projects/donation', :project=>@campaign_friend.campaign.project
+%br
+%h1 Farmer Details
+.row
+  .span12
+    = render 'projects/donate_farmer_info', :project=>@campaign_friend.campaign.project

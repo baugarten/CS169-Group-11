@@ -53,6 +53,12 @@ OneProsper::Application.routes.draw do
     end
   end
 
+  resources :campaign_friends do
+    member do
+      get 'video'
+    end
+  end
+  
   match 'campaigns/:id/edit' => 'campaigns#edit'
 
   match 'photo/:id' => 'photo#display', :as => :photo

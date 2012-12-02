@@ -32,6 +32,64 @@ When /^I try to donate "(.*)" to "(.*)"$/ do |amount, farmer_name|
   post charge_project_path(farmer, :donation=>{:amount=>amount, :email=>""})
 end
 
+Given /^test donations exist$/ do
+  user = User.create!({
+    :email=>"test@email.com",
+    :password=>"password",
+    :first_name=>"Mister",
+    :last_name=>"Test"
+  })
+  
+  project = Project.create!({
+    :farmer => "Farmah1",
+    :description => "First pharma! 50char 50char 50char 50char 50char 50char 50char 50char",
+    :target => 500,
+    :ending => true,
+    :current => 0
+  })
+  
+  campaign = Campaign.create!({
+    :name => "Help Farmer1",
+    :template => "Hi <name>, please look at this video. <link>",
+    :project => project,
+    :user => user
+  })
+
+  friend1 = campaign.campaign_friend.create!({
+    :video => Video.create!({:video_id=>"oHg5SJYRHA0"}),
+    :name => "Peter Griffin",
+    :email => "prez@petoria.gov"
+  })
+  friend2 = campaign.campaign_friend.create!({
+    :video => Video.create!({:video_id=>"oHg5SJYRHA0"}),
+    :name => "Jack Sparrow",
+    :email => "jsparrow@rms.titanic.davyjones-locker.cx"
+  })
+
+  donation = Donation.create!({
+    :email => "prez@petoria.gov",
+    :readable_amount => "$50",
+    :project => project,
+    :campaign_friend => friend1
+  })
+  donation = Donation.create!({
+    :email => "jsparrow@rms.titanic.davyjones-locker.cx",
+    :readable_amount => "$5",
+    :project => project,
+    :campaign_friend => friend2
+  })
+  
+  campaign.update_donated()
+end
+
+Given /^I am logged in as the test donations user$/ do
+  # Login user
+  visit path_to('the login user page')
+  fill_in('Email', :with => 'test@email.com')
+  fill_in('Password', :with => 'password')
+  click_button('Sign in')
+end
+
 Then /^the manager should show "(.*?)" have donated "(.*?)"$/ do |name, donation_amount|
   text = name + " " + donation_amount
   if page.respond_to? :should

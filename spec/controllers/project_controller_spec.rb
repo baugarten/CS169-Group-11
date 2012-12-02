@@ -55,6 +55,7 @@ describe ProjectsController do
       
       Stripe::Charge.should_not_receive(:create)
       
+      @request.env['HTTP_REFERER'] = 'http://localhost'
 			post :charge, :id=>"1", :donation=>{:readable_amount=>"$20.00", :email=>"test@email.com"}, :stripeToken=> "this is a token"
       
       response.should be_redirect

@@ -109,19 +109,26 @@ class ProjectsController < ApplicationController
     
     if (donation.amount <= 0)
       flash[:error] = "Invalid donation amount: #{donation.readable_amount}"
-      redirect_to project_path(project)
+      redirect_to request.referer #project_path(project)
       return true
     end
     
-    if (donation.amount < 100)
-      flash[:error] = "Minimum donation amount is $1.00; you attempted to donate #{donation.readable_amount}"
-      redirect_to project_path(project)
+    if (donation.amount < 500)
+      flash[:error] = "Minimum donation amount is $5.00; you attempted to donate #{donation.readable_amount}"
+      redirect_to request.referer #project_path(project)
+      return true
+    end
+
+    if (donation.amount % 500 != 0)
+      flash[:error] = "Donations must be a multiple of $5.00; you attempted to donate #{donation.readable_amount}"
+      redirect_to request.referer #project_path(project)
       return true
     end
     
+    # This should never happen because of the minimum donation multiple, but remains as a sanity check
     if (donation.amount > project.current_remaining * 100)
       flash[:error] = "There is only #{project.readable_current_remaining} left to fund for this project; you attempted to donate #{donation.readable_amount}"
-      redirect_to project_path(project)
+      redirect_to request.referer #project_path(project)
       return true
     end
     
@@ -131,17 +138,17 @@ class ProjectsController < ApplicationController
   def donate
     @project = Project.find(params[:id])
 
-    if (params[:amount] == "other")
-      amount = params[:donation][:amount]
-    else
-      amount = params[:amount]
+    # if the "other" amount is selected, the amount is in params[donation][amount]
+    # if not, need to populate that with the radio button selected
+    if (params[:amount] != "other")
+      params[:donation][:readable_amount] = params[:amount]
     end
 
-    if (current_user)
-      @donation = Donation.new({:readable_amount=>amount, :email=>current_user.email})
-    else
-      @donation = Donation.new({:readable_amount=>amount})
+    if (current_user and params[:donation][:email].empty?)
+      params[:donation][:email] = current_user.email
     end
+    
+    @donation = Donation.new(params[:donation])
 
     return if check_donation_limits(@donation, @project)
     
@@ -171,6 +178,10 @@ class ProjectsController < ApplicationController
     @donation.save!
     
     @project.update_current_donated
+    
+    if @donation.campaign_friend
+      @donation.campaign_friend.campaign.update_donated
+    end
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
