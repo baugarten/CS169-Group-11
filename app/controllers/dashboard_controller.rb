@@ -32,19 +32,31 @@ class DashboardController < ApplicationController
     end
 
     # Upload new image
-		if params[:user_image_file]
-      image_data = params[:user_image_file]
 
+    if params[:user_image_url][:image_url] && not(params[:user_image_url][:image_url].empty?)
+      u_image_url = params[:user_image_url][:image_url]
+      non_db_url = u_image_url
+      u_image_url = u_image_url.sub!(/www.dropbox.com/, "dl.dropbox.com")   
+      if u_image_url = ""
+        u_image_url = non_db_url
+      end
+      user_photo = Photo.new
+      user_photo.url = u_image_url
+      current_user.photo = user_photo
+      current_user.save!
+      notice += "<br />Picture URL saved"
+    elsif params[:user_image_file]
+      image_data = params[:user_image_file]
       user_photo = Photo.new
       user_photo.image_file = image_data
       current_user.photo = user_photo
       current_user.save!
-      
+
       notice += "<br/>Picture uploaded successfully"
-		end
+    end
     
     flash[:notice] = notice
     
-		redirect_to dashboard_path
+    redirect_to dashboard_path
   end
 end

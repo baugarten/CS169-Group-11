@@ -4,6 +4,8 @@ class Photo < ActiveRecord::Base
   attr_reader :input_data
   attr_accessor :input_data
 
+  attr_accessible :url
+
   before_validation :init
 
   def init

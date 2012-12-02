@@ -1,5 +1,7 @@
+
 = content_for :title do
   = "Edit Profile"
+
 
 = form_for :user, :url => {:controller => 'dashboard', :action => 'update'}, :html => {:multipart => true} do |form|
   #title.row
@@ -44,8 +46,19 @@
     .span3
       = label :user_image, :image_file, 'Upload new picture'
     .span3
-      = form.file_field :user_image, :name=>"user_image_file"
       
+      = form.file_field :user_image, :name=>"user_image_file"
+
+  .row
+    .span3
+      = label :user_image_url, :image_url, 'Or enter a Picture URL'
+    .span3
+      
+      = text_field :user_image_url, :image_url
+    .span2
+      != '<script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropbox.js" id="dropboxjs" data-app-key="7ozihv3lo89xdih"></script>'
+      != '<input type="dropbox-chooser" name="selected-file" id="db-chooser" style="visibility: hidden;"/>'
+      != '<script type="text/javascript"> document.getElementById("db-chooser").addEventListener("DbxChooserSuccess", function(e) {document.getElementById(\'user_image_url_image_url\').value = e.files[0].link;}, false); </script>'
   .row
     %h3 Save Profile Changes
   
