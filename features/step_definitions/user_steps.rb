@@ -55,17 +55,13 @@ Given /^test donations exist$/ do
     :user => user
   })
 
-  video = Video.create!({
-    :video_id=>"oHg5SJYRHA0"
-  })
-  campaign.video = video
-  campaign.save!
-  
   friend1 = campaign.campaign_friend.create!({
+    :video => Video.create!({:video_id=>"oHg5SJYRHA0"}),
     :name => "Peter Griffin",
     :email => "prez@petoria.gov"
   })
   friend2 = campaign.campaign_friend.create!({
+    :video => Video.create!({:video_id=>"oHg5SJYRHA0"}),
     :name => "Jack Sparrow",
     :email => "jsparrow@rms.titanic.davyjones-locker.cx"
   })
