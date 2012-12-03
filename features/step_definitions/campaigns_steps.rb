@@ -118,3 +118,8 @@ end
 Given /^I sent the email out to my fd already$/ do
   visit track_campaign_path(:id=>2,:friend=>3)
 end
+
+Then /I should see "(.*)" after "(.*)"/ do |e1, e2|
+  regexp = /#{e2}.*#{e1}/m
+  page.body.should =~ regexp
+end
