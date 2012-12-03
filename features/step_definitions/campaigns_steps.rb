@@ -13,7 +13,7 @@ Given /^campaigns have been created$/ do
   friend.name = "Bob Smith"
   friend.email = "bobsmith@gmail.com"
   friend.email_subject = "hola"
-  friend.email_template = "say sth to my fd"
+  friend.email_template = "say sth to my fdsay sth to my fd,  testing with strange sybmols !\" ~ } |{@?<=>;:/.-,+*()\&%$#"
   friend.opened = true
 	friend.video = Video.create(:video_id=>"http://www.youtube.com/watch?v=oHg5SJYRHA0")
   friend.save
