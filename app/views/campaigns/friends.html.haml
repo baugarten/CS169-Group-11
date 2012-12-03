@@ -1,8 +1,8 @@
 = content_for :title do
   ="Campaign: Add friends"
 
-- if @error
-  %span#campaign-notice.alert.alert-error 
+%span#campaign-notice.alert.alert-error 
+  - if @error
     = @error
 
 %h2 Add friends to your campaign
