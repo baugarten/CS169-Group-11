@@ -86,6 +86,9 @@
         errBox.html(err);
         return false;
       }
+      if ($("ul#friends li").length == 0) {
+        $("ul#friends").html("");
+      }
       $("<li>" + friend.fname + " " + friend.lname + ": " + friend.email + 
           "<input type='hidden' name='campaign[campaign_friend_attributes][" + friendCounter + "][name]' value='" + (friend.fname + " " + friend.lname) + "' />" + 
           "<input type='hidden' name='campaign[campaign_friend_attributes][" + friendCounter + "][video]' value='" + video + "' />" + 
