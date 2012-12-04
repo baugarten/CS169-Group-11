@@ -20,7 +20,7 @@ class CampaignsController < ApplicationController
   end
 
   def index
-     @campaign = Campaign.find(:all)
+     @campaigns = Campaign.find(:all)
   end
 
   def destroy
