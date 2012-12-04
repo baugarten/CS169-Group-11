@@ -1,32 +1,33 @@
 = content_for :title do
   ="Campaign: Add friends"
 
-%span#campaign-notice.alert.alert-error 
+.container#friends-container
   - if @error
-    = @error
+    %span#campaign-notice.alert.alert-error 
+      = @error
 
-%h2 Add friends to your campaign
+  %h2 Add friends to your campaign
 
-= form_tag template_campaign_path, :method => :post do |f|
-  /- if not session[:email_list].empty?
-  %p Done so far:
-  %ul#friends
-  - for friend in session[:email_list] do
-    %li
-      = %Q{#{friend.name}: #{friend.email}}
-  %div 
-    = submit_tag "Finished", :class => "btn btn-success"
+  = form_tag template_campaign_path, :method => :post do |f|
+    /- if not session[:email_list].empty?
+    %p Done so far:
+    %ul#friends
+    - for friend in session[:email_list] do
+      %li
+        = %Q{#{friend.name}: #{friend.email}}
+    %div 
+      = submit_tag "Finished", :class => "btn btn-success"
 
-= form_tag friends_campaign_path, :method => :get, :id => 'campaign-friends' do |f|
-  %p Enter your friend's email
-  %p 
-    = "Example: Bob Smith <bsmith@mail.com>, John Doe <jdoe@mail.com>"
-  %br
+  = form_tag friends_campaign_path, :method => :get, :id => 'campaign-friends' do |f|
+    %p Enter your friend's email
+    %p 
+      = "Example: Bob Smith <bsmith@mail.com>, John Doe <jdoe@mail.com>"
+    %br
 
-  = label :campaign, :email, "Friend"
-  = text_field :campaign, :email
+    = label :campaign, :email, "Friend"
+    = text_field :campaign, :email
 
-  = render 'video'
+    = render 'video'
 
-  %br
-  = submit_tag 'Next'
+    %br
+    = submit_tag 'Next'

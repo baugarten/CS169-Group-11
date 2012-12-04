@@ -51,7 +51,7 @@
       var emailField = $("#campaign_email");
       var friend = validEmail(emailField.val());
       if (!friend) {
-        err = "Please enter a valid email<br /><br />";
+        err = "Please enter a valid email";
       }
       var video = void 0,
           videoField;
@@ -59,16 +59,31 @@
         videoField = $("#videos .video input");
         if (videoField.length > 0) { 
           video = videoField.val(); 
-        } 
+        } else {
+          if (err != '') {
+            err += " and record a video!";
+          } else {
+            err = "Please record a video!";
+          }
+        }
       } else {
         videoField = $("#campaign_video_link");
         video = videoField.val();
         if (!validVideo(video)) {
-          err += "Please make sure your video is valid";
+          if (err != '') {
+            err += " and check your video url!";
+          } else {
+            err = "Please make sure your video url is valid";
+          }
         }
       }
       if (err !== "") {
-        $("#campaign-notice").html(err);
+        var errBox = $("#campaign-notice");
+        if (errBox.length == 0) {
+          $("#friends-container").prepend("<span id='campaign-notice' class='alert alert-error'></span>");
+          errBox = $("#campaign-notice");
+        }
+        errBox.html(err);
         return false;
       }
       $("<li>" + friend.fname + " " + friend.lname + ": " + friend.email + 
