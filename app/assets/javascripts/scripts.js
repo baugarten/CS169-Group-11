@@ -63,9 +63,9 @@
       } else {
         videoField = $("#campaign_video_link");
         video = videoField.val();
-      }
-      if (!validVideo(video)) {
-        err += "Please make sure your video is valid";
+        if (!validVideo(video)) {
+          err += "Please make sure your video is valid";
+        }
       }
       if (err !== "") {
         $("#campaign-notice").html(err);
