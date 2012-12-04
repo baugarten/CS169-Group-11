@@ -69,8 +69,6 @@ body {
   border: 2px solid rgb(0,64,0);
   border-radius: 20px 20px 20px 20px;
   background-color: white;
-  /*padding-left: 10px;*/
-  /*padding-right: 10px;*/
   padding: 10px 5px 10px 5px;
 }
 
@@ -199,9 +197,9 @@ div.updates {
  a{
    font-weight: bold;
  }
- a:link {text-decoration:none; color:#5CB8E6;}    /* unvisited link */
- a:visited {text-decoration:none; color: purple} /* visited link */
- a:hover {text-decoration:underline;}   /* mouse over link */
+ a:link {text-decoration:none; color:#5CB8E6;}  
+ a:visited {text-decoration:none; color: purple} 
+ a:hover {text-decoration:underline;}
  a:active {text-decoration:underline;}  
  a.header:link{color: rgb(0,85,170);}
  a.header:visited {color: rgb(0,85,170);}
@@ -250,7 +248,7 @@ div.update-table{
 	border-bottom: 1px solid #fff;
  }
  td {
-	font-size: 14pt;
+	font-size: 14px;
  }
  td:hover {
 	background-color: #fff;
@@ -313,7 +311,8 @@ hr.frontpage {
 
 #vid {
   margin-left: 15px;
-  float:right;}
+  float:right;
+}
 
 #update{
   .box-unit {
@@ -337,20 +336,17 @@ hr.frontpage {
   }
   text-align: center; 
   background-color:#56a628; 
-  a:link {text-decoration:none; color:black;}    /* unvisited link */
-  a:visited {text-decoration:none; color:black;} /* visited link */
+  a:link {text-decoration:none; color:black;}   
+  a:visited {text-decoration:none; color:black;} 
     
 }  
 
 #homeBoxes {
 	overflow:hidden;
-  margin-left:60px
 }
 
 #homeBoxes .homeBox {
-	width:290px;
 	float:left;
-	margin-right:40px;
 	background:url(images/bk_dotted_thick.png) 0 0 repeat-x;
 }
 
@@ -372,8 +368,8 @@ hr.frontpage {
 #homeBoxes .homeBox h2 {
 	padding:10px 0 15px;
 	color:#333;
-	font-weight:normal;
-	font-size:24px;
+  font-weight:normal;
+  font-size:24px;
 }
 
 #profile-photo {

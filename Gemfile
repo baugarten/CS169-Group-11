@@ -21,6 +21,10 @@ gem 'youtube_it'
 
 gem 'stripe'
 
+
+
+gem 'dropbox-sdk'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'simplecov'
