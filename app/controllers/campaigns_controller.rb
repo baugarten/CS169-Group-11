@@ -145,7 +145,7 @@ class CampaignsController < ApplicationController
      @friend=@campaign.campaign_friend.find(params[:friend])
      @friend.sent_count=@friend.sent_count+1
      @friend.save
-     email_body=@friend.email_body
+     email_body=@friend.email_body(request)
      email_subject=@friend.email_subject
      email_body=html_symbol_process(email_body)
      email_subject=html_symbol_process(email_subject)
