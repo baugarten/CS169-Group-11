@@ -1,0 +1,17 @@
+= form_for @support, :url => { :action => "create" }, :html => { :method => :post } do |f| 
+  
+    = f.label "Your Name"   
+    = f.text_field :sender_name 
+   
+    = f.label "Your Email" 
+    = f.text_field :email 
+  
+    = f.label "Question Type" 
+    = f.select :support_type, options_for_select(["Donations", "Ideas", "Website", "Others"])
+  
+  
+    = f.label "Description" 
+    = f.text_area :content, :size=>"15x15" 
+  
+  
+    = f.submit "Submit" 
