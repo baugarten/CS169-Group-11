@@ -11,7 +11,7 @@ class CampaignFriend < ActiveRecord::Base
     body = email_template
     body.gsub!("<name>", name)
     body.gsub!("<email>", email)
-    body.gsub!("<link>", confirm_link(request))
+    body.gsub!("<link>", video_campaign_friend_url(self))
 
     return body
   end
@@ -22,10 +22,6 @@ class CampaignFriend < ActiveRecord::Base
   
   def video_link
     return video.link
-  end
-
-  def confirm_link(request)
-    %Q{#{request.protocol}#{request.host_with_port}/campaigns/#{campaign_id}/confirm_watched?friend=#{id}}
   end
 
   def email_template
