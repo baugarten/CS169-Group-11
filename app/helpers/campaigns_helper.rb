@@ -51,7 +51,7 @@ module CampaignsHelper
       if videohash[:video] == "recorded"
         ret = !videohash[:videos].nil?
       else
-        ret = !videohash[:campaign][:video_link].nil?
+        ret = !videohash[:campaign][:video_link].nil? and !videohash[:campaign][:video_link].blank?
       end
     end
 

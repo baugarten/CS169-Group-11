@@ -85,7 +85,7 @@ Given /^we are on the template page$/ do
   choose("link")
   fill_in("Video Link", :with => "kjshfklg")
   click_button("Next")
-	click_link("Finished")
+	click_button("Finished")
 end
 
 Given /^we are on the friends page$/ do

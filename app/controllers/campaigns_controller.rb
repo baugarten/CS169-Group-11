@@ -82,9 +82,10 @@ class CampaignsController < ApplicationController
     if session[:email_list].nil? then session[:email_list] = [] end
     if params[:campaign] and params[:campaign][:email] 
       if not valid_email? params[:campaign][:email] or not valid_campaign_video?(params)
-        flash[:error] = "Your last friend wasn't correct"
+        @error = "Your last friend wasn't correct"
         @current = params[:campaign][:email]
       else
+        @error = nil
         fname, lname, email = parse_email(params[:campaign][:email])
         video_link, video_type = parse_campaign_video params
         if fname == '' and lname == '' then name = '' else name = %Q{#{fname} #{lname}} end
@@ -98,7 +99,15 @@ class CampaignsController < ApplicationController
   end
   
   def template
-    
+    if not params[:campaign].nil? and not params[:campaign][:campaign_friend_attributes].nil?
+      params[:campaign][:campaign_friend_attributes].values.each do |friend|
+        session[:email_list] << CampaignFriend.new({
+          :name => friend['name'],
+          :email => friend['email'],
+          :video => Video.new(:video_id => friend['video'])
+        })
+      end
+    end
   end
   
   def submit_template

@@ -1,26 +1,41 @@
 = content_for :title do
   ="Campaign: Add friends"
 
-POOP
-%h2 Add friends to your campaign
+.container#friends-container
+  - if @error
+    %span#campaign-notice.alert.alert-error 
+      = @error
 
+  %h2 Add friends to your campaign
 
-= form_tag friends_campaign_path, :method => :get do
-  /- if not session[:email_list].empty?
-  %p Done so far:
-  - for friend in session[:email_list] do
-    = %Q{#{friend.email}, }
-  %div 
-    = link_to "Finished", template_campaign_path, :class => "btn btn-success"
-  %p Enter your friend's email
-  %p 
-    = "Example: Bob Smith <bsmith@mail.com>, John Doe <jdoe@mail.com>"
-  %br
+.row
+  .span9
+    = form_tag friends_campaign_path, :method => :get, :id => 'campaign-friends', :class => 'form-horizontal' do |f|
+      %legend
+        Enter your friend's email
+        %br
+        = "Example: Bob Smith <bsmith@mail.com>, John Doe <jdoe@mail.com>"
 
-  = label :campaign, :email, "Friend"
-  = text_field :campaign, :email
+      .control-group
+        = label :campaign, :email, "Friend", :class => 'control-label'
+        .controls
+          = text_field :campaign, :email
 
-  = render 'video'
+      = render 'video'
 
-  %br
-  = submit_tag 'Next'
+      .control-group
+        .controls
+          = submit_tag 'Next', :class => "btn btn-success"
+  .span3
+    = form_tag template_campaign_path, :method => :post do |f|
+      %h2 Done so far:
+      %ul#friends
+        - if session[:email_list].empty? 
+          None so far...
+        - for friend in session[:email_list] do
+          %li
+            = %Q{#{friend.name}: #{friend.email}}
+      %div 
+        = submit_tag "Finished", :class => "btn btn-success"
+  .row
+
