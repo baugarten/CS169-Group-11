@@ -45,6 +45,7 @@ Scenario: Delete the campaign
 Scenario: campaigns can only opened if it not exist
   When I follow "Start a new campaign"
   Then I should not see "Farmer 1"
+
 @javascript
 Scenario: track campaigns 
   When I follow "Farmer1"

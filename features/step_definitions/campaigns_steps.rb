@@ -120,6 +120,7 @@ Given /^I sent the email out to my fd already$/ do
 end
 
 Then /I should see "(.*)" after "(.*)"/ do |e1, e2|
+  visit manager_campaign_path(:id=>1)
   regexp = /#{e2}.*#{e1}/m
   page.body.should =~ regexp
 end
