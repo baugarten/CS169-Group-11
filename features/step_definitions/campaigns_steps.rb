@@ -13,7 +13,7 @@ Given /^campaigns have been created$/ do
   friend.name = "Bob Smith"
   friend.email = "bobsmith@gmail.com"
   friend.email_subject = "hola"
-  friend.email_template = "say sth to my fd"
+  friend.email_template = "say sth to my fdsay sth to my fd,  testing with strange sybmols !\" ~ } |{@?<=>;:/.-,+*()\&%$#"
   friend.opened = true
 	friend.video = Video.create(:video_id=>"http://www.youtube.com/watch?v=oHg5SJYRHA0")
   friend.save
@@ -117,4 +117,9 @@ end
 
 Given /^I sent the email out to my fd already$/ do
   visit track_campaign_path(:id=>2,:friend=>3)
+end
+
+Then /I should see "(.*)" after "(.*)"/ do |e1, e2|
+  regexp = /#{e2}.*#{e1}/m
+  page.body.should =~ regexp
 end
