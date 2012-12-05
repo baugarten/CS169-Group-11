@@ -24,12 +24,17 @@ OneProsper::Application.routes.draw do
   match 'dashboard/update' => 'dashboard#update'
   match 'campaign/farmers' => 'campaigns#farmers'
   
+
   
   match 'about' => 'pages#about'
   match 'mission' => 'pages#mission'
   match 'impact' => 'pages#impact'
   match 'model' => 'pages#model'
   match 'students' => 'pages#students'
+
+  match 'db/authorize', :controller => 'db', :action => 'authorize'
+  match 'db/upload', :controller => 'db', :action => 'upload'
+
 
   resources :projects do
     member do
@@ -55,6 +60,12 @@ OneProsper::Application.routes.draw do
     end
   end
 
+  resources :campaign_friends do
+    member do
+      get 'video'
+    end
+  end
+  
   match 'campaigns/:id/edit' => 'campaigns#edit'
 
   match 'photo/:id' => 'photo#display', :as => :photo

@@ -1,6 +1,7 @@
 =content_for :title do "Thank you" end
 
-=render "donate_farmer_info"
-
 %h2.title
   #{@project.farmer} thanks you for your contribution of #{@donation.readable_amount}
+
+=render "donate_farmer_info", :project => @project
+

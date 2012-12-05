@@ -21,6 +21,7 @@ OneProsper::Application.configure do
   config.assets.digest = true
 
   config.action_mailer.default_url_options = { :host => 'http://intense-sea-6449.herokuapp.com/' }
+  Rails.application.routes.default_url_options[:host] = 'http://intense-sea-6449.herokuapp.com/'
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

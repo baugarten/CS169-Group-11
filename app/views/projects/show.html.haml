@@ -1,12 +1,12 @@
 = content_for :title do @project.farmer end
-= render 'farmer'
+= render 'farmer', :project => @project
 .push-down
   .row-fluid.span12.box-unit
     #farmer_info
       .span6#vid
         = render 'youtube/upload', :videos => @project.videos, :width => 380
 
-      =render 'farmer_info'
+      =render 'farmer_info', :project => @project
 - if admin_signed_in?
   .row-fluid
     .span1
@@ -15,21 +15,3 @@
       = link_to 'Delete', project_path(@project), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
   %br
 = link_to 'Back to project list', projects_path 
-
-:javascript
-  $(document).ready(function(){
-      $('#amount_5').click(function(){
-        $('#donation_amount').attr("disabled","disabled");
-      });
-      $('#amount_10').click(function(){
-        $('#donation_amount').attr("disabled","disabled");
-      });
-
-      $('#amount_20').click(function(){
-        $('#donation_amount').attr("disabled","disabled");
-      });
-
-      $('#amount_other').click(function(){
-        $('#donation_amount').removeAttr("disabled");
-      });
-  });

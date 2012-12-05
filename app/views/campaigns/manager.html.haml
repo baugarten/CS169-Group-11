@@ -3,6 +3,12 @@
 
 %h1 Send your Donation Requests!
 
+%h3 Current Status
+= link_to @campaign.project.farmer, project_path(@campaign.project)
+= ": #{@campaign.project.current} of #{@campaign.project.target} funded"
+%br
+= "Campaign donated #{@campaign.readable_donated} so far"
+
 %h3 Message Template
 %b Subject:
 %br

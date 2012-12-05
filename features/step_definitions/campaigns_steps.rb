@@ -3,7 +3,6 @@ Given /^campaigns have been created$/ do
   current_user.campaign.create!({
 	:name => "Help Farmer1",
 	:template => "Hi <name>, please look at this video. <link>",
-	:video => Video.create(:video_id=>"http://www.youtube.com/watch?v=oHg5SJYRHA0"),
   :priority => 1,
   :project => Project.find(1),
   :user_id => current_user.id
@@ -16,6 +15,7 @@ Given /^campaigns have been created$/ do
   friend.email_subject = "hola"
   friend.email_template = "say sth to my fd"
   friend.opened = true
+	friend.video = Video.create(:video_id=>"http://www.youtube.com/watch?v=oHg5SJYRHA0")
   friend.save
 
   friend = campaign.campaign_friend.new
@@ -24,6 +24,7 @@ Given /^campaigns have been created$/ do
   friend.opened = false
   friend.email_subject = "hola"
   friend.email_template = "say sth to my fd"
+  friend.video = Video.create(:video_id=>"http://www.youtube.com/watch?v=oHg5SJYRHA0")
   friend.save
 
   current_user.campaign.create!({
@@ -61,6 +62,7 @@ Given /^another user created a campaign$/ do
   friend.name = "Bob3 Smith3"
   friend.email = "bobsmith3@g3mail.com"
   friend.opened = true
+  friend.video = Video.create(:video_id=>"http://www.youtube.com/watch?v=oHg5SJYRHA0")
   friend.save
 end
 
