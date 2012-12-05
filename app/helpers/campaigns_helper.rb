@@ -109,7 +109,6 @@ module CampaignsHelper
      email_part=email_part.gsub('"','%22')
      email_part=email_part.gsub('#','%23')
      email_part=email_part.gsub('$','%24')
-     email_part=email_part.gsub('%','%25')
      email_part=email_part.gsub('&','%26')
      email_part=email_part.gsub('\'','%27')
      email_part=email_part.gsub('(','%28')
