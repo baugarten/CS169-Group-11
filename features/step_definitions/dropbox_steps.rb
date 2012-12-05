@@ -7,15 +7,13 @@ When /^(?:|I )attach the file "([^"]*)" to dropbox for project$/ do |path|
 end
 
 And /^(?:|I )should be able to access the picture$/ do
-  visit photo_path("1")
+  visit photo_path(Photo.find_by_id(1))
 end
 
 Then /^(?:|I )should see my picture linked from dropbox$/ do
-
   if page.respond_to? :should
-    page.should have_xpath("//img[@src=\"/photo/1\"]")
+    page.should have_xpath("//img[@src=\"https://dl.dropbox.com/s/seh66m5mbjwrt69/rails.png\"]")
   else
-    assert page.has_xpath?("//img[@src=\"/photo/1\"]")
+    assert page.has_xpath?("//img[@src=\"https://dl.dropbox.com/s/seh66m5mbjwrt69/rails.png\"]")
   end
-
 end
