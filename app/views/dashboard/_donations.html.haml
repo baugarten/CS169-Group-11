@@ -1,4 +1,3 @@
 - @user.donations.each do |donation|
-  .row
-    .span6
-      %p= "#{donation.created_at}: #{donation.readable_amount} donated to #{donation.project.farmer}"
+  .row-fluid
+    = "#{donation.created_at}: #{donation.readable_amount} donated to #{donation.project.farmer}"

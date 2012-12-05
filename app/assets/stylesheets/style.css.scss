@@ -382,3 +382,23 @@ hr.frontpage {
   margin-right:auto;
 }
 
+#profile-photo {
+  img {
+    padding: 2px 2px 2px 2px;
+    border: 2px solid rgb(0,64,0);
+    width: 95%;
+    vertical-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+#dashboard {
+  .box-unit {
+    padding: 5px 10px 5px 10px;
+  }
+}
+
+#impact {
+  padding: 0px 10px 0px 10px;
+}

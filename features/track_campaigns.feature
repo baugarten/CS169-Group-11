@@ -45,3 +45,11 @@ Scenario: Delete the campaign
 Scenario: campaigns can only opened if it not exist
   When I follow "Start a new campaign"
   Then I should not see "Farmer 1"
+@javascript
+Scenario: track campaigns 
+  When I follow "Farmer1"
+  Given I sent the email out to my fd already
+  Given I am on the user dashboard
+  When I follow "Farmer1"
+  Then I should see "1" after "Bob Smith"
+  
