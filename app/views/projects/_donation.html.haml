@@ -16,8 +16,8 @@
       .span2
         = radio_button_tag "amount" ,"other"
         = label :amount, "other", "Other"
-      .span2
-        = text_field :donation, :readable_amount, :cols => "5", :disabled => :disabled
+      .span3
+        = text_field :donation, :readable_amount, :class => 'span12', :disabled => :disabled
     .row-fluid
       .span12
         Custom donations must at at least $5, and be in multiples of $5.

@@ -5,8 +5,8 @@
   %table.table
     %thead
       %tr
-        %th{:class => @title_header, :id => 'title_header'}= link_to 'Updates', updates_path(:sort => 'title')
-        %th{:class => @date_header, :id => 'created_date_header'}= link_to 'Published Date', updates_path(:sort => 'created_date')
+        %th{:class => "#{@title_header} title_header", :id => 'title_header'}= link_to 'Updates', updates_path(:sort => 'title')
+        %th{:class => "#{@date_header} title_header", :id => 'created_date_header'}= link_to 'Published Date', updates_path(:sort => 'created_date')
         %th
         %th			
     %tbody
