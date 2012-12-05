@@ -25,7 +25,7 @@ Scenario: Complete a campaign and able to edit it
   And I choose "link"
   And I fill in "Video Link" with "kliusljgsjdfng"
 	And I press "Next"
-  And I follow "Finished"
+  And I press "Finished"
   Then the campaign should be on the "message template" page
 
   When I fill in "Subject" with "Help farmers in India!"

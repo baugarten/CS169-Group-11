@@ -11,7 +11,7 @@
       .span3{:style => "height: 400px; vertical-align: middle"}
         = name
       .span9{:style => "height: 400px;" }
-        = render 'youtube/upload', :videos => [friend.video], :height => 400, :width => 500, :editable => false, :form => false 
+        %iframe{:allowfullscreen => "", :frameborder => "0", :height => "349", :src => %Q{http://www.youtube.com/embed/#{friend.video.video_id}}, :width => "560"}
   %br
   = label :campaign, :email_subject, 'Subject'
   = text_field :campaign, :email_subject, :style => 'width: 550px'

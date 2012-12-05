@@ -51,7 +51,7 @@ module CampaignsHelper
       if videohash[:video] == "recorded"
         ret = !videohash[:videos].nil?
       else
-        ret = !videohash[:campaign][:video_link].nil?
+        ret = !videohash[:campaign][:video_link].nil? and !videohash[:campaign][:video_link].blank?
       end
     end
 
@@ -95,9 +95,6 @@ module CampaignsHelper
 
       campaign_friends.each do |friend|
         friend.campaign = campaign
-        friend.email_subject = campaign.email_subject
-        friend.email_template = campaign.template
-        friend.confirm_link= request.protocol+request.host_with_port+"/"+"campaigns/#{campaign.id}/confirm_watched?friend=#{friend.id}"
         friends << friend
       end
       campaign.campaign_friend = campaign_friends
