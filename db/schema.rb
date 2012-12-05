@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121201202446) do
+ActiveRecord::Schema.define(:version => 20121205031307) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(:version => 20121201202446) do
     t.text     "description"
     t.integer  "target"
     t.decimal  "current"
-    t.datetime "end_date"
+    t.date     "end_date"
     t.boolean  "ending"
     t.boolean  "completed"
     t.integer  "priority"
