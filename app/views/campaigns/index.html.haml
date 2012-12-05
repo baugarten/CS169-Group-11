@@ -1,0 +1,23 @@
+= content_for :title do "Campaigns" end
+%h2 Campaigns 
+.box-unit
+  %table.table
+    %thead
+      %tr
+        %th.title_header
+          Created by
+        %th.title_header 
+          Project supported
+        %th.title_header 
+          Amount raised
+    %tbody
+      - @campaigns.each do |campaign|
+        %tr
+          %td
+            = campaign.user.email
+          %td
+            = link_to campaign.project.farmer, project_path(campaign.project)
+          %td
+            = campaign.readable_donated
+
+
