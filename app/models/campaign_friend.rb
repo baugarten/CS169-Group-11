@@ -1,7 +1,7 @@
 class CampaignFriend < ActiveRecord::Base
   has_one :video, :as => :recordable
 
-  attr_accessible :name, :email, :campaign_id, :email_template, :email_subject, :sent_count, :opened, :video
+  attr_accessible :name, :email, :campaign_id, :sent_count, :opened, :video
   belongs_to :campaign
 
   
@@ -16,5 +16,13 @@ class CampaignFriend < ActiveRecord::Base
 
   def confirm_link(request)
     %Q{#{request.protocol}#{request.host_with_port}/campaigns/#{campaign_id}/confirm_watched?friend=#{id}}
+  end
+
+  def email_template
+    campaign.template
+  end
+
+  def email_subject
+    campaign.email_subject
   end
 end

@@ -95,8 +95,6 @@ module CampaignsHelper
 
       campaign_friends.each do |friend|
         friend.campaign = campaign
-        friend.email_subject = campaign.email_subject
-        friend.email_template = campaign.template
         friends << friend
       end
       campaign.campaign_friend = campaign_friends
