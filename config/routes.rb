@@ -1,5 +1,7 @@
 OneProsper::Application.routes.draw do
 
+  resources :supports
+
   resources :projects
 
   devise_for :users
@@ -66,10 +68,8 @@ OneProsper::Application.routes.draw do
   
   match 'campaigns/:id/edit' => 'campaigns#edit'
 
-  match 'photo/:id' => 'photo#display', :as => :photo
-  match 'assets/before.jpeg' => 'photo#default', :as => 'default_photo'
-  
   resources :updates
+  resources :supports, :only => [:new, :create]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

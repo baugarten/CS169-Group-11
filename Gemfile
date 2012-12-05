@@ -21,9 +21,9 @@ gem 'youtube_it'
 
 gem 'stripe'
 
-
-
 gem 'dropbox-sdk'
+
+gem 'mail'
 
 group :development, :test do
   gem 'sqlite3'
